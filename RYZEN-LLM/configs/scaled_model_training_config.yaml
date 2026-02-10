@@ -1,0 +1,173 @@
+# PHASE 3 STAGE 3a: SCALED MODEL TRAINING CONFIGURATION
+# ====================================================
+# Configuration for training the scaled transformer model
+# Scaling: embedding_dim 256→512, num_layers 2→4, ff_dim 512→1024
+
+# Model Architecture (Scaled from Phase 2)
+model:
+  name: ScaledTransformerModel
+  vocab_size: 2048
+  embedding_dim: 512 # SCALED: was 256
+  num_heads: 4
+  num_layers: 4 # SCALED: was 2
+  ff_dim: 1024 # SCALED: was 512
+  max_seq_len: 128
+  dropout: 0.1
+  num_classes: 2
+  total_params: ~1100000 # ~1.1M (8x Phase 2)
+
+# Training Hyperparameters
+training:
+  # Learning rate schedule
+  learning_rate: 1.0e-4 # Conservative for larger model
+  lr_scheduler: cosine # Cosine annealing
+  warmup_steps: 100
+  warmup_ratio: 0.1
+
+  # Batch size strategy (reduced for larger model memory)
+  batch_size: 16 # Down from 32 in Phase 2
+  gradient_accumulation_steps: 8 # Maintain effective batch of 128
+  effective_batch_size: 128 # batch_size * gradient_accumulation_steps
+
+  # Training duration
+  num_epochs: 10
+  num_steps_per_epoch: 10 # 10 batches per epoch
+  total_steps: 100 # 10 epochs × 10 steps
+
+  # Optimization
+  optimizer: AdamW
+  adam_epsilon: 1.0e-8
+  weight_decay: 0.01
+  max_grad_norm: 1.0 # Gradient clipping
+
+  # Data settings
+  max_seq_len: 128
+  num_train_samples: 1600 # 16 batch × 10 steps × 10 epochs
+  data_seed: 42
+
+# Optimization Stack (Phase 1)
+optimization:
+  use_kernel_optimizer: true # CPU architecture tuning
+  kernel_optimization_level: 3 # 0=disabled, 1=basic, 2=medium, 3=aggressive
+
+  use_semantic_compressor: true # Model compression
+  compression_ratio: 0.3 # Target compression ratio
+
+  use_inference_scaling_engine: true # RLVR pattern optimization
+  scaling_engine_warmup: 100 # Warmup steps before optimization kicks in
+
+# Expected Performance (Phase 2 baseline for comparison)
+expected_performance:
+  # Phase 2 baseline (SimpleTransformerModel)
+  phase_2_baseline_time: 129.6 # seconds for 100 steps
+  phase_2_optimized_time: 80.1 # seconds for 100 steps (38.2% speedup)
+  phase_2_speedup: 38.2 # percent
+
+  # Phase 3 scaled predictions
+  phase_3_baseline_time_estimate: 400 # seconds (3x larger model)
+  phase_3_speedup_target: 30 # percent (minimum 30% speedup)
+  phase_3_optimized_time_target: 280 # seconds (400 × 0.7 = 280)
+
+  # Loss convergence
+  initial_loss_estimate: 7.5
+  final_loss_estimate: 6.0
+  convergence_threshold: 0.01 # Stop when loss change < this
+
+# Checkpoint Configuration
+checkpoints:
+  save_strategy: epoch_and_best # Save every epoch + best model
+  save_best_metric: loss
+  save_best_type: min # Save minimum loss
+  save_dir: ./checkpoints_scaled
+  save_prefix: scaled_model
+  load_best_at_end: true
+
+# Validation
+validation:
+  eval_strategy: epoch
+  eval_steps_per_epoch: 1 # Evaluate once per epoch
+  compute_metrics: true
+  metric_names:
+    - loss
+    - accuracy
+    - learning_rate
+
+# Hardware & Device
+hardware:
+  device: cuda # cuda or cpu
+  dtype: float32 # float32 or float16 or bfloat16
+  num_workers: 4
+  pin_memory: true
+
+  # CUDA specific
+  cuda:
+    benchmark: true # CUDA graph optimization
+    deterministic: false
+
+  # Memory optimization
+  cpu_memory_mb: 8192 # CPU memory for data loading
+  gpu_memory_fraction: 0.9 # Use up to 90% of GPU memory
+
+# Logging & Monitoring
+logging:
+  log_level: INFO
+  log_dir: ./logs_scaled
+  log_prefix: phase3_stage3a
+
+  # Telemetry
+  metrics_enabled: true
+  metrics_file: phase3_stage3a_metrics.json
+
+  # Verbosity
+  log_every_n_steps: 10
+  log_every_n_epochs: 1
+
+  # Checkpoint logging
+  save_training_state: true # Save optimizer, scheduler state
+
+# Reproducibility
+reproducibility:
+  seed: 42
+  deterministic: true
+  benchmark: false # Set to false for deterministic behavior
+
+# Performance Profiling
+profiling:
+  enable_profiling: true
+  profile_dir: ./profiles_scaled
+  profile_every_n_steps: 10 # Profile every 10 steps
+
+  # Metrics to profile
+  profile_memory: true
+  profile_latency: true
+  profile_throughput: true
+  profile_kernels: false # Detailed kernel profiling
+
+# Phase 3 Validation Markers
+phase_3_markers:
+  stage: 3a # Stage 3a: Model Scaling
+  phase_id: "PHASE_3_STAGE_3a_EXECUTION"
+  expected_model_size_mb: 4.4 # ~1.1M params × 4 bytes
+  expected_training_time_baseline_s: 400
+  expected_training_time_optimized_s: 280
+  speedup_target_percent: 30
+  convergence_check: true
+  checkpoint_validation: true
+
+# Comparison Points (for tracing)
+comparison_points:
+  - name: "Checkpoint Load"
+    metric: time_ms
+    threshold: 1000
+
+  - name: "Epoch Duration"
+    metric: time_s
+    threshold: 50
+
+  - name: "Loss Convergence"
+    metric: loss_value
+    threshold: 6.5
+
+  - name: "Memory Usage"
+    metric: memory_mb
+    threshold: 500

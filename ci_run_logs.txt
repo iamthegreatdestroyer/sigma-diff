@@ -1,0 +1,31 @@
+build (ubuntu-latest)	Set up job	∩╗┐2026-02-08T21:54:29.4233271Z Current runner version: '2.331.0'
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4269372Z ##[group]Runner Image Provisioner
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4270750Z Hosted Compute Agent
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4271909Z Version: 20260123.484
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4272831Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4274068Z Build Date: 2026-01-23T19:41:17Z
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4275090Z Worker ID: {a1bc2b9d-d581-4ab5-a9a4-27fcb8de52d5}
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4276294Z Azure Region: northcentralus
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4277320Z ##[endgroup]
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4279745Z ##[group]Operating System
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4280654Z Ubuntu
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4281722Z 24.04.3
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4282523Z LTS
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4283248Z ##[endgroup]
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4284133Z ##[group]Runner Image
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4284997Z Image: ubuntu-24.04
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4285865Z Version: 20260201.15.1
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4287570Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260201.15/images/ubuntu/Ubuntu2404-Readme.md
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4290689Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260201.15
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4292906Z ##[endgroup]
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4294913Z ##[group]GITHUB_TOKEN Permissions
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4298298Z Contents: read
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4299294Z Metadata: read
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4300122Z Packages: read
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4300878Z ##[endgroup]
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4304188Z Secret source: Actions
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4305660Z Prepare workflow directory
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4775085Z Prepare all required actions
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.4832289Z Getting action download info
+build (ubuntu-latest)	Set up job	2026-02-08T21:54:29.7912745Z ##[error]Unable to resolve action jacobtomlinson/setup-cmake, repository not found
+log not found: 62909496995

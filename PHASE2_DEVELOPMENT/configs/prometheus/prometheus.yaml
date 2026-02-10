@@ -1,0 +1,150 @@
+# Prometheus Configuration for Ryzanstein LLM Inference
+# Sprint 3.5 - Observability Stack
+# Created: January 6, 2026
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: "ryzanstein-llm"
+    environment: "production"
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# Rule files
+rule_files:
+  - "/etc/prometheus/rules/*.yaml"
+
+# Scrape configurations
+scrape_configs:
+  # ==========================================================================
+  # Prometheus self-monitoring
+  # ==========================================================================
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+    metrics_path: /metrics
+
+  # ==========================================================================
+  # LLM Inference Nodes
+  # ==========================================================================
+  - job_name: "llm-inference"
+    static_configs:
+      - targets:
+          - "inference-node-0:9100"
+          - "inference-node-1:9100"
+          - "inference-node-2:9100"
+        labels:
+          service: "llm-inference"
+          layer: "inference"
+
+    # Relabel to add node ID from target
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: 'inference-node-(\d+):.*'
+        target_label: node_id
+        replacement: "node-$1"
+
+  # ==========================================================================
+  # API Gateway
+  # ==========================================================================
+  - job_name: "api-gateway"
+    static_configs:
+      - targets:
+          - "api-gateway:9100"
+        labels:
+          service: "api-gateway"
+          layer: "gateway"
+
+  # ==========================================================================
+  # Load Balancer
+  # ==========================================================================
+  - job_name: "load-balancer"
+    static_configs:
+      - targets:
+          - "load-balancer:9100"
+        labels:
+          service: "load-balancer"
+          layer: "routing"
+
+  # ==========================================================================
+  # KV Cache Services
+  # ==========================================================================
+  - job_name: "kv-cache"
+    static_configs:
+      - targets:
+          - "kv-cache-0:9100"
+          - "kv-cache-1:9100"
+        labels:
+          service: "kv-cache"
+          layer: "cache"
+
+  # ==========================================================================
+  # Speculative Decoding Workers
+  # ==========================================================================
+  - job_name: "speculative-workers"
+    static_configs:
+      - targets:
+          - "spec-worker-0:9100"
+          - "spec-worker-1:9100"
+        labels:
+          service: "speculative-decoding"
+          layer: "inference"
+
+  # ==========================================================================
+  # Node Exporter (Host Metrics)
+  # ==========================================================================
+  - job_name: "node-exporter"
+    static_configs:
+      - targets:
+          - "node-exporter:9100"
+        labels:
+          service: "node-exporter"
+          layer: "infrastructure"
+
+  # ==========================================================================
+  # cAdvisor (Container Metrics)
+  # ==========================================================================
+  - job_name: "cadvisor"
+    static_configs:
+      - targets:
+          - "cadvisor:8080"
+        labels:
+          service: "cadvisor"
+          layer: "infrastructure"
+
+  # ==========================================================================
+  # Jaeger Metrics
+  # ==========================================================================
+  - job_name: "jaeger"
+    static_configs:
+      - targets:
+          - "jaeger:14269"
+        labels:
+          service: "jaeger"
+          layer: "observability"
+
+  # ==========================================================================
+  # Dynamic Discovery (Kubernetes example - commented)
+  # ==========================================================================
+  # - job_name: 'kubernetes-pods'
+  #   kubernetes_sd_configs:
+  #     - role: pod
+  #   relabel_configs:
+  #     - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+  #       action: keep
+  #       regex: true
+  #     - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+  #       action: replace
+  #       target_label: __metrics_path__
+  #       regex: (.+)
+  #     - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+  #       action: replace
+  #       regex: ([^:]+)(?::\d+)?;(\d+)
+  #       replacement: $1:$2
+  #       target_label: __address__

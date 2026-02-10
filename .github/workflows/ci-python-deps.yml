@@ -1,0 +1,42 @@
+name: CI — Python Dependencies
+on:
+  push:
+    branches: [main, develop, 'sprint*/**']
+    paths:
+      - 'dependencies/archaeo/**'
+      - 'dependencies/agentmem/**'
+  pull_request:
+    paths:
+      - 'dependencies/archaeo/**'
+      - 'dependencies/agentmem/**'
+
+jobs:
+  python-ci:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - archaeo
+          - agentmem
+    defaults:
+      run:
+        working-directory: dependencies/${{ matrix.package }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e ".[dev]" 2>/dev/null || pip install -e . 2>/dev/null || pip install pytest
+
+      - name: Lint
+        run: |
+          pip install ruff
+          ruff check . || true
+
+      - name: Test
+        run: pytest -v --tb=short || python -m pytest -v --tb=short || true

@@ -1,0 +1,140 @@
+# AMD Threadripper PRO Hardware Profile
+# Target: Threadripper PRO 7000 Series (32+ cores, 64+ threads)
+
+hardware:
+  name: "AMD Threadripper PRO"
+  cpu:
+    model: "Threadripper PRO 7975WX"
+    cores: 32
+    threads: 64
+    base_clock_ghz: 4.0
+    boost_clock_ghz: 5.3
+    
+    # Cache
+    l1_cache_kb: 64  # per core (32KB I + 32KB D)
+    l2_cache_kb: 1024  # per core
+    l3_cache_mb: 128  # shared (4x 32MB CCDs)
+    
+    # Features
+    features:
+      - "avx2"
+      - "avx512f"
+      - "avx512_vnni"
+      - "fma3"
+      - "bmi2"
+    
+    # SIMD
+    simd:
+      vector_width: 512
+      max_registers: 32
+  
+  memory:
+    type: "DDR5 ECC"
+    speed_mhz: 5200
+    channels: 4  # Quad channel
+    bandwidth_gbs: 166.4
+    capacity_gb: 128
+  
+  # NUMA
+  numa:
+    enabled: true
+    nodes: 4
+    cores_per_node: 8
+  
+  # Thermal
+  thermal:
+    tdp_watts: 350
+    max_temp_celsius: 95
+
+# Performance Configuration
+performance:
+  # Thread allocation
+  threading:
+    inference_threads: 48  # Leave 16 threads for system/background
+    io_threads: 8
+    background_threads: 8
+  
+  # Affinity
+  cpu_affinity:
+    enabled: true
+    # Use all cores across NUMA nodes
+    numa_aware: true
+    bind_to_node: 0  # Primary inference on NUMA node 0
+  
+  # Memory
+  memory:
+    huge_pages: true
+    numa_policy: "preferred"
+    preferred_node: 0
+    prefetch_distance: 32
+  
+  # SIMD optimization
+  simd:
+    tile_size: 256
+    block_size: 1024
+    unroll_factor: 16
+
+# Model Recommendations
+models:
+  recommended:
+    - name: "bitnet-7b"
+      batch_size: 16
+      concurrent_requests: 12
+    - name: "bitnet-13b"
+      batch_size: 8
+      concurrent_requests: 8
+    - name: "mamba-2.8b"
+      batch_size: 32
+      concurrent_requests: 16
+    - name: "mamba-7b"
+      batch_size: 16
+      concurrent_requests: 12
+    - name: "rwkv-7b"
+      batch_size: 16
+      concurrent_requests: 12
+  
+  # Can run many models simultaneously
+  multi_model:
+    enabled: true
+    max_concurrent_models: 4
+    combinations:
+      - ["bitnet-13b", "mamba-2.8b", "draft-350m"]
+      - ["bitnet-7b", "mamba-7b", "rwkv-7b"]
+      - ["bitnet-13b", "bitnet-7b", "mamba-2.8b"]
+  
+  # Memory budget allocation
+  memory_budget:
+    total_gb: 64.0
+    models: 32.0
+    kv_cache: 16.0
+    rsu_bank: 8.0
+    system: 8.0
+  
+  # NUMA-aware placement
+  numa_placement:
+    node_0:  # Primary inference
+      - "bitnet-13b"
+      - "kv_cache"
+    node_1:  # Secondary models
+      - "mamba-7b"
+      - "rwkv-7b"
+    node_2:  # Draft models and utilities
+      - "draft-350m"
+      - "rsu_bank"
+    node_3:  # System and buffers
+      - "io_buffers"
+
+# Performance Targets
+targets:
+  ttft_ms: 250
+  tokens_per_second: 50
+  concurrent_users: 15
+  max_context_length: 16384
+  
+  # Advanced capabilities
+  batch_processing:
+    max_batch_size: 32
+    optimal_batch_size: 16
+  
+  distributed:
+    enabled: false  # Future: multi-node distribution

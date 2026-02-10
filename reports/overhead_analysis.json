@@ -1,0 +1,29 @@
+{
+  "profiling_metadata": {
+    "timestamp": "2026-02-09T14:57:18.796853",
+    "device": "cpu",
+    "activation_shape": [
+      32,
+      1024
+    ],
+    "iterations": 100,
+    "script_version": "1.0"
+  },
+  "results": {
+    "kernel_optimizer": {
+      "op_name": "kernel_optimizer.detect_and_tune()",
+      "error": "'KernelOptimizer' object has no attribute 'detect_and_tune'",
+      "timestamp": "2026-02-09T14:57:18.617093"
+    },
+    "semantic_compression": {
+      "op_name": "semantic_compression.encode/decode()",
+      "error": "'SemanticCompressor' object has no attribute 'encode'",
+      "timestamp": "2026-02-09T14:57:18.617557"
+    },
+    "inference_scaling": {
+      "op_name": "inference_scaling.optimize_kv_cache()",
+      "error": "'InferenceScalingEngine' object has no attribute 'optimize_kv_cache'",
+      "timestamp": "2026-02-09T14:57:18.786643"
+    }
+  }
+}

@@ -1,0 +1,441 @@
+name: Custom Task Automation - Pattern-Based Workflow Execution
+
+on:
+    workflow_dispatch:
+        inputs:
+            workflow_type:
+                description: "Workflow pattern to execute"
+                required: true
+                type: choice
+                options:
+                    - comparative-validation-cycle
+                    - baseline-vs-optimized
+                    - phase-completion-sequence
+                    - documentation-synthesis
+                    - git-phase-tagging
+                    - ci-regression-detection
+                    - phase-transition-setup
+            auto_continue:
+                description: "Auto-continue to next phase on success"
+                required: false
+                type: boolean
+                default: true
+
+env:
+    PROJECT_ROOT: ${{ github.workspace }}
+    PHASE_STATE_FILE: .github/workflows/phase_state.json
+    METRICS_DIR: reports
+    LOG_DIR: logs
+
+jobs:
+    comparative-validation-cycle:
+        if: github.event.inputs.workflow_type == 'comparative-validation-cycle'
+        runs-on: [self-hosted, gpu, cuda-12]
+        timeout-minutes: 960
+        name: "Execute: Baseline → Optimized → Compare"
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Setup Python 3.11
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+                  cache: "pip"
+
+            - name: Install dependencies
+              run: |
+                  pip install --upgrade pip setuptools wheel
+                  pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu121
+                  pip install -r requirements-training.txt
+
+            - name: Create output directories
+              run: |
+                  mkdir -p ${{ env.METRICS_DIR }}/baseline
+                  mkdir -p ${{ env.METRICS_DIR }}/optimized
+                  mkdir -p ${{ env.LOG_DIR }}/phase2
+                  mkdir -p checkpoints/phase2
+
+            - name: "↪️ STAGE 2a: Baseline Training (NO optimizations)"
+              id: baseline
+              env:
+                  CUDA_VISIBLE_DEVICES: "0"
+                  PYTORCH_CUDA_ALLOC_CONF: max_split_size_mb:512
+              run: |
+                  echo "Starting baseline training (10 epochs, NO optimizations)..."
+                  python RYZEN-LLM/scripts/training_loop.py \
+                    --config training_configuration.yaml \
+                    --no-optimization \
+                    --checkpoint-dir checkpoints/phase2/baseline \
+                    --metrics-output ${{ env.METRICS_DIR }}/baseline/metrics.json \
+                    --log-file ${{ env.LOG_DIR }}/phase2/baseline_training.log \
+                    --run-number ${{ github.run_number }}_baseline
+                  echo "BASELINE_STATUS=success" >> $GITHUB_OUTPUT
+
+            - name: "↪️ STAGE 2b: Optimized Training (WITH Phase 1 optimizations)"
+              id: optimized
+              if: steps.baseline.outcome == 'success'
+              env:
+                  CUDA_VISIBLE_DEVICES: "0"
+                  PYTORCH_CUDA_ALLOC_CONF: max_split_size_mb:512
+              run: |
+                  echo "Starting optimized training (10 epochs, WITH Phase 1 optimizations)..."
+                  echo "Phase 1 Components: Kernel Optimizer | Semantic Compression | Inference Scaling (RLVR)"
+                  python RYZEN-LLM/scripts/training_loop.py \
+                    --config training_configuration.yaml \
+                    --checkpoint-dir checkpoints/phase2/optimized \
+                    --metrics-output ${{ env.METRICS_DIR }}/optimized/metrics.json \
+                    --log-file ${{ env.LOG_DIR }}/phase2/optimized_training.log \
+                    --run-number ${{ github.run_number }}_optimized
+                  echo "OPTIMIZED_STATUS=success" >> $GITHUB_OUTPUT
+
+            - name: "↪️ STAGE 2c: Comparative Inference Analysis"
+              id: comparison
+              if: steps.optimized.outcome == 'success'
+              env:
+                  CUDA_VISIBLE_DEVICES: "0"
+              run: |
+                  echo "Comparing baseline vs optimized inference performance..."
+                  echo "Measuring: TTFT, throughput, memory, latency"
+                  python RYZEN-LLM/scripts/model_inference_validator.py \
+                    --baseline-checkpoint checkpoints/phase2/baseline \
+                    --optimized-checkpoint checkpoints/phase2/optimized \
+                    --metrics-output ${{ env.METRICS_DIR }}/comparison_results.json \
+                    --log-file ${{ env.LOG_DIR }}/phase2/inference_comparison.log
+                  echo "COMPARISON_STATUS=success" >> $GITHUB_OUTPUT
+
+            - name: Generate comparative analysis report
+              if: steps.comparison.outcome == 'success'
+              run: |
+                  python -c "
+                  import json
+                  import os
+
+                  baseline = json.load(open('${{ env.METRICS_DIR }}/baseline/metrics.json'))
+                  optimized = json.load(open('${{ env.METRICS_DIR }}/optimized/metrics.json'))
+                  comparison = json.load(open('${{ env.METRICS_DIR }}/comparison_results.json'))
+
+                  report = '''
+                  # Phase 2 Comparative Validation Report
+
+                  ## Baseline Metrics
+                  - Training Loss: {baseline_loss}
+                  - Inference TTFT: {baseline_ttft}ms
+                  - Memory Usage: {baseline_memory}GB
+
+                  ## Optimized Metrics  
+                  - Training Loss: {optimized_loss}
+                  - Inference TTFT: {optimized_ttft}ms
+                  - Memory Usage: {optimized_memory}GB
+
+                  ## Improvements
+                  - Loss Delta: {loss_delta}
+                  - TTFT Speedup: {ttft_speedup}x
+                  - Memory Reduction: {memory_reduction}%
+
+                  Generated: $(date)
+                  Run: ${{ github.run_number }}
+                  '''.format(
+                    baseline_loss=baseline.get('final_loss', 'N/A'),
+                    baseline_ttft=comparison.get('baseline_ttft', 'N/A'),
+                    baseline_memory=comparison.get('baseline_memory', 'N/A'),
+                    optimized_loss=optimized.get('final_loss', 'N/A'),
+                    optimized_ttft=comparison.get('optimized_ttft', 'N/A'),
+                    optimized_memory=comparison.get('optimized_memory', 'N/A'),
+                    loss_delta=comparison.get('loss_improvement', 'N/A'),
+                    ttft_speedup=comparison.get('ttft_speedup', 'N/A'),
+                    memory_reduction=comparison.get('memory_reduction', 'N/A')
+                  )
+
+                  with open('${{ env.METRICS_DIR }}/PHASE2_ANALYSIS.md', 'w') as f:
+                    f.write(report)
+                  "
+
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v3
+              with:
+                  name: phase2-comparative-results
+                  path: |
+                      ${{ env.METRICS_DIR }}/
+                      ${{ env.LOG_DIR }}/phase2/
+                  retention-days: 30
+
+            - name: Update phase state (auto-continue)
+              if: steps.comparison.outcome == 'success' && github.event.inputs.auto_continue == 'true'
+              run: |
+                  python -c "
+                  import json
+                  from datetime import datetime
+
+                  phase_state = {
+                    'current_phase': 2,
+                    'current_stage': '2c',
+                    'status': 'completed',
+                    'last_updated': datetime.now().isoformat(),
+                    'metrics': {
+                      'baseline_valid': True,
+                      'optimized_valid': True,
+                      'comparison_complete': True
+                    },
+                    'next_phase': 3,
+                    'auto_triggered': True
+                  }
+
+                  with open('.github/workflows/phase_state.json', 'w') as f:
+                    json.dump(phase_state, f, indent=2)
+                  "
+                  git add .github/workflows/phase_state.json
+                  git commit -m "chore: auto-update phase state after STAGE 2c completion"
+                  git push
+
+    documentation-synthesis:
+        if: github.event.inputs.workflow_type == 'documentation-synthesis'
+        runs-on: ubuntu-latest
+        name: "Synthesize: Metrics → Documentation"
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Capture latest metrics
+              run: |
+                  mkdir -p docs/synthesis
+
+                  # Extract from reports directory
+                  python -c "
+                  import json
+                  import glob
+                  from pathlib import Path
+
+                  metrics_files = glob.glob('reports/**/metrics.json', recursive=True)
+
+                  synthesis = {
+                    'timestamp': '$(date -u +%Y-%m-%dT%H:%M:%SZ)',
+                    'phase': 2,
+                    'metrics_captured': len(metrics_files),
+                    'files': metrics_files
+                  }
+
+                  Path('docs/synthesis/metrics_snapshot.json').write_text(json.dumps(synthesis, indent=2))
+                  print(f'Captured {len(metrics_files)} metric files')
+                  "
+
+            - name: Generate DELIVERABLES_INDEX update
+              run: |
+                  python -c "
+                  import json
+                  from datetime import datetime
+
+                  update = {
+                    'timestamp': datetime.now().isoformat(),
+                    'phase': 2,
+                    'deliverables': {
+                      'comparative_analysis': 'reports/PHASE2_ANALYSIS.md',
+                      'baseline_metrics': 'reports/baseline/metrics.json',
+                      'optimized_metrics': 'reports/optimized/metrics.json',
+                      'inference_comparison': 'reports/comparison_results.json'
+                    },
+                    'status': 'ready_for_documentation'
+                  }
+
+                  with open('DELIVERABLES_SYNTHESIS_UPDATE.json', 'w') as f:
+                    json.dump(update, f, indent=2)
+                  "
+
+            - name: Create documentation PR prep
+              run: |
+                  cat > docs/synthesis/DOCUMENTATION_PREP.md << 'EOF'
+                  # Documentation Synthesis - Phase 2 Completion
+
+                  ## Auto-Generated from Metrics
+                  - Generated: $(date)
+                  - Phase: 2
+                  - Stages: 2a, 2b, 2c
+                  - Status: All stages completed
+
+                  ## Files Ready for Integration
+                  - Phase 2 Analysis Report
+                  - Baseline vs Optimized Comparison
+                  - Inference Metrics Summary
+
+                  ## Next Steps
+                  1. Review PHASE2_ANALYSIS.md
+                  2. Update DELIVERABLES_INDEX.md
+                  3. Commit with phase tag
+                  4. Trigger Phase 3 setup
+                  EOF
+
+            - name: Commit documentation prep
+              run: |
+                  git add docs/synthesis/
+                  git add DELIVERABLES_SYNTHESIS_UPDATE.json
+                  git commit -m "docs: auto-synthesize Phase 2 metrics and preparation for Phase 3"
+                  git push
+
+    phase-transition-setup:
+        if: github.event.inputs.workflow_type == 'phase-transition-setup'
+        runs-on: ubuntu-latest
+        name: "Setup: Next Phase Initialization"
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Read current phase state
+              id: read_state
+              run: |
+                  python -c "
+                  import json
+
+                  with open('.github/workflows/phase_state.json') as f:
+                    state = json.load(f)
+
+                  current = state.get('current_phase', 2)
+                  next_phase = current + 1
+
+                  print(f'CURRENT_PHASE={current}')
+                  print(f'NEXT_PHASE={next_phase}')
+                  " >> $GITHUB_OUTPUT
+
+            - name: Initialize Phase 3 directories
+              run: |
+                  mkdir -p checkpoints/phase3
+                  mkdir -p reports/phase3
+                  mkdir -p logs/phase3
+                  echo "Phase 3 directories initialized: $(date)" > logs/phase3/PHASE3_START.log
+
+            - name: Create Phase 3 configuration
+              run: |
+                  cat > training_configuration_phase3.yaml << 'EOF'
+                  # Phase 3 Configuration - API Integration & Distributed Inference
+                  # Auto-generated from Phase 2 completion
+
+                  training:
+                    epochs: 15
+                    batch_size: 64
+                    learning_rate: 0.0005
+                    optimizer: AdamW
+                    warmup_steps: 1000
+                    log_interval: 5
+
+                  # Phase 2 optimizations now ENABLED by default
+                  kernel_optimizer:
+                    enabled: true
+                    cpu_optimization: true
+
+                  semantic_compression:
+                    enabled: true
+                    sparsity_target: 0.75
+
+                  inference_scaling:
+                    enabled: true
+                    multi_path_reasoning: true
+
+                  # NEW Phase 3 features
+                  api_integration:
+                    enabled: true
+                    rest_api: true
+                    grpc_api: false  # Alpha in Phase 3
+                    
+                  distributed_inference:
+                    enabled: true
+                    num_workers: 4
+                    sharding_strategy: tensor_parallel
+                  EOF
+
+            - name: Update phase state for Phase 3
+              run: |
+                  python -c "
+                  import json
+                  from datetime import datetime
+
+                  phase_state = {
+                    'current_phase': 3,
+                    'current_stage': '3a',
+                    'status': 'initialized',
+                    'last_updated': datetime.now().isoformat(),
+                    'previous_phase': {
+                      'phase': 2,
+                      'final_stage': '2c',
+                      'status': 'completed'
+                    },
+                    'next_tasks': [
+                      'API Integration Setup',
+                      'Distributed Inference Configuration',
+                      'Load Testing & Validation',
+                      'Performance Benchmarking'
+                    ]
+                  }
+
+                  with open('.github/workflows/phase_state.json', 'w') as f:
+                    json.dump(phase_state, f, indent=2)
+                  "
+
+            - name: Commit Phase 3 setup
+              run: |
+                  git add .github/workflows/phase_state.json
+                  git add training_configuration_phase3.yaml
+                  git add logs/phase3/
+                  git commit -m "chore: initialize Phase 3 - API Integration & Distributed Inference"
+                  git push
+
+    git-phase-tagging:
+        if: github.event.inputs.workflow_type == 'git-phase-tagging'
+        runs-on: ubuntu-latest
+        name: "Git: Tag phase completion and create PR"
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Create phase tag
+              run: |
+                  PHASE=$(python -c "import json; print(json.load(open('.github/workflows/phase_state.json')).get('current_phase', 2))")
+                  STAGE=$(python -c "import json; print(json.load(open('.github/workflows/phase_state.json')).get('current_stage', '2c'))")
+                  TAG="phase-${PHASE}-stage-${STAGE}-$(date +%Y%m%d-%H%M%S)"
+
+                  git tag -a "$TAG" -m "Phase $PHASE Stage $STAGE completion - $(date)"
+                  git push origin "$TAG"
+                  echo "Created tag: $TAG"
+
+            - name: Create automated PR for phase
+              uses: actions/create-issue@v2
+              with:
+                  title: "Phase 2 Completion: Baseline vs Optimized Validation"
+                  body: |
+                      ## Phase 2 - Comparative Validation Complete ✅
+
+                      ### Stages Completed
+                      - [x] Stage 2a: Baseline Training (10 epochs, NO optimizations)
+                      - [x] Stage 2b: Optimized Training (10 epochs, WITH Phase 1 optimizations)
+                      - [x] Stage 2c: Comparative Inference Analysis
+
+                      ### Metrics Generated
+                      - Baseline metrics: `reports/baseline/metrics.json`
+                      - Optimized metrics: `reports/optimized/metrics.json`
+                      - Comparison analysis: `reports/PHASE2_ANALYSIS.md`
+                      - Inference comparison: `reports/comparison_results.json`
+
+                      ### Phase 1 Components Validated
+                      - ✅ Kernel Optimizer
+                      - ✅ Semantic Compression (MRL)
+                      - ✅ Inference Scaling (RLVR)
+
+                      ### Ready for Phase 3
+                      - API Integration
+                      - Distributed Inference Setup
+                      - Load Testing
+
+                      ---
+                      Auto-generated from workflow: `task_automation.yml`

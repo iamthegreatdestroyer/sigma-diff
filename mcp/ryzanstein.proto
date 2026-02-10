@@ -1,0 +1,376 @@
+// Protocol Buffer definitions for MCP Servers
+// Sprint 5: MCP Server Protocol Implementation
+
+syntax = "proto3";
+
+package mcp.ryzanstein;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/iamthegreatdestroyer/Ryzanstein/mcp/proto";
+
+option go_package = "github.com/iamthegreatdestroyer/Ryzanstein/mcp;main";
+
+// ============================================================================
+// Common Message Types
+// ============================================================================
+
+message RequestMetadata {
+    string request_id = 1;
+    google.protobuf.Timestamp timestamp = 2;
+    string client_id = 3;
+    map<string, string> headers = 4;
+}
+
+message ResponseMetadata {
+    string request_id = 1;
+    google.protobuf.Timestamp timestamp = 2;
+    int32 status_code = 3;
+    string status_message = 4;
+    int64 processing_time_ms = 5;
+}
+
+message Error {
+    int32 code = 1;
+    string message = 2;
+    string details = 3;
+}
+
+// ============================================================================
+// Inference Service
+// ============================================================================
+
+service InferenceService {
+    rpc Infer(InferenceRequest) returns (InferenceResponse);
+    rpc InferStream(InferenceRequest) returns (stream InferenceChunk);
+    rpc Health(HealthRequest) returns (HealthResponse);
+    rpc GetModelInfo(ModelInfoRequest) returns (ModelInfoResponse);
+}
+
+message Message {
+    enum Role {
+        ROLE_UNSPECIFIED = 0;
+        SYSTEM = 1;
+        USER = 2;
+        ASSISTANT = 3;
+    }
+    Role role = 1;
+    string content = 2;
+}
+
+message InferenceRequest {
+    RequestMetadata metadata = 1;
+    string model = 2;
+    repeated Message messages = 3;
+    float temperature = 4;
+    int32 max_tokens = 5;
+    float top_p = 6;
+    int32 top_k = 7;
+    bool stream = 8;
+}
+
+message InferenceResponse {
+    ResponseMetadata metadata = 1;
+    string content = 2;
+    int32 tokens_used = 3;
+    map<string, string> metrics = 4;
+}
+
+message InferenceChunk {
+    ResponseMetadata metadata = 1;
+    string content = 2;
+    bool is_final = 3;
+}
+
+message HealthRequest {
+    RequestMetadata metadata = 1;
+}
+
+message HealthResponse {
+    ResponseMetadata metadata = 1;
+    bool healthy = 2;
+    string version = 3;
+}
+
+message ModelInfoRequest {
+    RequestMetadata metadata = 1;
+    string model = 2;
+}
+
+message ModelInfoResponse {
+    ResponseMetadata metadata = 1;
+    string model = 2;
+    int32 context_length = 3;
+    int32 max_tokens = 4;
+    map<string, string> capabilities = 5;
+}
+
+// ============================================================================
+// Agent Service
+// ============================================================================
+
+service AgentService {
+    rpc RegisterAgent(RegisterAgentRequest) returns (RegisterAgentResponse);
+    rpc ListAgents(ListAgentsRequest) returns (ListAgentsResponse);
+    rpc GetAgent(GetAgentRequest) returns (GetAgentResponse);
+    rpc CallTool(CallToolRequest) returns (CallToolResponse);
+    rpc ListTools(ListToolsRequest) returns (ListToolsResponse);
+}
+
+message Agent {
+    string codename = 1;
+    string name = 2;
+    int32 tier = 3;
+    string philosophy = 4;
+    repeated string capabilities = 5;
+    repeated string mastery_domains = 6;
+    map<string, string> metadata = 7;
+}
+
+message Tool {
+    string name = 1;
+    string description = 2;
+    Agent agent = 3;
+    map<string, string> input_schema = 4;
+    map<string, string> output_schema = 5;
+}
+
+message RegisterAgentRequest {
+    RequestMetadata metadata = 1;
+    Agent agent = 2;
+    repeated Tool tools = 3;
+}
+
+message RegisterAgentResponse {
+    ResponseMetadata metadata = 1;
+    bool success = 2;
+    string agent_id = 3;
+}
+
+message ListAgentsRequest {
+    RequestMetadata metadata = 1;
+    string filter = 2;
+}
+
+message ListAgentsResponse {
+    ResponseMetadata metadata = 1;
+    repeated Agent agents = 2;
+    int32 total_count = 3;
+}
+
+message GetAgentRequest {
+    RequestMetadata metadata = 1;
+    string agent_id = 2;
+}
+
+message GetAgentResponse {
+    ResponseMetadata metadata = 1;
+    Agent agent = 2;
+    repeated Tool tools = 3;
+}
+
+message CallToolRequest {
+    RequestMetadata metadata = 1;
+    string tool_name = 2;
+    google.protobuf.Struct parameters = 3;
+}
+
+message CallToolResponse {
+    ResponseMetadata metadata = 1;
+    google.protobuf.Struct result = 2;
+}
+
+message ListToolsRequest {
+    RequestMetadata metadata = 1;
+    string agent_id = 2;
+}
+
+message ListToolsResponse {
+    ResponseMetadata metadata = 1;
+    repeated Tool tools = 2;
+}
+
+// ============================================================================
+// Memory Service
+// ============================================================================
+
+service MemoryService {
+    rpc StoreExperience(StoreExperienceRequest) returns (StoreExperienceResponse);
+    rpc RetrieveExperience(RetrieveExperienceRequest) returns (RetrieveExperienceResponse);
+    rpc UpdateFitness(UpdateFitnessRequest) returns (UpdateFitnessResponse);
+    rpc GetMemoryStats(MemoryStatsRequest) returns (MemoryStatsResponse);
+}
+
+message Experience {
+    string id = 1;
+    string agent = 2;
+    string task = 3;
+    string input = 4;
+    string output = 5;
+    string strategy = 6;
+    repeated float embedding = 7;
+    float fitness_score = 8;
+    google.protobuf.Timestamp created_at = 9;
+    google.protobuf.Timestamp accessed_at = 10;
+    map<string, string> metadata = 11;
+}
+
+message StoreExperienceRequest {
+    RequestMetadata metadata = 1;
+    Experience experience = 2;
+}
+
+message StoreExperienceResponse {
+    ResponseMetadata metadata = 1;
+    string experience_id = 2;
+}
+
+message RetrieveExperienceRequest {
+    RequestMetadata metadata = 1;
+    repeated float query_embedding = 2;
+    string agent_filter = 3;
+    int32 limit = 4;
+}
+
+message RetrieveExperienceResponse {
+    ResponseMetadata metadata = 1;
+    repeated Experience experiences = 2;
+    float average_similarity = 3;
+}
+
+message UpdateFitnessRequest {
+    RequestMetadata metadata = 1;
+    string experience_id = 2;
+    float new_fitness_score = 3;
+}
+
+message UpdateFitnessResponse {
+    ResponseMetadata metadata = 1;
+    bool success = 2;
+    float updated_score = 3;
+}
+
+message MemoryStatsRequest {
+    RequestMetadata metadata = 1;
+}
+
+message MemoryStatsResponse {
+    ResponseMetadata metadata = 1;
+    int32 total_experiences = 2;
+    int32 agent_count = 3;
+    map<string, int32> agents_stats = 4;
+    float average_fitness = 5;
+}
+
+// ============================================================================
+// Optimization Service
+// ============================================================================
+
+service OptimizationService {
+    rpc CollectMetrics(MetricsRequest) returns (MetricsResponse);
+    rpc GetOptimizationSuggestions(OptimizationRequest) returns (OptimizationResponse);
+    rpc ProfilePerformance(ProfileRequest) returns (stream ProfileMetric);
+    rpc GetSystemHealth(HealthRequest) returns (SystemHealthResponse);
+}
+
+message MetricsRequest {
+    RequestMetadata metadata = 1;
+    string component = 2;
+}
+
+message MetricsResponse {
+    ResponseMetadata metadata = 1;
+    map<string, double> metrics = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+
+message OptimizationRequest {
+    RequestMetadata metadata = 1;
+    string component = 2;
+    map<string, double> current_metrics = 3;
+}
+
+message OptimizationResponse {
+    ResponseMetadata metadata = 1;
+    repeated string suggestions = 2;
+    map<string, double> predicted_improvements = 3;
+}
+
+message ProfileRequest {
+    RequestMetadata metadata = 1;
+    int32 duration_seconds = 2;
+    repeated string components = 3;
+}
+
+message ProfileMetric {
+    ResponseMetadata metadata = 1;
+    string component = 2;
+    map<string, double> values = 3;
+}
+
+message SystemHealthResponse {
+    ResponseMetadata metadata = 1;
+    float overall_health = 2;
+    map<string, float> component_health = 3;
+    repeated string warnings = 4;
+}
+
+// ============================================================================
+// Debug Service
+// ============================================================================
+
+service DebugService {
+    rpc InspectComponent(InspectRequest) returns (InspectResponse);
+    rpc GetDiagnostics(DiagnosticsRequest) returns (DiagnosticsResponse);
+    rpc SetLogLevel(SetLogLevelRequest) returns (SetLogLevelResponse);
+    rpc TracePath(TraceRequest) returns (stream TraceEvent);
+}
+
+message InspectRequest {
+    RequestMetadata metadata = 1;
+    string component = 2;
+    string inspect_type = 3;
+}
+
+message InspectResponse {
+    ResponseMetadata metadata = 1;
+    google.protobuf.Struct state = 2;
+    repeated string debug_info = 3;
+}
+
+message DiagnosticsRequest {
+    RequestMetadata metadata = 1;
+    string scope = 2;
+}
+
+message DiagnosticsResponse {
+    ResponseMetadata metadata = 1;
+    repeated string diagnostics = 2;
+    map<string, string> recommendations = 3;
+}
+
+message SetLogLevelRequest {
+    RequestMetadata metadata = 1;
+    string component = 2;
+    string log_level = 3;
+}
+
+message SetLogLevelResponse {
+    ResponseMetadata metadata = 1;
+    bool success = 2;
+}
+
+message TraceRequest {
+    RequestMetadata metadata = 1;
+    string operation = 2;
+    map<string, string> filters = 3;
+}
+
+message TraceEvent {
+    ResponseMetadata metadata = 1;
+    string event_type = 2;
+    string component = 3;
+    google.protobuf.Timestamp timestamp = 4;
+    map<string, string> details = 5;
+}

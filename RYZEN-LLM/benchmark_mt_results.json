@@ -1,0 +1,243 @@
+{
+  "suite": {
+    "results": [
+      {
+        "component": "tmac_gemm",
+        "threads": 1,
+        "matrix_size": "512x1024x256",
+        "total_ops": 2684354560,
+        "total_time_sec": 1.34217728,
+        "ops_per_sec": 2000000000.0,
+        "speedup_vs_single": 1.0,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.196937"
+      },
+      {
+        "component": "tmac_gemm",
+        "threads": 2,
+        "matrix_size": "512x1024x256",
+        "total_ops": 2684354560,
+        "total_time_sec": 0.8262070299952379,
+        "ops_per_sec": 3249009585.4249415,
+        "speedup_vs_single": 1.6245047927124707,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.197239"
+      },
+      {
+        "component": "tmac_gemm",
+        "threads": 4,
+        "matrix_size": "512x1024x256",
+        "total_ops": 2684354560,
+        "total_time_sec": 0.5085900846224664,
+        "ops_per_sec": 5278031643.091577,
+        "speedup_vs_single": 2.6390158215457884,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.197386"
+      },
+      {
+        "component": "tmac_gemm",
+        "threads": 8,
+        "matrix_size": "512x1024x256",
+        "total_ops": 2684354560,
+        "total_time_sec": 0.31307392068278384,
+        "ops_per_sec": 8574187700.290344,
+        "speedup_vs_single": 4.2870938501451725,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.197536"
+      },
+      {
+        "component": "tmac_gemm",
+        "threads": 1,
+        "matrix_size": "1024x2048x512",
+        "total_ops": 21474836480,
+        "total_time_sec": 10.73741824,
+        "ops_per_sec": 2000000000.0,
+        "speedup_vs_single": 1.0,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.197756"
+      },
+      {
+        "component": "tmac_gemm",
+        "threads": 2,
+        "matrix_size": "1024x2048x512",
+        "total_ops": 21474836480,
+        "total_time_sec": 6.609656239961903,
+        "ops_per_sec": 3249009585.4249415,
+        "speedup_vs_single": 1.6245047927124707,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.197922"
+      },
+      {
+        "component": "tmac_gemm",
+        "threads": 4,
+        "matrix_size": "1024x2048x512",
+        "total_ops": 21474836480,
+        "total_time_sec": 4.068720676979731,
+        "ops_per_sec": 5278031643.091577,
+        "speedup_vs_single": 2.6390158215457884,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.198090"
+      },
+      {
+        "component": "tmac_gemm",
+        "threads": 8,
+        "matrix_size": "1024x2048x512",
+        "total_ops": 21474836480,
+        "total_time_sec": 2.5045913654622707,
+        "ops_per_sec": 8574187700.290344,
+        "speedup_vs_single": 4.2870938501451725,
+        "memory_mb": 0.0,
+        "timestamp": "2025-12-24T19:55:05.198243"
+      },
+      {
+        "component": "lut_lookup",
+        "threads": 1,
+        "matrix_size": "10000 patterns",
+        "total_ops": 1000,
+        "total_time_sec": 1.2011178999673575,
+        "ops_per_sec": 832.557736444671,
+        "speedup_vs_single": 1.0,
+        "memory_mb": 40.466796875,
+        "timestamp": "2025-12-24T19:55:06.521260"
+      },
+      {
+        "component": "lut_lookup",
+        "threads": 2,
+        "matrix_size": "10000 patterns",
+        "total_ops": 1000,
+        "total_time_sec": 1.043091000057757,
+        "ops_per_sec": 958.6891267824467,
+        "speedup_vs_single": 1.1514986706824721,
+        "memory_mb": 40.47265625,
+        "timestamp": "2025-12-24T19:55:07.568086"
+      },
+      {
+        "component": "lut_lookup",
+        "threads": 4,
+        "matrix_size": "10000 patterns",
+        "total_ops": 1000,
+        "total_time_sec": 0.7418130999431014,
+        "ops_per_sec": 1348.0484505823665,
+        "speedup_vs_single": 1.6191651240177423,
+        "memory_mb": 40.47265625,
+        "timestamp": "2025-12-24T19:55:08.311480"
+      },
+      {
+        "component": "lut_lookup",
+        "threads": 8,
+        "matrix_size": "10000 patterns",
+        "total_ops": 1000,
+        "total_time_sec": 0.9400108000263572,
+        "ops_per_sec": 1063.8175646194286,
+        "speedup_vs_single": 1.2777703191640768,
+        "memory_mb": 40.47265625,
+        "timestamp": "2025-12-24T19:55:09.257972"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 1,
+        "matrix_size": "1024x256x128",
+        "total_ops": 3355443200,
+        "total_time_sec": 33.56335620000027,
+        "ops_per_sec": 99973410.88314562,
+        "speedup_vs_single": 1.0,
+        "memory_mb": 40.4765625,
+        "timestamp": "2025-12-24T19:55:42.824003"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 2,
+        "matrix_size": "1024x256x128",
+        "total_ops": 3355443200,
+        "total_time_sec": 33.558887500083074,
+        "ops_per_sec": 99986723.3379442,
+        "speedup_vs_single": 1.0001331599540415,
+        "memory_mb": 40.44921875,
+        "timestamp": "2025-12-24T19:56:16.383723"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 4,
+        "matrix_size": "1024x256x128",
+        "total_ops": 3355443200,
+        "total_time_sec": 33.55800989991985,
+        "ops_per_sec": 99989338.16418041,
+        "speedup_vs_single": 1.000159315170845,
+        "memory_mb": 40.421875,
+        "timestamp": "2025-12-24T19:56:49.942483"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 8,
+        "matrix_size": "1024x256x128",
+        "total_ops": 3355443200,
+        "total_time_sec": 33.56622919999063,
+        "ops_per_sec": 99964853.96104418,
+        "speedup_vs_single": 0.9999144080208343,
+        "memory_mb": 40.40234375,
+        "timestamp": "2025-12-24T19:57:23.509471"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 1,
+        "matrix_size": "2048x512x256",
+        "total_ops": 29527900160,
+        "total_time_sec": 295.28686380013824,
+        "ops_per_sec": 99997337.43653983,
+        "speedup_vs_single": 1.0,
+        "memory_mb": 40.4296875,
+        "timestamp": "2025-12-24T20:02:18.797216"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 2,
+        "matrix_size": "2048x512x256",
+        "total_ops": 29527900160,
+        "total_time_sec": 295.2879558999557,
+        "ops_per_sec": 99996967.60407026,
+        "speedup_vs_single": 0.9999963015768315,
+        "memory_mb": 40.4765625,
+        "timestamp": "2025-12-24T20:07:14.096929"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 4,
+        "matrix_size": "2048x512x256",
+        "total_ops": 29527900160,
+        "total_time_sec": 295.2856906000525,
+        "ops_per_sec": 99997734.73613338,
+        "speedup_vs_single": 1.0000039731017218,
+        "memory_mb": 40.48046875,
+        "timestamp": "2025-12-24T20:12:09.383567"
+      },
+      {
+        "component": "parallel_scan",
+        "threads": 8,
+        "matrix_size": "2048x512x256",
+        "total_ops": 29527900160,
+        "total_time_sec": 295.28619849984534,
+        "ops_per_sec": 99997562.73747914,
+        "speedup_vs_single": 1.0000022530693824,
+        "memory_mb": 40.48046875,
+        "timestamp": "2025-12-24T20:17:04.670618"
+      }
+    ],
+    "system_info": {
+      "platform": "Windows-11-10.0.26200-SP0",
+      "cpu_count": 16,
+      "cpu_logical": 16,
+      "cpu_physical": 8,
+      "memory_gb": 31.313533782958984,
+      "python_version": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+      "build_commit": "a6d81a06"
+    },
+    "mt_improvement_summary": {
+      "tmac_gemm": 2.8502048214678104,
+      "lut_lookup": 1.3494780379547635,
+      "parallel_scan": 1.0000349018156094,
+      "overall": 1.809991496904321
+    }
+  },
+  "timestamp": "2025-12-24T20:17:04.677274",
+  "version": "1.0"
+}

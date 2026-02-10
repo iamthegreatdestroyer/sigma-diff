@@ -1,0 +1,46 @@
+Γ£à Using device: cpu
+Γ£à Trainer initialized
+
+≡ƒÄ» STARTING PHASE 3 STAGE 3a EXECUTION
+
+
+======================================================================
+PHASE 3 STAGE 3a: BASELINE TRAINING
+======================================================================
+Training ScaledTransformerModel WITHOUT optimizations
+
+Configuration:
+   Model params: ~1100000
+   Batch size: 16
+   Num epochs: 10
+   Learning rate: 0.0001
+
+Γ£à Model created:
+   Architecture: ScaledTransformerModel
+   Parameters: 9,592,578
+   Device: cpu
+
+Γ£à Synthetic data created:
+   Input shape: torch.Size([1600, 128])
+   Target shape: torch.Size([1600])
+   Batch size: 16
+
+Epoch  Loss       Time (s)     Throughput      Status         
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "S:\Ryot\train_scaled_model.py", line 421, in <module>
+    main()
+    ~~~~^^
+  File "S:\Ryot\train_scaled_model.py", line 407, in main
+    baseline_result = trainer.train_baseline()
+  File "S:\Ryot\train_scaled_model.py", line 207, in train_baseline
+    loss, epoch_time, throughput = self.train_epoch(
+                                   ~~~~~~~~~~~~~~~~^
+        model, optimizer, x_train, y_train, use_optimization=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "S:\Ryot\train_scaled_model.py", line 138, in train_epoch
+    logits, _ = model(x_batch)
+    ^^^^^^^^^
+ValueError: too many values to unpack (expected 2)

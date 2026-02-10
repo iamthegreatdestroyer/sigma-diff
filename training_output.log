@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "S:\Ryot\train_scaled_model.py", line 423, in <module>
+    main()
+    ~~~~^^
+  File "S:\Ryot\train_scaled_model.py", line 401, in main
+    trainer = Phase3Stage3aTrainer(
+        config_path=str(config_path),
+        checkpoint_dir="./checkpoints_scaled",
+        log_dir="./logs_scaled"
+    )
+  File "S:\Ryot\train_scaled_model.py", line 61, in __init__
+    print(f"\u2705 Using device: {self.device}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>

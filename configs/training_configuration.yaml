@@ -1,0 +1,157 @@
+# GPU Training Configuration (PHASE 2)
+# Ryzen-LLM Training Pipeline
+# Last Updated: February 2026
+
+model:
+  name: tinyllama-1b
+  checkpoint_path: ./pretrained/tinyllama-1b-init-q8.0.gguf
+  architecture: transformer
+  dtype: float32
+  device: cuda:0
+  max_sequence_length: 2048
+  vocab_size: 32000
+
+training:
+  batch_size: 4
+  micro_batch_size: 1
+  gradient_accumulation_steps: 4
+  gradient_checkpointing: true
+  learning_rate: 5.0e-5
+  learning_rate_scheduler: cosine
+  warmup_steps: 500
+  warmup_ratio: 0.05
+  num_epochs: 3
+  max_steps: 5000
+  eval_steps: 250
+  save_steps: 500
+  logging_steps: 10
+  seed: 42
+
+  # Optimization settings
+  optimizer: adamw
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+
+  # Model precision
+  mixed_precision: bf16
+  use_tf32: true
+
+compute:
+  num_processes: 1
+  num_gpus_per_process: 1
+  distributed_strategy: none # Phase 2: single GPU, Phase 3: FSDP
+  enable_fsdp: false
+  fsdp_sharding_strategy: full_shard # For Phase 3
+  gradient_accumulation_steps: 4
+
+  # GPU memory optimization
+  max_memory_mb: 24576 # 24GB GPU
+  memory_fraction: 0.9
+
+data:
+  train_dataset: ./data/train
+  validation_dataset: ./data/validation
+  dataset_cache_dir: ./data/.cache
+  max_seq_length: 2048
+  num_workers: 4
+  prefetch_factor: 2
+  pin_memory: true
+
+  # Data preprocessing
+  preprocessing_num_workers: 4
+  remove_unused_columns: true
+  pad_to_multiple_of: 8
+
+kernel_optimization:
+  # RLVR (Rotation-aware Low-rank Vector Reasoning)
+  rlvr_path_depth: 3
+  rlvr_enabled: true
+
+  # Quantization
+  compression_ratio: 30
+  kernel_tile_size: 256
+  use_bit_packing: true
+
+  # SIMD acceleration
+  simd_enabled: true
+  simd_vector_width: 256
+
+checkpointing:
+  save_strategy: steps
+  save_every_n_steps: 500
+  keep_last_n_checkpoints: 5
+  checkpoint_dir: ./checkpoints
+  save_total_limit: 5
+
+  # S3 integration
+  s3_enabled: true
+  s3_bucket: ryzen-llm-checkpoints
+  s3_prefix: phase2
+  sync_to_s3: true
+
+  # Resume from checkpoint
+  resume_from_checkpoint: null
+  auto_resume: true
+
+monitoring:
+  # Weights & Biases
+  enable_wandb: true
+  wandb_project: ryzen-llm-phase2
+  wandb_entity: null
+  wandb_name: phase2-gpu-training
+  wandb_notes: GPU training run with RLVR optimization
+
+  # TensorBoard
+  enable_tensorboard: true
+  tensorboard_dir: ./runs
+
+  # Logging frequency
+  log_frequency: 10
+  report_to:
+    - tensorboard
+    - wandb
+
+  # Performance monitoring
+  track_gpu_memory: true
+  track_throughput: true
+  track_loss_variance: true
+
+metrics:
+  # Which metrics to compute
+  compute_metrics: true
+  metric_for_best_model: eval_loss
+  greater_is_better: false
+
+  # Early stopping
+  early_stop_patience: 3
+  early_stop_threshold: 0.0001
+
+output:
+  output_dir: ./results
+  overwrite_output_dir: true
+  save_safetensors: true
+
+  # Reports
+  report_metrics_to: ./reports/training_metrics.json
+  report_to_tensorboard: true
+
+reproducibility:
+  seed: 42
+  deterministic: false # Set to true for full reproducibility (slower)
+  use_deterministic_algorithms: false
+
+torch_distributed_launch:
+  nproc_per_node: 1
+  nnodes: 1
+  node_rank: 0
+  master_addr: 127.0.0.1
+  master_port: 29500
+# Phase 3 FSDP Configuration (commented out for Phase 2)
+# fsdp:
+#   enabled: true
+#   sharding_strategy: full_shard
+#   cpu_offload: false
+#   backward_prefetch: backward_pre
+#   forward_prefetch: false
+#   limit_all_gathers: false
+#   use_orig_params: true

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-02-09T12:44:45.508415",
+  "scaling_tests": [
+    {
+      "num_processes": 1,
+      "result": {}
+    },
+    {
+      "num_processes": 2,
+      "result": {}
+    },
+    {
+      "num_processes": 4,
+      "result": {}
+    }
+  ]
+}

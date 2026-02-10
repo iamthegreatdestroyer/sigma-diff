@@ -1,0 +1,341 @@
+# Phase 2: Training Configuration
+# Unified model training with integrated optimizations
+# Generated: 2025-01-31
+# Status: READY FOR EXECUTION
+
+################
+# MODEL CONFIG
+################
+
+model:
+  # Base model selection
+  name: "tinyllama-1b" # Options: tinyllama-1b, gpt2, distilbert
+  model_path: "./models/tinyllama-1b"
+  pretrained: true
+  vocab_size: 32000
+  hidden_size: 512
+  num_hidden_layers: 20
+  num_attention_heads: 8
+  intermediate_size: 2048
+  max_position_embeddings: 2048
+  hidden_dropout_prob: 0.1
+  attention_probs_dropout_prob: 0.1
+
+  # Quantization config
+  quantization:
+    enabled: true
+    bitnet_enabled: true
+    bitwidth: 8 # 8-bit quantization
+    calibration_samples: 1000
+    per_channel: true
+
+################
+# TRAINING CONFIG
+################
+
+training:
+  # Basic training parameters
+  num_epochs: 10
+  batch_size: 32
+  gradient_accumulation_steps: 4
+  effective_batch_size: 128 # batch_size * gradient_accumulation_steps
+
+  # Learning rate schedule
+  learning_rate: 0.001
+  lr_scheduler: "cosine" # Options: constant, linear, cosine, exponential
+  warmup_steps: 1000
+  warmup_ratio: 0.1
+
+  # Optimizer
+  optimizer: "adamw"
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1e-8
+  weight_decay: 0.01
+
+  # Training strategy
+  mixed_precision: true # FP16/FP32 mixed precision
+  distributed_training: false # DDP disabled for Phase 2 validation
+  num_workers: 4
+  pin_memory: true
+
+  # Checkpointing
+  checkpoint_dir: "./checkpoints"
+  checkpoint_freq_epochs: 2
+  save_best_model: true
+  save_last_model: true
+
+  # Device config
+  device: "cuda" # Options: cuda, cpu
+  seed: 42
+
+################
+# DATASET CONFIG
+################
+
+dataset:
+  # Data source
+  source: "wikitext" # Options: wikitext, alpaca, custom_path
+  name: "wikitext-103-v1" # For huggingface datasets
+  split: "train"
+
+  # Data processing
+  max_sequence_length: 1024
+  preprocessing:
+    lowercase: false
+    remove_special_tokens: false
+    add_eos_token: true
+
+  # Dataset split
+  train_ratio: 0.9
+  val_ratio: 0.05
+  test_ratio: 0.05
+
+  # Data loading
+  shuffle: true
+  cache_processed_data: true
+  cache_dir: "./data_cache"
+
+################
+# OPTIMIZATION CONFIG
+################
+
+optimization:
+  # Kernel optimization (Phase 1 integration)
+  kernel_optimization:
+    enabled: true
+    strategy: "auto" # Options: auto, manual, aggressive
+    cpu_feature_detection: true
+    simd_optimization: true
+    cache_optimization: true
+    tile_size_base: 64
+    performance_target: "throughput" # Options: throughput, latency, memory
+
+  # Semantic compression (Phase 1 integration)
+  semantic_compression:
+    enabled: true
+    # Method selection and sequential pipeline
+    methods:
+      - "matryoshka_mrl" # Hierarchical MRL
+      - "binary_quantization" # Binarization
+      - "sparse_activation" # Sparse activation
+
+    # MRL compression
+    mrl:
+      enabled: true
+      hierarchy_depth: 6
+      compression_ratio: 0.3 # 30% size reduction target
+      intermediate_dim_ratio: 0.5
+
+    # Binary quantization
+    binary_quant:
+      enabled: true
+      num_bits: 2
+      straight_through_estimator: true
+      calibration_samples: 5000
+
+    # Sparse activation
+    sparse:
+      enabled: true
+      sparsity_ratio: 0.9 # 90% sparsity target
+      k_top_activations: 32
+      learnable_masks: true
+
+    # Adaptive parameters
+    adaptive_tuning: true
+    monitor_metrics:
+      - "compression_ratio"
+      - "reconstruction_error"
+      - "inference_latency"
+    tuning_interval_epochs: 1
+
+  # Inference scaling (RLVR - Phase 1 integration)
+  inference_scaling:
+    enabled: true
+    rlvr_enabled: true
+    num_reasoning_paths: 3
+    path_selection: "adaptive" # Options: static, adaptive, learned
+
+    # Reasoning configuration
+    reasoning:
+      max_depth: 5
+      branching_factor: 2
+      confidence_threshold: 0.7
+      early_stopping: true
+
+    # Performance tuning
+    batch_inference: true
+    dynamic_batching_enabled: true
+    max_batch_delay_ms: 10
+
+################
+# OPTIMIZATION CONTROLLER
+################
+
+optimization_controller:
+  # Component-level optimization
+  kernel_speedup_target: 1.5 # 1.5x target from Phase 1
+  compression_speedup_target: 1.2 # 1.2x from latency reduction
+  inference_speedup_target: 2.8 # 2.8x from RLVR + compression
+  integrated_speedup_target: 3.5 # 3-5x overall target
+
+  # Adaptive parameter tuning
+  adaptive_tuning_enabled: true
+  feedback_loop:
+    metrics:
+      - "training_throughput"
+      - "loss_convergence"
+      - "compression_effectiveness"
+      - "inference_speedup"
+    adjustment_strategy: "conservative" # Options: conservative, moderate, aggressive
+    adjustment_frequency_epochs: 1
+
+  # Fallback mechanisms
+  fallback_enabled: true
+  fallback_strategy: "baseline" # Options: baseline, partial, disabled
+  failure_threshold: 0.95 # Proceed if > 95% performance retained
+
+  # Monitoring
+  detailed_logging: true
+  metric_collection:
+    frequency: "every_batch" # Options: every_batch, every_epoch, at_checkpoint
+    include_kernel_metrics: true
+    include_compression_metrics: true
+    include_inference_metrics: true
+
+################
+# MONITORING & METRICS
+################
+
+metrics:
+  # Training metrics collection
+  training_metrics:
+    enabled: true
+    collect_per_batch: true
+    log_gradient_stats: true # Log gradient norms, means
+    log_activation_stats: false # Log activation statistics (expensive)
+
+  # Inference benchmarking
+  inference_metrics:
+    enabled: true
+    benchmark_frequency: "every_epoch" # Options: every_epoch, every_n_batches, at_checkpoint
+    benchmark_batch_size: 32
+    benchmark_sequence_lengths: [256, 512, 1024]
+    measure_ttft: true # Time to first token
+    measure_throughput: true
+    measure_latency_percentiles: true # p50, p95, p99
+
+  # Compression effectiveness
+  compression_metrics:
+    enabled: true
+    measure_compression_ratio: true
+    measure_reconstruction_error: true
+    measure_sparsity: true
+    sample_frequency: "every_epoch"
+
+  # Kernel performance
+  kernel_metrics:
+    enabled: true
+    measure_cache_hits: true
+    measure_memory_bandwidth: true
+    measure_tile_efficiency: true
+    sample_frequency: "every_epoch"
+
+  # Output reports
+  report_dir: "./reports"
+  generate_training_report: true
+  generate_optimization_analysis: true
+  generate_inference_validation: true
+
+################
+# LOGGING & DEBUGGING
+################
+
+logging:
+  level: "INFO" # Options: DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  log_file: "./logs/training.log"
+  log_dir: "./logs"
+
+  # Console output
+  console_output: true
+  pretty_print: true
+
+  # Detailed component logging
+  component_logging:
+    kernel_optimizer: "INFO"
+    semantic_compression: "INFO"
+    inference_scaling: "INFO"
+    optimization_controller: "INFO"
+    training_loop: "INFO"
+
+validation:
+  # Validation during training
+  validate_every_n_epochs: 1
+  validation_batch_size: 32
+
+  # Early stopping
+  early_stopping_enabled: true
+  early_stopping_metric: "val_loss" # Options: val_loss, val_accuracy, val_perplexity
+  early_stopping_patience: 3
+  early_stopping_min_delta: 0.001
+
+################
+# PHASE 2 GOALS
+################
+
+phase2_goals:
+  # Primary success criteria
+  integrated_speedup_target: "3-5x" # End-to-end speedup goal
+  accuracy_retention: ">=99%" # Model accuracy vs baseline
+  training_stability: "No divergence or NaN"
+  memory_efficiency: ">=40% reduction from compression"
+
+  # Component targets
+  kernel_optimization_speedup: "1.15-2.1x"
+  semantic_compression_ratio: "30-50x"
+  rlvr_inference_speedup: "2.8x"
+
+  # Validation targets
+  ttft_speedup_target: "2.5-3.5x (vs Phase 1: 120ms)"
+  throughput_target: "40-60 tok/s (vs Phase 1: 25 tok/s)"
+
+  # Code quality
+  test_coverage: ">=85%"
+  documentation: "Inline + API docs"
+  reproducibility: "Fixed seeds for exact results"
+  performance: "Batch <100ms average"
+
+################
+# EXECUTION NOTES
+################
+
+notes: |
+  Phase 2 Configuration - Ready for Execution
+
+  Key Features:
+  - Integrated kernel optimization from Phase 1
+  - Semantic compression with multiple methods in pipeline
+  - RLVR multi-path reasoning for inference scaling
+  - Real-time metrics collection and adaptive tuning
+  - Comprehensive reporting and validation
+
+  Success Criteria:
+  - All modules created and callable ✓
+  - Base model loads successfully
+  - Training step executes on 1 batch
+  - Metrics collection operational
+  - 3-5x integrated speedup achieved
+  - Comprehensive reporting generated
+
+  Next Steps:
+  1. Load base model (Tinyllama-1B)
+  2. Initialize optimization modules
+  3. Execute test training run (1-2 epochs)
+  4. Run baseline training (5-10 epochs, no optimizations)
+  5. Run optimized training (5-10 epochs, all optimizations)
+  6. Generate comparative analysis reports
+  7. Validate speedup targets
+  8. Commit to GitHub
+
+# End of configuration

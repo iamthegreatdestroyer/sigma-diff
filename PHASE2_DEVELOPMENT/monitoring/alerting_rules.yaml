@@ -1,0 +1,288 @@
+# Alerting Rules for LLM Inference System
+# Sprint 3.1: Comprehensive Monitoring
+#
+# These rules define alert conditions that trigger notifications
+# when the system experiences issues.
+
+groups:
+  - name: inference_alerts
+    interval: 15s
+    rules:
+      # Latency Alerts
+      - alert: HighInferenceLatencyP99
+        expr: histogram_quantile(0.99, rate(llm_inference_generation_duration_seconds_bucket[5m])) > 5
+        for: 1m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "High P99 inference latency"
+          description: "P99 latency is {{ $value | humanizeDuration }} (threshold: 5s)"
+          runbook_url: "https://docs.example.com/runbooks/high-latency"
+
+      - alert: CriticalInferenceLatency
+        expr: histogram_quantile(0.99, rate(llm_inference_generation_duration_seconds_bucket[5m])) > 10
+        for: 30s
+        labels:
+          severity: critical
+          team: ml-platform
+        annotations:
+          summary: "Critical inference latency"
+          description: "P99 latency is {{ $value | humanizeDuration }} - immediate action required"
+          runbook_url: "https://docs.example.com/runbooks/critical-latency"
+
+      - alert: HighTimeToFirstToken
+        expr: histogram_quantile(0.99, rate(llm_inference_time_to_first_token_seconds_bucket[5m])) > 1
+        for: 2m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "High time to first token"
+          description: "P99 TTFT is {{ $value | humanizeDuration }}"
+
+      # Throughput Alerts
+      - alert: LowTokenThroughput
+        expr: llm_inference_tokens_per_second < 10
+        for: 2m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "Low token generation throughput"
+          description: "Current rate: {{ $value }} tokens/sec"
+
+      - alert: ZeroThroughput
+        expr: llm_inference_tokens_per_second == 0
+        for: 30s
+        labels:
+          severity: critical
+          team: ml-platform
+        annotations:
+          summary: "No tokens being generated"
+          description: "Token generation has stopped completely"
+
+  - name: gpu_alerts
+    interval: 10s
+    rules:
+      # GPU Memory Alerts
+      - alert: HighGPUMemoryUsage
+        expr: llm_inference_gpu_memory_utilization_ratio > 0.9
+        for: 1m
+        labels:
+          severity: warning
+          team: infrastructure
+        annotations:
+          summary: "High GPU memory usage on {{ $labels.gpu_id }}"
+          description: "GPU {{ $labels.gpu_id }} memory at {{ $value | humanizePercentage }}"
+
+      - alert: CriticalGPUMemoryUsage
+        expr: llm_inference_gpu_memory_utilization_ratio > 0.95
+        for: 30s
+        labels:
+          severity: critical
+          team: infrastructure
+        annotations:
+          summary: "Critical GPU memory on {{ $labels.gpu_id }} - OOM risk"
+          description: "GPU {{ $labels.gpu_id }} memory at {{ $value | humanizePercentage }}"
+
+      # GPU Utilization Alerts
+      - alert: LowGPUUtilization
+        expr: llm_inference_gpu_utilization_percent < 20
+        for: 5m
+        labels:
+          severity: info
+          team: ml-platform
+        annotations:
+          summary: "Low GPU utilization on {{ $labels.gpu_id }}"
+          description: "GPU {{ $labels.gpu_id }} at {{ $value }}% - potential underutilization"
+
+      # GPU Temperature
+      - alert: HighGPUTemperature
+        expr: llm_inference_gpu_temperature_celsius > 80
+        for: 2m
+        labels:
+          severity: warning
+          team: infrastructure
+        annotations:
+          summary: "High GPU temperature on {{ $labels.gpu_id }}"
+          description: "GPU {{ $labels.gpu_id }} at {{ $value }}°C"
+
+      - alert: CriticalGPUTemperature
+        expr: llm_inference_gpu_temperature_celsius > 90
+        for: 30s
+        labels:
+          severity: critical
+          team: infrastructure
+        annotations:
+          summary: "Critical GPU temperature on {{ $labels.gpu_id }}"
+          description: "GPU {{ $labels.gpu_id }} at {{ $value }}°C - thermal throttling likely"
+
+  - name: request_alerts
+    interval: 15s
+    rules:
+      # Error Rate Alerts
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(llm_inference_request_errors_total[5m])) 
+          / sum(rate(llm_inference_requests_total[5m])) > 0.01
+        for: 2m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "High request error rate"
+          description: "Error rate is {{ $value | humanizePercentage }}"
+
+      - alert: CriticalErrorRate
+        expr: |
+          sum(rate(llm_inference_request_errors_total[5m])) 
+          / sum(rate(llm_inference_requests_total[5m])) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+          team: ml-platform
+        annotations:
+          summary: "Critical request error rate"
+          description: "Error rate is {{ $value | humanizePercentage }}"
+
+      # Queue Depth
+      - alert: HighQueueDepth
+        expr: llm_inference_request_queue_depth > 100
+        for: 1m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "High request queue depth"
+          description: "Queue depth is {{ $value }}"
+
+      - alert: CriticalQueueDepth
+        expr: llm_inference_request_queue_depth > 500
+        for: 30s
+        labels:
+          severity: critical
+          team: ml-platform
+        annotations:
+          summary: "Critical request queue depth"
+          description: "Queue depth is {{ $value }} - requests may be timing out"
+
+      # Rate Limiting
+      - alert: HighRateLimiting
+        expr: sum(rate(llm_inference_rate_limited_requests_total[5m])) > 10
+        for: 5m
+        labels:
+          severity: info
+          team: ml-platform
+        annotations:
+          summary: "High rate limiting"
+          description: "{{ $value }} requests/sec being rate limited"
+
+  - name: cache_alerts
+    interval: 15s
+    rules:
+      # Cache Hit Rate
+      - alert: LowCacheHitRate
+        expr: llm_inference_cache_hit_ratio < 0.5
+        for: 5m
+        labels:
+          severity: info
+          team: ml-platform
+        annotations:
+          summary: "Low KV cache hit rate"
+          description: "Hit rate is {{ $value | humanizePercentage }}"
+
+      # Cache Memory
+      - alert: HighCacheMemoryUsage
+        expr: llm_inference_cache_capacity_ratio > 0.9
+        for: 2m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "High cache memory usage"
+          description: "Cache at {{ $value | humanizePercentage }} capacity"
+
+      # Evictions
+      - alert: HighCacheEvictionRate
+        expr: rate(llm_inference_cache_evictions_total[5m]) > 100
+        for: 2m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "High cache eviction rate"
+          description: "{{ $value }} evictions/sec"
+
+  - name: cluster_alerts
+    interval: 15s
+    rules:
+      # Node Health
+      - alert: UnhealthyNodes
+        expr: |
+          llm_inference_cluster_nodes_total{status="unhealthy"} > 0
+        for: 1m
+        labels:
+          severity: warning
+          team: infrastructure
+        annotations:
+          summary: "Unhealthy nodes in cluster"
+          description: "{{ $value }} node(s) are unhealthy"
+
+      - alert: MajorityNodesUnhealthy
+        expr: |
+          llm_inference_cluster_nodes_total{status="unhealthy"} 
+          / llm_inference_cluster_nodes_total > 0.5
+        for: 30s
+        labels:
+          severity: critical
+          team: infrastructure
+        annotations:
+          summary: "Majority of nodes unhealthy"
+          description: "More than 50% of nodes are unhealthy"
+
+      # Load Imbalance
+      - alert: HighLoadImbalance
+        expr: llm_inference_cluster_load_imbalance > 0.2
+        for: 5m
+        labels:
+          severity: warning
+          team: ml-platform
+        annotations:
+          summary: "High load imbalance across nodes"
+          description: "Load standard deviation is {{ $value }}"
+
+      # Network Latency
+      - alert: HighInterNodeLatency
+        expr: histogram_quantile(0.99, rate(llm_inference_node_latency_seconds_bucket[5m])) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          team: infrastructure
+        annotations:
+          summary: "High inter-node network latency"
+          description: "P99 latency is {{ $value | humanizeDuration }}"
+
+  - name: system_alerts
+    interval: 30s
+    rules:
+      # Target Down (Prometheus targets)
+      - alert: InferenceTargetDown
+        expr: up{job="llm-inference-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: infrastructure
+        annotations:
+          summary: "Inference API target is down"
+          description: "{{ $labels.instance }} is not responding"
+
+      - alert: WorkerTargetDown
+        expr: up{job="llm-inference-workers"} == 0
+        for: 1m
+        labels:
+          severity: warning
+          team: infrastructure
+        annotations:
+          summary: "Worker node is down"
+          description: "{{ $labels.instance }} is not responding"

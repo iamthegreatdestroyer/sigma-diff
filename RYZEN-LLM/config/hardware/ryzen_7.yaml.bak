@@ -1,0 +1,94 @@
+# AMD Ryzen 7 Hardware Profile
+# Target: Ryzen 7 7700X / 7800X3D (8 cores, 16 threads)
+
+hardware:
+  name: "AMD Ryzen 7"
+  cpu:
+    model: "Ryzen 7 7700X"
+    cores: 8
+    threads: 16
+    base_clock_ghz: 4.5
+    boost_clock_ghz: 5.4
+    
+    # Cache
+    l1_cache_kb: 64  # per core (32KB I + 32KB D)
+    l2_cache_kb: 1024  # per core
+    l3_cache_mb: 32  # shared
+    
+    # Features
+    features:
+      - "avx2"
+      - "avx512f"
+      - "avx512_vnni"
+      - "fma3"
+      - "bmi2"
+    
+    # SIMD
+    simd:
+      vector_width: 512
+      max_registers: 32
+  
+  memory:
+    type: "DDR5"
+    speed_mhz: 5200
+    channels: 2
+    bandwidth_gbs: 83.2
+    capacity_gb: 32
+  
+  # Thermal
+  thermal:
+    tdp_watts: 105
+    max_temp_celsius: 95
+
+# Performance Configuration
+performance:
+  # Thread allocation
+  threading:
+    inference_threads: 12  # Leave 4 threads for system
+    io_threads: 2
+    background_threads: 2
+  
+  # Affinity
+  cpu_affinity:
+    enabled: true
+    core_list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  
+  # Memory
+  memory:
+    huge_pages: true
+    numa_policy: "bind"
+    prefetch_distance: 8
+  
+  # SIMD optimization
+  simd:
+    tile_size: 64
+    block_size: 256
+    unroll_factor: 4
+
+# Model Recommendations
+models:
+  recommended:
+    - name: "bitnet-7b"
+      batch_size: 4
+      concurrent_requests: 2
+    - name: "mamba-2.8b"
+      batch_size: 8
+      concurrent_requests: 3
+    - name: "draft-350m"
+      batch_size: 16
+      concurrent_requests: 1
+  
+  # Memory budget allocation
+  memory_budget:
+    total_gb: 16.0
+    models: 8.0
+    kv_cache: 4.0
+    rsu_bank: 2.0
+    system: 2.0
+
+# Performance Targets
+targets:
+  ttft_ms: 600
+  tokens_per_second: 12
+  concurrent_users: 2
+  max_context_length: 4096

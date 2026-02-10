@@ -1,0 +1,569 @@
+∩╗┐2026-02-08T23:09:01.2608385Z Current runner version: '2.331.0'
+2026-02-08T23:09:01.2632857Z ##[group]Runner Image Provisioner
+2026-02-08T23:09:01.2633634Z Hosted Compute Agent
+2026-02-08T23:09:01.2634153Z Version: 20260123.484
+2026-02-08T23:09:01.2634677Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+2026-02-08T23:09:01.2635342Z Build Date: 2026-01-23T19:41:17Z
+2026-02-08T23:09:01.2635953Z Worker ID: {02825e78-02b1-4707-86e1-8ea8ee9b92f4}
+2026-02-08T23:09:01.2636554Z Azure Region: westus3
+2026-02-08T23:09:01.2637076Z ##[endgroup]
+2026-02-08T23:09:01.2638284Z ##[group]Operating System
+2026-02-08T23:09:01.2639343Z Microsoft Windows Server 2025
+2026-02-08T23:09:01.2639890Z 10.0.26100
+2026-02-08T23:09:01.2640340Z Datacenter
+2026-02-08T23:09:01.2640737Z ##[endgroup]
+2026-02-08T23:09:01.2641206Z ##[group]Runner Image
+2026-02-08T23:09:01.2641712Z Image: windows-2025
+2026-02-08T23:09:01.2642147Z Version: 20260202.17.1
+2026-02-08T23:09:01.2643431Z Included Software: https://github.com/actions/runner-images/blob/win25/20260202.17/images/windows/Windows2025-Readme.md
+2026-02-08T23:09:01.2644857Z Image Release: https://github.com/actions/runner-images/releases/tag/win25%2F20260202.17
+2026-02-08T23:09:01.2645692Z ##[endgroup]
+2026-02-08T23:09:01.2646709Z ##[group]GITHUB_TOKEN Permissions
+2026-02-08T23:09:01.2648424Z Contents: read
+2026-02-08T23:09:01.2648992Z Metadata: read
+2026-02-08T23:09:01.2649430Z Packages: read
+2026-02-08T23:09:01.2649884Z ##[endgroup]
+2026-02-08T23:09:01.2651807Z Secret source: Actions
+2026-02-08T23:09:01.2652461Z Prepare workflow directory
+2026-02-08T23:09:01.3005626Z Prepare all required actions
+2026-02-08T23:09:01.3047544Z Getting action download info
+2026-02-08T23:09:01.7343834Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-02-08T23:09:01.8567178Z Download action repository 'jwlawson/actions-setup-cmake@v1.14' (SHA:d06b37b47cfd043ec794ffa3e40e0b6b5858a7ec)
+2026-02-08T23:09:02.5919343Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-02-08T23:09:02.8827542Z Complete job name: build (windows-latest)
+2026-02-08T23:09:03.0341174Z ##[group]Run actions/checkout@v4
+2026-02-08T23:09:03.0342526Z with:
+2026-02-08T23:09:03.0343279Z   repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T23:09:03.0344503Z   token: ***
+2026-02-08T23:09:03.0345582Z   ssh-strict: true
+2026-02-08T23:09:03.0346334Z   ssh-user: git
+2026-02-08T23:09:03.0347043Z   persist-credentials: true
+2026-02-08T23:09:03.0347841Z   clean: true
+2026-02-08T23:09:03.0348564Z   sparse-checkout-cone-mode: true
+2026-02-08T23:09:03.0349413Z   fetch-depth: 1
+2026-02-08T23:09:03.0350102Z   fetch-tags: false
+2026-02-08T23:09:03.0350805Z   show-progress: true
+2026-02-08T23:09:03.0351532Z   lfs: false
+2026-02-08T23:09:03.0352174Z   submodules: false
+2026-02-08T23:09:03.0352894Z   set-safe-directory: true
+2026-02-08T23:09:03.0353940Z ##[endgroup]
+2026-02-08T23:09:03.2005894Z Syncing repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T23:09:03.2008499Z ##[group]Getting Git version info
+2026-02-08T23:09:03.2009633Z Working directory is 'D:\a\Ryzanstein\Ryzanstein'
+2026-02-08T23:09:03.2989628Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-02-08T23:09:03.6689081Z git version 2.53.0.windows.1
+2026-02-08T23:09:03.6750725Z ##[endgroup]
+2026-02-08T23:09:03.6772385Z Temporarily overriding HOME='D:\a\_temp\78760c9b-6c2e-4100-9843-1a4f708833f7' before making global git config changes
+2026-02-08T23:09:03.6774697Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T23:09:03.6783551Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Ryzanstein\Ryzanstein
+2026-02-08T23:09:03.7387067Z Deleting the contents of 'D:\a\Ryzanstein\Ryzanstein'
+2026-02-08T23:09:03.7394143Z ##[group]Initializing the repository
+2026-02-08T23:09:03.7403931Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\Ryzanstein\Ryzanstein
+2026-02-08T23:09:03.8267702Z Initialized empty Git repository in D:/a/Ryzanstein/Ryzanstein/.git/
+2026-02-08T23:09:03.8315365Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T23:09:03.8855710Z ##[endgroup]
+2026-02-08T23:09:03.8857052Z ##[group]Disabling automatic garbage collection
+2026-02-08T23:09:03.8865011Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-02-08T23:09:03.9196057Z ##[endgroup]
+2026-02-08T23:09:03.9197197Z ##[group]Setting up auth
+2026-02-08T23:09:03.9215348Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T23:09:03.9522255Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-02-08T23:09:05.2929022Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T23:09:05.3232532Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-02-08T23:09:05.8453236Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T23:09:05.8753602Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-02-08T23:09:06.4212671Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-02-08T23:09:06.4535139Z ##[endgroup]
+2026-02-08T23:09:06.4535796Z ##[group]Fetching the repository
+2026-02-08T23:09:06.4549803Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c297e77e61ca643929257ec80eaf369893fd06a6:refs/remotes/origin/sprint6/api-integration
+2026-02-08T23:09:08.3325839Z From https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T23:09:08.3326974Z  * [new ref]         c297e77e61ca643929257ec80eaf369893fd06a6 -> origin/sprint6/api-integration
+2026-02-08T23:09:08.3664289Z ##[endgroup]
+2026-02-08T23:09:08.3664684Z ##[group]Determining the checkout info
+2026-02-08T23:09:08.3667148Z ##[endgroup]
+2026-02-08T23:09:08.3683331Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-02-08T23:09:08.4107988Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-02-08T23:09:08.4418219Z ##[group]Checking out the ref
+2026-02-08T23:09:08.4430277Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B sprint6/api-integration refs/remotes/origin/sprint6/api-integration
+2026-02-08T23:09:09.8644467Z Updating files:  52% (799/1513)
+2026-02-08T23:09:09.8688561Z Updating files:  53% (802/1513)
+2026-02-08T23:09:09.8727269Z Updating files:  54% (818/1513)
+2026-02-08T23:09:09.8764259Z Updating files:  55% (833/1513)
+2026-02-08T23:09:09.8806835Z Updating files:  56% (848/1513)
+2026-02-08T23:09:09.8851924Z Updating files:  57% (863/1513)
+2026-02-08T23:09:09.8885153Z Updating files:  58% (878/1513)
+2026-02-08T23:09:09.8935645Z Updating files:  59% (893/1513)
+2026-02-08T23:09:09.8977716Z Updating files:  60% (908/1513)
+2026-02-08T23:09:09.9021098Z Updating files:  61% (923/1513)
+2026-02-08T23:09:09.9060147Z Updating files:  62% (939/1513)
+2026-02-08T23:09:09.9112756Z Updating files:  63% (954/1513)
+2026-02-08T23:09:09.9151274Z Updating files:  64% (969/1513)
+2026-02-08T23:09:09.9191129Z Updating files:  65% (984/1513)
+2026-02-08T23:09:09.9233381Z Updating files:  66% (999/1513)
+2026-02-08T23:09:09.9273215Z Updating files:  67% (1014/1513)
+2026-02-08T23:09:09.9317730Z Updating files:  68% (1029/1513)
+2026-02-08T23:09:09.9364550Z Updating files:  69% (1044/1513)
+2026-02-08T23:09:09.9727847Z Updating files:  70% (1060/1513)
+2026-02-08T23:09:09.9767693Z Updating files:  71% (1075/1513)
+2026-02-08T23:09:09.9804946Z Updating files:  72% (1090/1513)
+2026-02-08T23:09:09.9843582Z Updating files:  73% (1105/1513)
+2026-02-08T23:09:09.9887517Z Updating files:  74% (1120/1513)
+2026-02-08T23:09:09.9926374Z Updating files:  75% (1135/1513)
+2026-02-08T23:09:09.9968115Z Updating files:  76% (1150/1513)
+2026-02-08T23:09:10.0008999Z Updating files:  77% (1166/1513)
+2026-02-08T23:09:10.0050779Z Updating files:  78% (1181/1513)
+2026-02-08T23:09:10.0095753Z Updating files:  79% (1196/1513)
+2026-02-08T23:09:10.0138460Z Updating files:  80% (1211/1513)
+2026-02-08T23:09:10.0177894Z Updating files:  81% (1226/1513)
+2026-02-08T23:09:10.0216121Z Updating files:  82% (1241/1513)
+2026-02-08T23:09:10.0260822Z Updating files:  83% (1256/1513)
+2026-02-08T23:09:10.0306076Z Updating files:  84% (1271/1513)
+2026-02-08T23:09:10.0347228Z Updating files:  85% (1287/1513)
+2026-02-08T23:09:10.0386388Z Updating files:  86% (1302/1513)
+2026-02-08T23:09:10.0429117Z Updating files:  87% (1317/1513)
+2026-02-08T23:09:10.0470558Z Updating files:  88% (1332/1513)
+2026-02-08T23:09:10.0518952Z Updating files:  89% (1347/1513)
+2026-02-08T23:09:10.0543597Z Updating files:  90% (1362/1513)
+2026-02-08T23:09:10.0594596Z Updating files:  91% (1377/1513)
+2026-02-08T23:09:10.0635768Z Updating files:  92% (1392/1513)
+2026-02-08T23:09:10.0684086Z Updating files:  93% (1408/1513)
+2026-02-08T23:09:10.0725585Z Updating files:  94% (1423/1513)
+2026-02-08T23:09:10.1664232Z Updating files:  95% (1438/1513)
+2026-02-08T23:09:10.1712663Z Updating files:  96% (1453/1513)
+2026-02-08T23:09:10.1765414Z Updating files:  97% (1468/1513)
+2026-02-08T23:09:10.1801895Z Updating files:  98% (1483/1513)
+2026-02-08T23:09:10.1849506Z Updating files:  99% (1498/1513)
+2026-02-08T23:09:10.1852665Z Updating files: 100% (1513/1513)
+2026-02-08T23:09:10.1853093Z Updating files: 100% (1513/1513), done.
+2026-02-08T23:09:10.1987458Z Switched to a new branch 'sprint6/api-integration'
+2026-02-08T23:09:10.2013266Z branch 'sprint6/api-integration' set up to track 'origin/sprint6/api-integration'.
+2026-02-08T23:09:10.5225151Z ##[endgroup]
+2026-02-08T23:09:10.5639695Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-02-08T23:09:10.5910246Z c297e77e61ca643929257ec80eaf369893fd06a6
+2026-02-08T23:09:10.6310270Z ##[group]Run jwlawson/actions-setup-cmake@v1.14
+2026-02-08T23:09:10.6310614Z with:
+2026-02-08T23:09:10.6310785Z   cmake-version: 3.28.x
+2026-02-08T23:09:10.6311157Z   github-api-token: ***
+2026-02-08T23:09:10.6311355Z   use-32bit: false
+2026-02-08T23:09:10.6311524Z ##[endgroup]
+2026-02-08T23:09:16.7607172Z Using cmake version 3.28.6
+2026-02-08T23:09:17.5584495Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command "$ErrorActionPreference = 'Stop' ; try { Add-Type -AssemblyName System.IO.Compression.ZipFile } catch { } ; try { [System.IO.Compression.ZipFile]::ExtractToDirectory('D:\a\_temp\d8858125-4836-4f40-b2cd-0f3f99a06461', 'D:\a\_temp\df2cf5d8-c7e6-402a-bb55-a7b8e4ed91c5', $true) } catch { if (($_.Exception.GetType().FullName -eq 'System.Management.Automation.MethodException') -or ($_.Exception.GetType().FullName -eq 'System.Management.Automation.RuntimeException') ){ Expand-Archive -LiteralPath 'D:\a\_temp\d8858125-4836-4f40-b2cd-0f3f99a06461' -DestinationPath 'D:\a\_temp\df2cf5d8-c7e6-402a-bb55-a7b8e4ed91c5' -Force } else { throw $_ } } ;"
+2026-02-08T23:09:37.2446176Z ##[group]Run actions/setup-python@v5
+2026-02-08T23:09:37.2446492Z with:
+2026-02-08T23:09:37.2446674Z   python-version: 3.11
+2026-02-08T23:09:37.2446867Z   check-latest: false
+2026-02-08T23:09:37.2447180Z   token: ***
+2026-02-08T23:09:37.2447349Z   update-environment: true
+2026-02-08T23:09:37.2447559Z   allow-prereleases: false
+2026-02-08T23:09:37.2447753Z   freethreaded: false
+2026-02-08T23:09:37.2447941Z ##[endgroup]
+2026-02-08T23:09:37.4801220Z ##[group]Installed versions
+2026-02-08T23:09:37.5024110Z Successfully set up CPython (3.11.9)
+2026-02-08T23:09:37.5024768Z ##[endgroup]
+2026-02-08T23:09:37.5347265Z ##[group]Run pip install pybind11
+2026-02-08T23:09:37.5347643Z [36;1mpip install pybind11[0m
+2026-02-08T23:09:37.5449760Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-02-08T23:09:37.5450089Z env:
+2026-02-08T23:09:37.5450343Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:37.5451010Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-02-08T23:09:37.5451481Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:37.5451857Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:37.5452220Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:37.5452507Z ##[endgroup]
+2026-02-08T23:09:42.1116726Z Collecting pybind11
+2026-02-08T23:09:42.3515533Z   Downloading pybind11-3.0.1-py3-none-any.whl.metadata (10.0 kB)
+2026-02-08T23:09:42.3969916Z Downloading pybind11-3.0.1-py3-none-any.whl (293 kB)
+2026-02-08T23:09:42.5542428Z Installing collected packages: pybind11
+2026-02-08T23:09:42.6376070Z Successfully installed pybind11-3.0.1
+2026-02-08T23:09:42.9608791Z 
+2026-02-08T23:09:42.9610606Z [notice] A new release of pip is available: 26.0 -> 26.0.1
+2026-02-08T23:09:42.9611312Z [notice] To update, run: python.exe -m pip install --upgrade pip
+2026-02-08T23:09:43.2486113Z ##[group]Run New-Item -ItemType Directory -Path "RYZEN-LLM/build" -Force | Out-Null
+2026-02-08T23:09:43.2486770Z [36;1mNew-Item -ItemType Directory -Path "RYZEN-LLM/build" -Force | Out-Null[0m
+2026-02-08T23:09:43.2487255Z [36;1m$pybind11Dir = python -m pybind11 --cmakedir[0m
+2026-02-08T23:09:43.2487953Z [36;1mcmake -S "RYZEN-LLM" -B "RYZEN-LLM/build" -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release -DENABLE_GTEST_DISCOVERY=OFF -Dpybind11_DIR="$pybind11Dir"[0m
+2026-02-08T23:09:43.2561022Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-02-08T23:09:43.2561359Z env:
+2026-02-08T23:09:43.2561602Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:43.2562022Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-02-08T23:09:43.2562583Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:43.2563088Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:43.2563472Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:43.2563772Z ##[endgroup]
+2026-02-08T23:09:51.2116405Z -- The CXX compiler identification is MSVC 19.44.35222.0
+2026-02-08T23:09:51.2683331Z -- Detecting CXX compiler ABI info
+2026-02-08T23:09:52.0621198Z -- Detecting CXX compiler ABI info - done
+2026-02-08T23:09:52.0640776Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+2026-02-08T23:09:52.0646018Z -- Detecting CXX compile features
+2026-02-08T23:09:52.0657793Z -- Detecting CXX compile features - done
+2026-02-08T23:09:52.0676345Z -- Build type: Release
+2026-02-08T23:09:53.8788641Z -- Found OpenMP_CXX: -openmp (found version "2.0") 
+2026-02-08T23:09:53.8795554Z -- Found OpenMP: TRUE (found version "2.0")  
+2026-02-08T23:09:53.8797728Z -- OpenMP found - enabling parallel processing
+2026-02-08T23:09:53.8844322Z -- Performing Test MSVC_SUPPORTS_AVX512
+2026-02-08T23:09:54.6177486Z -- Performing Test MSVC_SUPPORTS_AVX512 - Success
+2026-02-08T23:09:54.6179372Z -- MSVC AVX-512 compiler support detected (NOT enabling globally - use runtime detection)
+2026-02-08T23:09:56.3697205Z -- Found Python: C:/hostedtoolcache/windows/Python/3.11.9/x64/python3.exe (found version "3.11.9") found components: Interpreter Development Development.Module Development.Embed 
+2026-02-08T23:09:56.4288241Z -- Performing Test HAS_MSVC_GL_LTCG
+2026-02-08T23:09:57.1808499Z -- Performing Test HAS_MSVC_GL_LTCG - Success
+2026-02-08T23:09:57.1818556Z -- Found pybind11: C:/hostedtoolcache/windows/Python/3.11.9/x64/Lib/site-packages/pybind11/include (found version "3.0.1")
+2026-02-08T23:09:57.1883082Z -- Performing Test HAVE_AVX512
+2026-02-08T23:09:58.1325422Z -- Performing Test HAVE_AVX512 - Success
+2026-02-08T23:09:58.1325932Z -- AVX-512 support: YES
+2026-02-08T23:09:59.0395494Z -- The C compiler identification is MSVC 19.44.35222.0
+2026-02-08T23:09:59.0554193Z -- Detecting C compiler ABI info
+2026-02-08T23:09:59.7582633Z -- Detecting C compiler ABI info - done
+2026-02-08T23:09:59.7601656Z -- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+2026-02-08T23:09:59.7606513Z -- Detecting C compile features
+2026-02-08T23:09:59.7615415Z -- Detecting C compile features - done
+2026-02-08T23:09:59.7633883Z -- RWKV Core module configured
+2026-02-08T23:09:59.7649434Z -- AVX-512 optimizations DISABLED (using AVX2 fallback)
+2026-02-08T23:09:59.7694665Z -- 
+2026-02-08T23:09:59.7695056Z -- ========== Ryzanstein LLM Configuration ==========
+2026-02-08T23:09:59.7695598Z -- Version: 2.0.0
+2026-02-08T23:09:59.7696113Z -- Build type: Release
+2026-02-08T23:09:59.7696535Z -- C++ Standard: C++17
+2026-02-08T23:09:59.7696928Z -- C++ Compiler: MSVC 19.44.35222.0
+2026-02-08T23:09:59.7697396Z -- AVX-512: 1
+2026-02-08T23:09:59.7697752Z -- AVX2: Enabled via /arch:AVX2
+2026-02-08T23:09:59.7701323Z -- Build tests: OFF
+2026-02-08T23:09:59.7701668Z -- Build benchmarks: OFF
+2026-02-08T23:09:59.7701965Z -- =============================================
+2026-02-08T23:09:59.7702290Z -- 
+2026-02-08T23:09:59.7702498Z -- Configuring done (16.1s)
+2026-02-08T23:09:59.8510437Z -- Generating done (0.1s)
+2026-02-08T23:09:59.8527626Z CMake Warning:
+2026-02-08T23:09:59.8528375Z   Manually-specified variables were not used by the project:
+2026-02-08T23:09:59.8528869Z 
+2026-02-08T23:09:59.8529016Z     ENABLE_GTEST_DISCOVERY
+2026-02-08T23:09:59.8529294Z 
+2026-02-08T23:09:59.8529301Z 
+2026-02-08T23:09:59.8538589Z -- Build files have been written to: D:/a/Ryzanstein/Ryzanstein/RYZEN-LLM/build
+2026-02-08T23:09:59.9128095Z ##[group]Run cmake --build "RYZEN-LLM/build" --config Release -- /m
+2026-02-08T23:09:59.9128626Z [36;1mcmake --build "RYZEN-LLM/build" --config Release -- /m[0m
+2026-02-08T23:09:59.9199312Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-02-08T23:09:59.9199654Z env:
+2026-02-08T23:09:59.9199894Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:59.9200325Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-02-08T23:09:59.9200739Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:59.9201119Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:59.9201484Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-02-08T23:09:59.9202172Z ##[endgroup]
+2026-02-08T23:10:00.2940699Z MSBuild version 17.14.40+3e7442088 for .NET Framework
+2026-02-08T23:10:00.3283244Z 
+2026-02-08T23:10:00.7114371Z   1>Checking Build System
+2026-02-08T23:10:01.0819548Z   Building Custom Rule D:/a/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/mamba/CMakeLists.txt
+2026-02-08T23:10:01.2547630Z   ssm.cpp
+2026-02-08T23:10:01.4424423Z   Building Custom Rule D:/a/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/rwkv/CMakeLists.txt
+2026-02-08T23:10:01.4653241Z   Building Custom Rule D:/a/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/CMakeLists.txt
+2026-02-08T23:10:01.6389174Z   lut_gemm.cpp
+2026-02-08T23:10:01.6475684Z cl : command line  warning D9025: overriding '/EHc' with '/EHc-' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\rwkv\ryzen_llm_rwkv.vcxproj]
+2026-02-08T23:10:01.6476756Z   time_mixing.cpp
+2026-02-08T23:10:02.9069297Z   channel_mixing.cpp
+2026-02-08T23:10:03.8020829Z   wkv.cpp
+2026-02-08T23:10:03.9539089Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\rwkv\channel_mixing.cpp(585,18): warning C4189: 'total_size': local variable is initialized but not referenced [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\rwkv\ryzen_llm_rwkv.vcxproj]
+2026-02-08T23:10:04.2627568Z   scan.cpp
+2026-02-08T23:10:04.3126888Z   Generating Code...
+2026-02-08T23:10:04.3477296Z   pattern_generator.cpp
+2026-02-08T23:10:05.3627592Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\pattern_generator.cpp(88,41): warning C4244: 'initializing': conversion from 'const _Elem' to 'int8_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:05.3630510Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\pattern_generator.cpp(88,41): warning C4244:         with [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:05.3632793Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\pattern_generator.cpp(88,41): warning C4244:         [ [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:05.3635099Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\pattern_generator.cpp(88,41): warning C4244:             _Elem=int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:05.3637309Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\pattern_generator.cpp(88,41): warning C4244:         ] [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:05.5247973Z   frequency_analyzer.cpp
+2026-02-08T23:10:05.7591800Z   ryzen_llm_rwkv.vcxproj -> D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\rwkv\Release\ryzen_llm_rwkv.lib
+2026-02-08T23:10:06.5736089Z   Generating Code...
+2026-02-08T23:10:06.8842589Z   delta_encoder.cpp
+2026-02-08T23:10:07.2481609Z   ryzen_llm_mamba.vcxproj -> D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\mamba\Release\ryzen_llm_mamba.lib
+2026-02-08T23:10:07.5515540Z   table_builder.cpp
+2026-02-08T23:10:08.3700314Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\table_builder.cpp(99,47): warning C4267: '=': conversion from 'size_t' to 'uint32_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:08.3704553Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\table_builder.cpp(112,46): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:08.6339224Z   lut_lookup.cpp
+2026-02-08T23:10:09.3927880Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\lut_lookup.cpp(44,63): warning C4244: 'argument': conversion from 'int32_t' to 'uint8_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:09.3944917Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\tmac\lut_lookup.cpp(118,71): warning C4244: 'argument': conversion from 'int32_t' to 'uint8_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\ryzen_llm_tmac.vcxproj]
+2026-02-08T23:10:09.6457925Z   tmac_gemm.cpp
+2026-02-08T23:10:11.3648932Z   tmac_gemm_optimized.cpp
+2026-02-08T23:10:13.0473201Z   Generating Code...
+2026-02-08T23:10:14.4876624Z   ryzen_llm_tmac.vcxproj -> D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\tmac\Release\ryzen_llm_tmac.lib
+2026-02-08T23:10:14.6421312Z   Building Custom Rule D:/a/Ryzanstein/Ryzanstein/RYZEN-LLM/src/optimization/CMakeLists.txt
+2026-02-08T23:10:14.8066890Z   cache_manager.cpp
+2026-02-08T23:10:15.2960167Z   matmul.cpp
+2026-02-08T23:10:16.9147974Z   activation.cpp
+2026-02-08T23:10:16.9785214Z   vnni.cpp
+2026-02-08T23:10:17.0396223Z   draft_model.cpp
+2026-02-08T23:10:18.0662624Z   verifier.cpp
+2026-02-08T23:10:19.0286549Z   speculative_decoder.cpp
+2026-02-08T23:10:19.6989010Z   kv_cache.cpp
+2026-02-08T23:10:21.4765533Z   kv_cache_optimized.cpp
+2026-02-08T23:10:23.0893861Z   pool.cpp
+2026-02-08T23:10:23.7162466Z   basic_recycler.cpp
+2026-02-08T23:10:25.3998111Z   Generating Code...
+2026-02-08T23:10:27.2650977Z   ryzen_llm_optimization.vcxproj -> D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\optimization\Release\ryzen_llm_optimization.lib
+2026-02-08T23:10:27.3422827Z   Building Custom Rule D:/a/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/CMakeLists.txt
+2026-02-08T23:10:27.4162221Z   quantize.cpp
+2026-02-08T23:10:28.1984336Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\quantize.cpp(367,66): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:28.3579081Z   engine.cpp
+2026-02-08T23:10:29.3079029Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\engine.cpp(162,42): warning C4101: 'e': unreferenced local variable [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:29.3320118Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\engine.cpp(261,26): warning C4457: declaration of 'data_size' hides function parameter [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:29.3330495Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\engine.cpp(169,124):
+2026-02-08T23:10:29.3331132Z       see declaration of 'data_size'
+2026-02-08T23:10:29.3331514Z   
+2026-02-08T23:10:29.7659177Z   matmul.cpp
+2026-02-08T23:10:30.3308890Z   lut_gemm.cpp
+2026-02-08T23:10:31.4411500Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244: 'return': conversion from '_Rep' to 'double', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:31.4414187Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         with [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:31.4416384Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         [ [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:31.4420723Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:             _Rep=__int64 [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:31.4423074Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         ] [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:31.4424585Z   (compiling source file '../../../../src/core/bitnet/kernels/lut_gemm.cpp')
+2026-02-08T23:10:31.4425161Z   
+2026-02-08T23:10:31.9995480Z   parallel_kernels.cpp
+2026-02-08T23:10:33.0885568Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244: 'return': conversion from '_Rep' to 'double', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:33.0888357Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         with [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:33.0890676Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         [ [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:33.0892933Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:             _Rep=__int64 [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:33.0895225Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         ] [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:33.0897212Z   (compiling source file '../../../../src/core/bitnet/kernels/parallel_kernels.cpp')
+2026-02-08T23:10:33.0898275Z   
+2026-02-08T23:10:33.8469632Z   bitnet_layer.cpp
+2026-02-08T23:10:35.0156928Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244: 'return': conversion from '_Rep' to 'double', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.0158484Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         with [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.0159675Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         [ [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.0160876Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:             _Rep=__int64 [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.0162296Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\optimization_utils.h(283,38): warning C4244:         ] [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.0163104Z   (compiling source file '../../../../src/core/bitnet/bitnet_layer.cpp')
+2026-02-08T23:10:35.0163425Z   
+2026-02-08T23:10:35.1055978Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\bitnet_layer.cpp(99,56): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.1058470Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\bitnet_layer.cpp(112,61): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.1123347Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\bitnet_layer.cpp(371,39): warning C4018: '<': signed/unsigned mismatch [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:35.5950347Z   bitnet_model.cpp
+2026-02-08T23:10:36.9375135Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\core\bitnet\bitnet_model.cpp(76,34): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:37.5686772Z   Generating Code...
+2026-02-08T23:10:40.2304838Z quantize.obj : warning LNK4006: "void __cdecl ryzanstein_llm::bitnet::naive_ternary_matmul(struct ryzanstein_llm::bitnet::TernaryWeight const &,struct ryzanstein_llm::bitnet::QuantizedActivation const &,float *,unsigned int,unsigned int,unsigned int)" (?naive_ternary_matmul@bitnet@ryzanstein_llm@@YAXAEBUTernaryWeight@12@AEBUQuantizedActivation@12@PEAMIII@Z) already defined in matmul.obj; second definition ignored [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\ryzen_llm_bitnet.vcxproj]
+2026-02-08T23:10:40.2359608Z   ryzen_llm_bitnet.vcxproj -> D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\core\bitnet\Release\ryzen_llm_bitnet.lib
+2026-02-08T23:10:40.2839302Z   Building Custom Rule D:/a/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/CMakeLists.txt
+2026-02-08T23:10:40.3609845Z   bitnet_bindings.cpp
+2026-02-08T23:10:42.8038645Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8042068Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8045081Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(27,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8048458Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(27,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8051346Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(27,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8055115Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8057544Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8058507Z   
+2026-02-08T23:10:42.8063051Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(33,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8067625Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(33,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8081370Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(33,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8101121Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8102178Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8110359Z   
+2026-02-08T23:10:42.8112526Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(53,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8120417Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(53,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8125067Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(53,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8126290Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8127009Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8127632Z   
+2026-02-08T23:10:42.8130961Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(77,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8138744Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(77,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8142745Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(77,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8145775Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8146962Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8147382Z   
+2026-02-08T23:10:42.8148940Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(123,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8153260Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(123,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8156646Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(123,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8158589Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8161203Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8161578Z   
+2026-02-08T23:10:42.8162593Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(139,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8165147Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(139,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8166950Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(139,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8167895Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8168285Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8168512Z   
+2026-02-08T23:10:42.8169977Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(157,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8171579Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(157,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8173094Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(157,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8174029Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8174414Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8174777Z   
+2026-02-08T23:10:42.8175984Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(185,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8177560Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(185,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8179065Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(185,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8179989Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8180387Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8180607Z   
+2026-02-08T23:10:42.8181359Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(213,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8183047Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(213,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8184537Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(213,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8185466Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8185861Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8186075Z   
+2026-02-08T23:10:42.8186825Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(245,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8188363Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(245,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8189846Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(245,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8190815Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8191196Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8191412Z   
+2026-02-08T23:10:42.8192265Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(274,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8193791Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(274,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8195540Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(274,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8196678Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8197087Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8197315Z   
+2026-02-08T23:10:42.8200169Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(322,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8203455Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(322,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8206273Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(322,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8207922Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8208601Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8209010Z   
+2026-02-08T23:10:42.8210281Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(333,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8212814Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(333,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8215041Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(333,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8216857Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8217582Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8217954Z   
+2026-02-08T23:10:42.8218872Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(344,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8221270Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(344,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8223573Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(344,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8224899Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8225584Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8225925Z   
+2026-02-08T23:10:42.8227544Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(355,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8229920Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(355,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8232192Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(355,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8233638Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8234176Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8234566Z   
+2026-02-08T23:10:42.8235553Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(362,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8238052Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(362,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8241915Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(362,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8244749Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8246163Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8246774Z   
+2026-02-08T23:10:42.8248629Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(369,18): error C2144: syntax error: 'float' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8251246Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(369,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8254072Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(369,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8256194Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8257317Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8257573Z   
+2026-02-08T23:10:42.8258787Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(376,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8261305Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(376,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8263554Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(376,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8265064Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8265500Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8265888Z   
+2026-02-08T23:10:42.8267031Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(381,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8269568Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(381,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8272033Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(381,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8273311Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8273989Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8274266Z   
+2026-02-08T23:10:42.8275438Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(387,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8278120Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(387,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8280224Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(387,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8281780Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8282276Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8282661Z   
+2026-02-08T23:10:42.8283761Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(413,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8286583Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(413,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8288837Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(413,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8290280Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8290927Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8291147Z   
+2026-02-08T23:10:42.8292414Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(442,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8294618Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(442,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8297268Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(442,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8298800Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8299500Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8299871Z   
+2026-02-08T23:10:42.8300942Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(481,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8304199Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(481,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8306931Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(481,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8308455Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8308865Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8309190Z   
+2026-02-08T23:10:42.8310430Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(514,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8312742Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(514,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8315263Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(514,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8316692Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8317449Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8317810Z   
+2026-02-08T23:10:42.8319058Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(550,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8321064Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(550,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8322610Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(550,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8323545Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8323939Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8324153Z   
+2026-02-08T23:10:42.8324912Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(560,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8326468Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(560,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8327971Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(560,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8328899Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8329282Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8329491Z   
+2026-02-08T23:10:42.8330238Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(570,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8331868Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(570,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8333543Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(570,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8334891Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8335289Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8335512Z   
+2026-02-08T23:10:42.8336261Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(577,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8337816Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(577,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8339306Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(577,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8340228Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8340605Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8340817Z   
+2026-02-08T23:10:42.8341555Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(584,18): error C2144: syntax error: 'float' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8343208Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(584,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8344699Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(584,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8345609Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8345989Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8346194Z   
+2026-02-08T23:10:42.8346934Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(591,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8348460Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(591,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8349939Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(591,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8350854Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8351230Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8351439Z   
+2026-02-08T23:10:42.8352187Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(596,18): error C2144: syntax error: 'void' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8353793Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(596,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8355598Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(596,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8356531Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8356907Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8357132Z   
+2026-02-08T23:10:42.8357868Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(603,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8359393Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(603,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8360938Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(603,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8361871Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8362248Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8379437Z   
+2026-02-08T23:10:42.8380362Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(624,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8383340Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(624,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8386011Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(624,5): error C2086: 'int RYZEN_EXPORT': redefinition [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8387402Z       D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(21,5):
+2026-02-08T23:10:42.8387811Z       see declaration of 'RYZEN_EXPORT'
+2026-02-08T23:10:42.8388033Z   
+2026-02-08T23:10:42.8388806Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(655,18): error C2144: syntax error: 'int' should be preceded by ';' [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:42.8390273Z D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\src\api\bindings\bitnet_bindings.cpp(655,18): error C1003: error count exceeds 100; stopping compilation [D:\a\Ryzanstein\Ryzanstein\RYZEN-LLM\build\src\api\bindings\ryzen_llm_bindings.vcxproj]
+2026-02-08T23:10:43.0826125Z ##[error]Process completed with exit code 1.
+2026-02-08T23:10:43.1029901Z Post job cleanup.
+2026-02-08T23:10:43.3444076Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-02-08T23:10:43.3746826Z git version 2.53.0.windows.1
+2026-02-08T23:10:43.3823608Z Temporarily overriding HOME='D:\a\_temp\0062131d-8c60-40b4-8b52-c88be98d61f0' before making global git config changes
+2026-02-08T23:10:43.3824340Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T23:10:43.3835501Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Ryzanstein\Ryzanstein
+2026-02-08T23:10:43.4141625Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T23:10:43.4444025Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-02-08T23:10:43.9935055Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T23:10:44.0198674Z http.https://github.com/.extraheader
+2026-02-08T23:10:44.0256209Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-02-08T23:10:44.0595064Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-02-08T23:10:44.6116759Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T23:10:44.6416842Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-02-08T23:10:45.2019492Z Cleaning up orphan processes
+2026-02-08T23:10:45.2212265Z Terminate orphan process: pid (7364) (vctip)
+2026-02-08T23:10:45.2264353Z Terminate orphan process: pid (3928) (MSBuild)
+2026-02-08T23:10:45.2323567Z Terminate orphan process: pid (2856) (conhost)
+2026-02-08T23:10:45.2357061Z Terminate orphan process: pid (7404) (MSBuild)
+2026-02-08T23:10:45.2432875Z Terminate orphan process: pid (3428) (MSBuild)
+2026-02-08T23:10:45.2512002Z Terminate orphan process: pid (8876) (conhost)

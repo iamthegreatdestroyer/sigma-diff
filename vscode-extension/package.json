@@ -1,0 +1,291 @@
+{
+  "name": "ryzanstein",
+  "displayName": "Ryzanstein - Elite AI Agent Assistant",
+  "description": "Bring the Elite AI Agent Collective into VS Code with inline chat, agent tooling, and intelligent code assistance",
+  "version": "1.0.0",
+  "publisher": "iamthegreatdestroyer",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Chat",
+    "Code Generators",
+    "Productivity"
+  ],
+  "keywords": [
+    "ai",
+    "agents",
+    "llm",
+    "chat",
+    "copilot",
+    "assistant",
+    "code-generation",
+    "refactoring"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamthegreatdestroyer/Ryzanstein.git"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ryzanstein.openChat",
+        "title": "Ryzanstein: Open Chat",
+        "category": "Ryzanstein",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "ryzanstein.selectAgent",
+        "title": "Ryzanstein: Select Agent",
+        "category": "Ryzanstein",
+        "icon": "$(robot)"
+      },
+      {
+        "command": "ryzanstein.selectModel",
+        "title": "Ryzanstein: Select Model",
+        "category": "Ryzanstein",
+        "icon": "$(hubot)"
+      },
+      {
+        "command": "ryzanstein.refactor",
+        "title": "Ryzanstein: Refactor Code",
+        "category": "Ryzanstein"
+      },
+      {
+        "command": "ryzanstein.explain",
+        "title": "Ryzanstein: Explain Code",
+        "category": "Ryzanstein"
+      },
+      {
+        "command": "ryzanstein.generateTests",
+        "title": "Ryzanstein: Generate Tests",
+        "category": "Ryzanstein"
+      },
+      {
+        "command": "ryzanstein.analyzePerformance",
+        "title": "Ryzanstein: Analyze Performance",
+        "category": "Ryzanstein"
+      },
+      {
+        "command": "ryzanstein.findBugs",
+        "title": "Ryzanstein: Find Bugs",
+        "category": "Ryzanstein"
+      },
+      {
+        "command": "ryzanstein.suggestArchitecture",
+        "title": "Ryzanstein: Suggest Architecture",
+        "category": "Ryzanstein"
+      },
+      {
+        "command": "ryzanstein.openSettings",
+        "title": "Ryzanstein: Open Settings",
+        "category": "Ryzanstein"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ryzanstein.openChat",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r"
+      },
+      {
+        "command": "ryzanstein.explain",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "ryzanstein.openChat"
+        },
+        {
+          "command": "ryzanstein.selectAgent"
+        },
+        {
+          "command": "ryzanstein.selectModel"
+        },
+        {
+          "command": "ryzanstein.refactor"
+        },
+        {
+          "command": "ryzanstein.explain"
+        },
+        {
+          "command": "ryzanstein.generateTests"
+        },
+        {
+          "command": "ryzanstein.analyzePerformance"
+        },
+        {
+          "command": "ryzanstein.findBugs"
+        },
+        {
+          "command": "ryzanstein.suggestArchitecture"
+        },
+        {
+          "command": "ryzanstein.openSettings"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ryzanstein.refactor",
+          "group": "1_modification@1",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "ryzanstein.explain",
+          "group": "1_modification@2",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "ryzanstein.generateTests",
+          "group": "1_modification@3",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "ryzanstein.findBugs",
+          "group": "1_modification@4",
+          "when": "editorTextFocus"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "ryzanstein.analyzePerformance",
+          "group": "1_modification@1"
+        },
+        {
+          "command": "ryzanstein.suggestArchitecture",
+          "group": "1_modification@2"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ryzanstein",
+          "title": "Ryzanstein",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "ryzanstein": [
+        {
+          "id": "ryzanstein.agents",
+          "name": "Agents",
+          "type": "tree"
+        },
+        {
+          "id": "ryzanstein.models",
+          "name": "Models",
+          "type": "tree"
+        },
+        {
+          "id": "ryzanstein.chat",
+          "name": "Chat",
+          "type": "webview"
+        }
+      ]
+    },
+    "chatModels": [
+      {
+        "id": "ryzanstein",
+        "label": "Ryzanstein",
+        "kind": "remote",
+        "vendor": "ryzanstein"
+      },
+      {
+        "id": "ryzanstein-apex",
+        "label": "Ryzanstein (@APEX)",
+        "kind": "remote",
+        "vendor": "ryzanstein"
+      },
+      {
+        "id": "ryzanstein-architect",
+        "label": "Ryzanstein (@ARCHITECT)",
+        "kind": "remote",
+        "vendor": "ryzanstein"
+      },
+      {
+        "id": "ryzanstein-tensor",
+        "label": "Ryzanstein (@TENSOR)",
+        "kind": "remote",
+        "vendor": "ryzanstein"
+      },
+      {
+        "id": "ryzanstein-cipher",
+        "label": "Ryzanstein (@CIPHER)",
+        "kind": "remote",
+        "vendor": "ryzanstein"
+      }
+    ],
+    "configuration": {
+      "title": "Ryzanstein",
+      "properties": {
+        "ryzanstein.defaultAgent": {
+          "type": "string",
+          "default": "@APEX",
+          "description": "Default agent codename to use"
+        },
+        "ryzanstein.defaultModel": {
+          "type": "string",
+          "default": "ryzanstein-7b",
+          "description": "Default model to use for inference"
+        },
+        "ryzanstein.ryzansteinApiUrl": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "description": "Ryzanstein API server URL"
+        },
+        "ryzanstein.mcpServerUrl": {
+          "type": "string",
+          "default": "localhost:50051",
+          "description": "MCP gRPC server URL"
+        },
+        "ryzanstein.autoConnect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically connect to MCP server on startup"
+        },
+        "ryzanstein.enableInlineChat": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable inline chat in editor"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --target=node20",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "watch": "npm run esbuild-watch",
+    "compile": "npm run esbuild",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "esbuild": "^0.19.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.10.0",
+    "axios": "^1.13.2",
+    "vscode-languageclient": "^9.0.0"
+  }
+}

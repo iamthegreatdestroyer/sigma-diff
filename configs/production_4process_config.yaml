@@ -1,0 +1,129 @@
+# Production Configuration: 4-Process Deployment
+# Minimum viable distributed training configuration
+
+distributed:
+  # Backend selection
+  backend: gloo # Gloo for CPU-based distributed training (Ryzanstein)
+  init_method: "tcp://localhost:29500"
+
+  # Rank and world size (set by launcher)
+  rank: 0
+  world_size: 4
+  master_addr: "localhost"
+  master_port: 29500
+
+  # Communication settings
+  timeout: 1800 # 30 minutes
+  debug: false
+
+  # Gloo-specific settings for CPU distributed training
+  gloo_socket_ifname: eth0 # Interface name for network communication
+  gloo_timeout: 1800
+
+training:
+  # Batch and gradient accumulation
+  batch_size: 64
+  gradient_accumulation_steps: 2
+  effective_batch_size: 512 # 64 * 2 * 4 processes
+
+  # Learning rate and schedule
+  learning_rate: 0.001
+  warmup_steps: 1000
+  warmup_init_lr: 0.00001
+  total_epochs: 100
+
+  # Optimization
+  optimizer: adam
+  adam_epsilon: 1.0e-8
+  weight_decay: 0.01
+  gradient_clip_norm: 1.0
+
+  # Checkpointing
+  save_interval: 500
+  save_total_limit: 5
+  checkpoint_dir: "checkpoints/production_4process"
+
+  # Logging
+  log_interval: 50
+  log_dir: "logs/production_4process"
+  tensorboard_dir: "tensorboard/production_4process"
+
+model:
+  # Model architecture
+  model_type: "transformer"
+  vocab_size: 65536
+  embedding_dim: 2048
+  num_heads: 32
+  num_layers: 48
+  feed_forward_dim: 8192
+  max_seq_len: 4096
+
+  # Dropout and regularization
+  dropout: 0.1
+  attention_dropout: 0.1
+  residual_dropout: 0.1
+
+  # Activation function
+  activation: "gelu"
+  activation_function: "gelu"
+
+hardware:
+  # Precision
+  dtype: "bfloat16"
+  mixed_precision: true
+
+  # Memory optimization
+  gradient_checkpoint: true
+  use_flash_attention: true
+
+  # FSDP/DeepSpeed settings
+  sharding_strategy: "FULL_SHARD"
+  zero_stage: 2
+  zero_overlap_communication: true
+
+  # Memory limits
+  max_grad_norm: 1.0
+  memory_efficient: true
+
+data:
+  # Data loading
+  num_workers: 8
+  pin_memory: true
+  prefetch_factor: 2
+
+  # Dataset
+  dataset_path: "data/"
+  num_training_samples: 1000000
+  num_validation_samples: 10000
+
+  # Preprocessing
+  max_seq_length: 4096
+  cache_dir: ".cache/data"
+
+validation:
+  # Validation settings
+  validation_interval: 500
+  validation_batch_size: 128
+  num_validation_batches: 100
+
+monitoring:
+  # Monitoring and debugging
+  monitor_loss: true
+  monitor_gradients: true
+  monitor_weights: true
+  monitor_communication: true
+
+  # Prometheus metrics
+  enable_prometheus: true
+  prometheus_port: 8000
+
+  # Anomaly detection
+  enable_anomaly_detection: true
+  anomaly_threshold: 10.0
+
+experiment:
+  # Experiment tracking
+  experiment_name: "distributed_training_4process"
+  run_name: "prod_4p_baseline"
+  project: "ryzen-llm"
+  notes: "Production baseline with 4 processes"

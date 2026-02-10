@@ -1,0 +1,178 @@
+∩╗┐2026-02-08T22:23:23.6538156Z Current runner version: '2.331.0'
+2026-02-08T22:23:23.6562742Z ##[group]Runner Image Provisioner
+2026-02-08T22:23:23.6563554Z Hosted Compute Agent
+2026-02-08T22:23:23.6564184Z Version: 20260123.484
+2026-02-08T22:23:23.6564749Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+2026-02-08T22:23:23.6565425Z Build Date: 2026-01-23T19:41:17Z
+2026-02-08T22:23:23.6566243Z Worker ID: {5ce0d486-b943-44b8-bd23-77db189bf508}
+2026-02-08T22:23:23.6566963Z Azure Region: westus
+2026-02-08T22:23:23.6567449Z ##[endgroup]
+2026-02-08T22:23:23.6568980Z ##[group]Operating System
+2026-02-08T22:23:23.6569560Z Ubuntu
+2026-02-08T22:23:23.6570019Z 24.04.3
+2026-02-08T22:23:23.6570583Z LTS
+2026-02-08T22:23:23.6571044Z ##[endgroup]
+2026-02-08T22:23:23.6571539Z ##[group]Runner Image
+2026-02-08T22:23:23.6572017Z Image: ubuntu-24.04
+2026-02-08T22:23:23.6572576Z Version: 20260201.15.1
+2026-02-08T22:23:23.6573698Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260201.15/images/ubuntu/Ubuntu2404-Readme.md
+2026-02-08T22:23:23.6575207Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260201.15
+2026-02-08T22:23:23.6576283Z ##[endgroup]
+2026-02-08T22:23:23.6577396Z ##[group]GITHUB_TOKEN Permissions
+2026-02-08T22:23:23.6579571Z Contents: read
+2026-02-08T22:23:23.6580084Z Metadata: read
+2026-02-08T22:23:23.6580679Z Packages: read
+2026-02-08T22:23:23.6581135Z ##[endgroup]
+2026-02-08T22:23:23.6583417Z Secret source: Actions
+2026-02-08T22:23:23.6584276Z Prepare workflow directory
+2026-02-08T22:23:23.6915550Z Prepare all required actions
+2026-02-08T22:23:23.6953754Z Getting action download info
+2026-02-08T22:23:24.1373961Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-02-08T22:23:24.2483086Z Download action repository 'jwlawson/actions-setup-cmake@v1.14' (SHA:d06b37b47cfd043ec794ffa3e40e0b6b5858a7ec)
+2026-02-08T22:23:25.2269012Z Complete job name: build (ubuntu-latest)
+2026-02-08T22:23:25.3029284Z ##[group]Run actions/checkout@v4
+2026-02-08T22:23:25.3030264Z with:
+2026-02-08T22:23:25.3030782Z   repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:23:25.3031662Z   token: ***
+2026-02-08T22:23:25.3032115Z   ssh-strict: true
+2026-02-08T22:23:25.3032561Z   ssh-user: git
+2026-02-08T22:23:25.3033016Z   persist-credentials: true
+2026-02-08T22:23:25.3033511Z   clean: true
+2026-02-08T22:23:25.3034026Z   sparse-checkout-cone-mode: true
+2026-02-08T22:23:25.3034556Z   fetch-depth: 1
+2026-02-08T22:23:25.3034987Z   fetch-tags: false
+2026-02-08T22:23:25.3035436Z   show-progress: true
+2026-02-08T22:23:25.3036063Z   lfs: false
+2026-02-08T22:23:25.3036493Z   submodules: false
+2026-02-08T22:23:25.3036959Z   set-safe-directory: true
+2026-02-08T22:23:25.3037723Z ##[endgroup]
+2026-02-08T22:23:25.4153556Z Syncing repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:23:25.4155607Z ##[group]Getting Git version info
+2026-02-08T22:23:25.4156839Z Working directory is '/home/runner/work/Ryzanstein/Ryzanstein'
+2026-02-08T22:23:25.4157934Z [command]/usr/bin/git version
+2026-02-08T22:23:25.4251052Z git version 2.52.0
+2026-02-08T22:23:25.4277908Z ##[endgroup]
+2026-02-08T22:23:25.4292908Z Temporarily overriding HOME='/home/runner/work/_temp/861471ca-d8ce-49e2-a938-4c4e530e2d6a' before making global git config changes
+2026-02-08T22:23:25.4295182Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T22:23:25.4306621Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:23:25.4355001Z Deleting the contents of '/home/runner/work/Ryzanstein/Ryzanstein'
+2026-02-08T22:23:25.4359502Z ##[group]Initializing the repository
+2026-02-08T22:23:25.4363684Z [command]/usr/bin/git init /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:23:25.4483813Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-08T22:23:25.4485911Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-08T22:23:25.4487060Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-08T22:23:25.4489024Z hint: call:
+2026-02-08T22:23:25.4489565Z hint:
+2026-02-08T22:23:25.4490846Z hint: 	git config --global init.defaultBranch <name>
+2026-02-08T22:23:25.4492154Z hint:
+2026-02-08T22:23:25.4493429Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-08T22:23:25.4495446Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-08T22:23:25.4497229Z hint:
+2026-02-08T22:23:25.4498027Z hint: 	git branch -m <name>
+2026-02-08T22:23:25.4498903Z hint:
+2026-02-08T22:23:25.4500026Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-08T22:23:25.4502001Z Initialized empty Git repository in /home/runner/work/Ryzanstein/Ryzanstein/.git/
+2026-02-08T22:23:25.4505930Z [command]/usr/bin/git remote add origin https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:23:25.4543610Z ##[endgroup]
+2026-02-08T22:23:25.4548835Z ##[group]Disabling automatic garbage collection
+2026-02-08T22:23:25.4549652Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-08T22:23:25.4578612Z ##[endgroup]
+2026-02-08T22:23:25.4579365Z ##[group]Setting up auth
+2026-02-08T22:23:25.4586286Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T22:23:25.4618063Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T22:23:25.5003908Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T22:23:25.5036032Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T22:23:25.5264959Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T22:23:25.5296803Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T22:23:25.5537551Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-08T22:23:25.5573891Z ##[endgroup]
+2026-02-08T22:23:25.5574761Z ##[group]Fetching the repository
+2026-02-08T22:23:25.5582903Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +30b17bda17bbb679fcf561bc31749f5138b68155:refs/remotes/origin/sprint6/api-integration
+2026-02-08T22:23:27.2532770Z From https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:23:27.2535902Z  * [new ref]         30b17bda17bbb679fcf561bc31749f5138b68155 -> origin/sprint6/api-integration
+2026-02-08T22:23:27.2569820Z ##[endgroup]
+2026-02-08T22:23:27.2571337Z ##[group]Determining the checkout info
+2026-02-08T22:23:27.2573027Z ##[endgroup]
+2026-02-08T22:23:27.2577899Z [command]/usr/bin/git sparse-checkout disable
+2026-02-08T22:23:27.2622417Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-08T22:23:27.2651523Z ##[group]Checking out the ref
+2026-02-08T22:23:27.2655904Z [command]/usr/bin/git checkout --progress --force -B sprint6/api-integration refs/remotes/origin/sprint6/api-integration
+2026-02-08T22:23:28.0025945Z Switched to a new branch 'sprint6/api-integration'
+2026-02-08T22:23:28.0026985Z branch 'sprint6/api-integration' set up to track 'origin/sprint6/api-integration'.
+2026-02-08T22:23:28.0376969Z ##[endgroup]
+2026-02-08T22:23:28.0382413Z [command]/usr/bin/git log -1 --format=%H
+2026-02-08T22:23:28.0407706Z 30b17bda17bbb679fcf561bc31749f5138b68155
+2026-02-08T22:23:28.0606025Z ##[group]Run jwlawson/actions-setup-cmake@v1.14
+2026-02-08T22:23:28.0606421Z with:
+2026-02-08T22:23:28.0606605Z   cmake-version: 3.28.x
+2026-02-08T22:23:28.0606998Z   github-api-token: ***
+2026-02-08T22:23:28.0607210Z   use-32bit: false
+2026-02-08T22:23:28.0607399Z ##[endgroup]
+2026-02-08T22:23:34.2276247Z Using cmake version 3.28.6
+2026-02-08T22:23:34.8221949Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/07baae92-49c0-4acd-b2d2-6f26dfbd6cd7 -f /home/runner/work/_temp/a7f14bf9-c906-48f7-85c6-59d75de01a04
+2026-02-08T22:23:38.1888438Z ##[group]Run mkdir -p "RYZEN-LLM/build"
+2026-02-08T22:23:38.1888839Z [36;1mmkdir -p "RYZEN-LLM/build"[0m
+2026-02-08T22:23:38.1889308Z [36;1mcmake -S "RYZEN-LLM" -B "RYZEN-LLM/build" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release[0m
+2026-02-08T22:23:38.1928798Z shell: /usr/bin/bash -e {0}
+2026-02-08T22:23:38.1929080Z ##[endgroup]
+2026-02-08T22:23:39.0239334Z -- The CXX compiler identification is GNU 13.3.0
+2026-02-08T22:23:39.0400144Z -- Detecting CXX compiler ABI info
+2026-02-08T22:23:39.1247874Z -- Detecting CXX compiler ABI info - done
+2026-02-08T22:23:39.1358655Z -- Check for working CXX compiler: /usr/bin/c++ - skipped
+2026-02-08T22:23:39.1361425Z -- Detecting CXX compile features
+2026-02-08T22:23:39.1367155Z -- Detecting CXX compile features - done
+2026-02-08T22:23:39.1373786Z -- Build type: Release
+2026-02-08T22:23:39.3554348Z -- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+2026-02-08T22:23:39.3557596Z -- Found OpenMP: TRUE (found version "4.5")  
+2026-02-08T22:23:39.3559343Z -- OpenMP found - enabling parallel processing
+2026-02-08T22:23:39.3578411Z -- Performing Test COMPILER_SUPPORTS_AVX512F
+2026-02-08T22:23:39.4201313Z -- Performing Test COMPILER_SUPPORTS_AVX512F - Success
+2026-02-08T22:23:39.4212917Z -- Performing Test COMPILER_SUPPORTS_AVX512DQ
+2026-02-08T22:23:39.4841526Z -- Performing Test COMPILER_SUPPORTS_AVX512DQ - Success
+2026-02-08T22:23:39.4849149Z -- Performing Test COMPILER_SUPPORTS_AVX512VL
+2026-02-08T22:23:39.5476016Z -- Performing Test COMPILER_SUPPORTS_AVX512VL - Success
+2026-02-08T22:23:39.5483880Z -- Performing Test COMPILER_SUPPORTS_AVX512VNNI
+2026-02-08T22:23:39.6108559Z -- Performing Test COMPILER_SUPPORTS_AVX512VNNI - Success
+2026-02-08T22:23:39.6109417Z -- AVX-512 compiler support detected (NOT enabling globally - use runtime detection)
+2026-02-08T22:23:39.6110195Z -- AVX-512 VNNI compiler support detected
+2026-02-08T22:23:39.6117394Z -- Performing Test COMPILER_SUPPORTS_FMA
+2026-02-08T22:23:39.6725453Z -- Performing Test COMPILER_SUPPORTS_FMA - Success
+2026-02-08T22:23:39.6726385Z -- FMA3 support detected
+2026-02-08T22:23:39.6733751Z -- Performing Test COMPILER_SUPPORTS_AVX2
+2026-02-08T22:23:39.7348666Z -- Performing Test COMPILER_SUPPORTS_AVX2 - Success
+2026-02-08T22:23:39.7349191Z -- AVX2 support detected
+2026-02-08T22:23:40.0168835Z -- Found Python: /usr/bin/python3.12 (found version "3.12.3") found components: Interpreter Development Development.Module Development.Embed 
+2026-02-08T22:23:40.0229355Z CMake Error at CMakeLists.txt:119 (find_package):
+2026-02-08T22:23:40.0230095Z   By not providing "Findpybind11.cmake" in CMAKE_MODULE_PATH this project has
+2026-02-08T22:23:40.0230901Z   asked CMake to find a package configuration file provided by "pybind11",
+2026-02-08T22:23:40.0231477Z   but CMake did not find one.
+2026-02-08T22:23:40.0231745Z 
+2026-02-08T22:23:40.0232069Z   Could not find a package configuration file provided by "pybind11" with any
+2026-02-08T22:23:40.0232686Z   of the following names:
+2026-02-08T22:23:40.0232905Z 
+2026-02-08T22:23:40.0233049Z     pybind11Config.cmake
+2026-02-08T22:23:40.0233399Z     pybind11-config.cmake
+2026-02-08T22:23:40.0233750Z 
+2026-02-08T22:23:40.0234060Z   Add the installation prefix of "pybind11" to CMAKE_PREFIX_PATH or set
+2026-02-08T22:23:40.0234756Z   "pybind11_DIR" to a directory containing one of the above files.  If
+2026-02-08T22:23:40.0235443Z   "pybind11" provides a separate development package or SDK, be sure it has
+2026-02-08T22:23:40.0236250Z   been installed.
+2026-02-08T22:23:40.0236410Z 
+2026-02-08T22:23:40.0236415Z 
+2026-02-08T22:23:40.0236601Z -- Configuring incomplete, errors occurred!
+2026-02-08T22:23:40.0278457Z ##[error]Process completed with exit code 1.
+2026-02-08T22:23:40.0399347Z Post job cleanup.
+2026-02-08T22:23:40.1456730Z [command]/usr/bin/git version
+2026-02-08T22:23:40.1495139Z git version 2.52.0
+2026-02-08T22:23:40.1541641Z Temporarily overriding HOME='/home/runner/work/_temp/138c7818-5e61-4e27-8dde-79e0089906b6' before making global git config changes
+2026-02-08T22:23:40.1542924Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T22:23:40.1548844Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:23:40.1591347Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T22:23:40.1627877Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T22:23:40.1861952Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T22:23:40.1884665Z http.https://github.com/.extraheader
+2026-02-08T22:23:40.1898300Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-02-08T22:23:40.1932100Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T22:23:40.2163669Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T22:23:40.2198570Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T22:23:40.2541221Z Cleaning up orphan processes

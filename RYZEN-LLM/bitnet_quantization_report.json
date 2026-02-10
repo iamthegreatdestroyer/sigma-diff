@@ -1,0 +1,19 @@
+{
+  "model_name": "microsoft/bitnet-b1.58-2B-4T",
+  "total_parameters": 849787090,
+  "original_size_mb": 3241.680488586426,
+  "quantized_size_mb": 109.40656471252441,
+  "compression_ratio": 29.629670734148657,
+  "total_layers": 542,
+  "quantized_layers": 542,
+  "mean_error": 1062.8551670973313,
+  "max_error": 4279.24072265625,
+  "min_error": 0.0,
+  "error_std": 1343.3676791351827,
+  "quantization_time_ms": 0,
+  "load_time_ms": 0,
+  "total_time_ms": 0,
+  "timestamp": "2026-01-02T10:39:36.703977",
+  "model_url": "https://huggingface.co/microsoft/bitnet-b1.58-2B-4T",
+  "quantization_config": "aggressive"
+}

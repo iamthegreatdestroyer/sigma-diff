@@ -1,0 +1,142 @@
+================================================================================
+            RYZEN-LLM Phase 2 Comprehensive Performance Benchmarking            
+================================================================================
+
+[TARGET] Phase 2 Performance Targets:
+  ΓÇó Throughput: 25+ tok/s
+  ΓÇó Prefill Latency: <100ms
+  ΓÇó Decode Latency: <50ms
+  ΓÇó Memory: <2048MB peak
+  ΓÇó Speedup: 1.3├ù vs Phase 1
+
+[BASELINE] Phase 1 Baseline:
+  ΓÇó Throughput: 0.68 tok/s
+
+================================================================================
+                               RUNNING BENCHMARKS                               
+================================================================================
+
+[1/4] Throughput Benchmarking
+
+≡ƒôè Throughput Benchmark: seq_len=8, batch=1
+  Γ£ô Throughput: 54.58 tok/s
+  Γ£ô Memory: 33.70 MB
+
+≡ƒôè Throughput Benchmark: seq_len=16, batch=1
+  Γ£ô Throughput: 55.03 tok/s
+  Γ£ô Memory: 33.73 MB
+
+≡ƒôè Throughput Benchmark: seq_len=32, batch=1
+  Γ£ô Throughput: 54.40 tok/s
+  Γ£ô Memory: 33.73 MB
+
+≡ƒôè Throughput Benchmark: seq_len=64, batch=1
+  Γ£ô Throughput: 54.72 tok/s
+  Γ£ô Memory: 33.73 MB
+
+≡ƒôè Throughput Benchmark: seq_len=128, batch=1
+  Γ£ô Throughput: 54.74 tok/s
+  Γ£ô Memory: 33.73 MB
+
+≡ƒôè Throughput Benchmark: seq_len=256, batch=1
+  Γ£ô Throughput: 54.94 tok/s
+  Γ£ô Memory: 33.80 MB
+
+≡ƒôè Throughput Benchmark: seq_len=512, batch=1
+  Γ£ô Throughput: 54.97 tok/s
+  Γ£ô Memory: 33.81 MB
+
+[2/4] Latency Benchmarking
+
+ΓÅ▒∩╕Å  Latency Benchmark: seq_len=32, samples=25
+  Γ£ô Prefill latency (avg): 150.00 ms
+  Γ£ô Prefill latency (p99): 150.00 ms
+  Γ£ô Decode latency (avg): 17.66 ms
+  Γ£ô Decode latency (p99): 17.66 ms
+  Γ£ô Memory peak: 33.81 MB
+
+ΓÅ▒∩╕Å  Latency Benchmark: seq_len=128, samples=25
+  Γ£ô Prefill latency (avg): 150.00 ms
+  Γ£ô Prefill latency (p99): 150.00 ms
+  Γ£ô Decode latency (avg): 17.66 ms
+  Γ£ô Decode latency (p99): 17.66 ms
+  Γ£ô Memory peak: 34.02 MB
+
+ΓÅ▒∩╕Å  Latency Benchmark: seq_len=512, samples=25
+  Γ£ô Prefill latency (avg): 150.00 ms
+  Γ£ô Prefill latency (p99): 150.00 ms
+  Γ£ô Decode latency (avg): 17.66 ms
+  Γ£ô Decode latency (p99): 17.66 ms
+  Γ£ô Memory peak: 34.03 MB
+
+[3/4] Memory Efficiency Analysis
+
+≡ƒÆ╛ Memory Efficiency Benchmark
+  Seq len   8:  129.2 MB
+  Seq len  16:  130.5 MB
+  Seq len  32:  133.0 MB
+  Seq len  64:  138.0 MB
+  Seq len 128:  148.0 MB
+  Seq len 256:  168.0 MB
+  Seq len 512:  208.0 MB
+
+[4/4] Scalability Analysis
+
+ΓÜÖ∩╕Å  Scalability Benchmark (up to 16 threads)
+   1 threads:  0.75├ù speedup,   0.51 tok/s (75% efficiency)
+   2 threads:  1.50├ù speedup,   1.02 tok/s (75% efficiency)
+   4 threads:  3.00├ù speedup,   2.04 tok/s (75% efficiency)
+   8 threads:  6.00├ù speedup,   4.08 tok/s (75% efficiency)
+  16 threads: 12.00├ù speedup,   8.16 tok/s (75% efficiency)
+
+================================================================================
+                         PHASE 1 vs PHASE 2 COMPARISON                          
+================================================================================
+
+≡ƒôê Phase 1 vs Phase 2 Comparison
+
+≡ƒÆ╛ Memory Efficiency Benchmark
+  Seq len   8:  129.2 MB
+  Seq len  16:  130.5 MB
+  Seq len  32:  133.0 MB
+  Seq len  64:  138.0 MB
+  Seq len 128:  148.0 MB
+  Seq len 256:  168.0 MB
+  Seq len 512:  208.0 MB
+
+  Throughput:
+    Phase 1: 0.68 tok/s
+    Phase 2: 55.33 tok/s
+    Speedup: 81.36├ù
+    Improvement: 8036.2%
+
+  Memory (avg across seq lengths):
+    Phase 1: 195.88 MB
+    Phase 2: 150.68 MB
+    Speedup: 1.30├ù
+    Improvement: 23.1%
+
+================================================================================
+                               GENERATING REPORTS                               
+================================================================================
+
+[OK] HTML Report: C:\Users\sgbil\Ryot\RYZEN-LLM\PHASE2_PERFORMANCE_REPORT.html
+[OK] Markdown Report: C:\Users\sgbil\Ryot\RYZEN-LLM\PHASE2_PERFORMANCE_BENCHMARKS.md
+[OK] JSON Data: C:\Users\sgbil\Ryot\RYZEN-LLM\PHASE2_PERFORMANCE_DATA.json
+
+================================================================================
+                               BENCHMARK SUMMARY                                
+================================================================================
+
+[RESULTS] Summary:
+  ΓÇó Tests Executed: 10
+  ΓÇó Average Throughput: 55.33 tok/s
+  ΓÇó Speedup vs Phase 1: 81.36├ù
+  ΓÇó All Targets Met: [FAIL]
+
+[RECOMMENDATION]:
+  [WARNING] REQUIRES FURTHER INVESTIGATION
+
+================================================================================
+Benchmark completed at 2025-12-21T08:03:54.260265
+================================================================================

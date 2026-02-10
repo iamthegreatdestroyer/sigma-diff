@@ -1,0 +1,135 @@
+∩╗┐2026-02-08T22:05:48.4901089Z Current runner version: '2.331.0'
+2026-02-08T22:05:48.4922988Z ##[group]Runner Image Provisioner
+2026-02-08T22:05:48.4923844Z Hosted Compute Agent
+2026-02-08T22:05:48.4924409Z Version: 20260123.484
+2026-02-08T22:05:48.4925141Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+2026-02-08T22:05:48.4925770Z Build Date: 2026-01-23T19:41:17Z
+2026-02-08T22:05:48.4926391Z Worker ID: {fca42afb-4155-4b39-9891-2859668f813b}
+2026-02-08T22:05:48.4927002Z Azure Region: westus3
+2026-02-08T22:05:48.4927492Z ##[endgroup]
+2026-02-08T22:05:48.4929144Z ##[group]Operating System
+2026-02-08T22:05:48.4929653Z Ubuntu
+2026-02-08T22:05:48.4930063Z 24.04.3
+2026-02-08T22:05:48.4930445Z LTS
+2026-02-08T22:05:48.4930882Z ##[endgroup]
+2026-02-08T22:05:48.4931286Z ##[group]Runner Image
+2026-02-08T22:05:48.4931754Z Image: ubuntu-24.04
+2026-02-08T22:05:48.4932175Z Version: 20260201.15.1
+2026-02-08T22:05:48.4933207Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260201.15/images/ubuntu/Ubuntu2404-Readme.md
+2026-02-08T22:05:48.4934491Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260201.15
+2026-02-08T22:05:48.4935263Z ##[endgroup]
+2026-02-08T22:05:48.4936219Z ##[group]GITHUB_TOKEN Permissions
+2026-02-08T22:05:48.4938129Z Contents: read
+2026-02-08T22:05:48.4938582Z Metadata: read
+2026-02-08T22:05:48.4939219Z Packages: read
+2026-02-08T22:05:48.4939628Z ##[endgroup]
+2026-02-08T22:05:48.4941614Z Secret source: Actions
+2026-02-08T22:05:48.4942266Z Prepare workflow directory
+2026-02-08T22:05:48.5234984Z Prepare all required actions
+2026-02-08T22:05:48.5276579Z Getting action download info
+2026-02-08T22:05:48.9237608Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-02-08T22:05:48.9952982Z Download action repository 'jwlawson/actions-setup-cmake@v1.14' (SHA:d06b37b47cfd043ec794ffa3e40e0b6b5858a7ec)
+2026-02-08T22:05:49.8734627Z Complete job name: build (ubuntu-latest)
+2026-02-08T22:05:49.9367487Z ##[group]Run actions/checkout@v4
+2026-02-08T22:05:49.9368399Z with:
+2026-02-08T22:05:49.9369081Z   repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:05:49.9370013Z   token: ***
+2026-02-08T22:05:49.9370473Z   ssh-strict: true
+2026-02-08T22:05:49.9370992Z   ssh-user: git
+2026-02-08T22:05:49.9371460Z   persist-credentials: true
+2026-02-08T22:05:49.9372013Z   clean: true
+2026-02-08T22:05:49.9372475Z   sparse-checkout-cone-mode: true
+2026-02-08T22:05:49.9373050Z   fetch-depth: 1
+2026-02-08T22:05:49.9373498Z   fetch-tags: false
+2026-02-08T22:05:49.9374004Z   show-progress: true
+2026-02-08T22:05:49.9374507Z   lfs: false
+2026-02-08T22:05:49.9374951Z   submodules: false
+2026-02-08T22:05:49.9375454Z   set-safe-directory: true
+2026-02-08T22:05:49.9376198Z ##[endgroup]
+2026-02-08T22:05:50.0391183Z Syncing repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:05:50.0393192Z ##[group]Getting Git version info
+2026-02-08T22:05:50.0394138Z Working directory is '/home/runner/work/Ryzanstein/Ryzanstein'
+2026-02-08T22:05:50.0395320Z [command]/usr/bin/git version
+2026-02-08T22:05:50.0441196Z git version 2.52.0
+2026-02-08T22:05:50.0463485Z ##[endgroup]
+2026-02-08T22:05:50.0476543Z Temporarily overriding HOME='/home/runner/work/_temp/3a8b0b0c-25b2-4e3f-a957-135783e5e295' before making global git config changes
+2026-02-08T22:05:50.0478264Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T22:05:50.0489590Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:05:50.0523491Z Deleting the contents of '/home/runner/work/Ryzanstein/Ryzanstein'
+2026-02-08T22:05:50.0526428Z ##[group]Initializing the repository
+2026-02-08T22:05:50.0530304Z [command]/usr/bin/git init /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:05:50.0620451Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-08T22:05:50.0622077Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-08T22:05:50.0623634Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-08T22:05:50.0624610Z hint: call:
+2026-02-08T22:05:50.0625058Z hint:
+2026-02-08T22:05:50.0625648Z hint: 	git config --global init.defaultBranch <name>
+2026-02-08T22:05:50.0626321Z hint:
+2026-02-08T22:05:50.0626964Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-08T22:05:50.0628142Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-08T22:05:50.0629467Z hint:
+2026-02-08T22:05:50.0629910Z hint: 	git branch -m <name>
+2026-02-08T22:05:50.0630466Z hint:
+2026-02-08T22:05:50.0631118Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-08T22:05:50.0632232Z Initialized empty Git repository in /home/runner/work/Ryzanstein/Ryzanstein/.git/
+2026-02-08T22:05:50.0634755Z [command]/usr/bin/git remote add origin https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:05:50.0667978Z ##[endgroup]
+2026-02-08T22:05:50.0669725Z ##[group]Disabling automatic garbage collection
+2026-02-08T22:05:50.0671121Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-08T22:05:50.0693450Z ##[endgroup]
+2026-02-08T22:05:50.0695037Z ##[group]Setting up auth
+2026-02-08T22:05:50.0700937Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T22:05:50.0726384Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T22:05:50.0990359Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T22:05:50.1014440Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T22:05:50.1181247Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T22:05:50.1215260Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T22:05:50.1382544Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-08T22:05:50.1409828Z ##[endgroup]
+2026-02-08T22:05:50.1417041Z ##[group]Fetching the repository
+2026-02-08T22:05:50.1418606Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d30a6b61b692b93ec3b2179ca956859c684e9727:refs/remotes/origin/sprint6/api-integration
+2026-02-08T22:05:51.7721922Z From https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:05:51.7723647Z  * [new ref]         d30a6b61b692b93ec3b2179ca956859c684e9727 -> origin/sprint6/api-integration
+2026-02-08T22:05:51.7862085Z ##[endgroup]
+2026-02-08T22:05:51.7862851Z ##[group]Determining the checkout info
+2026-02-08T22:05:51.7863708Z ##[endgroup]
+2026-02-08T22:05:51.7864199Z [command]/usr/bin/git sparse-checkout disable
+2026-02-08T22:05:51.7865557Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-08T22:05:51.7867035Z ##[group]Checking out the ref
+2026-02-08T22:05:51.7867875Z [command]/usr/bin/git checkout --progress --force -B sprint6/api-integration refs/remotes/origin/sprint6/api-integration
+2026-02-08T22:05:52.0033550Z Switched to a new branch 'sprint6/api-integration'
+2026-02-08T22:05:52.0034682Z branch 'sprint6/api-integration' set up to track 'origin/sprint6/api-integration'.
+2026-02-08T22:05:52.0276656Z ##[endgroup]
+2026-02-08T22:05:52.0312064Z [command]/usr/bin/git log -1 --format=%H
+2026-02-08T22:05:52.0330072Z d30a6b61b692b93ec3b2179ca956859c684e9727
+2026-02-08T22:05:52.0500490Z ##[group]Run jwlawson/actions-setup-cmake@v1.14
+2026-02-08T22:05:52.0500820Z with:
+2026-02-08T22:05:52.0500991Z   cmake-version: 3.28.x
+2026-02-08T22:05:52.0501408Z   github-api-token: ***
+2026-02-08T22:05:52.0501602Z   use-32bit: false
+2026-02-08T22:05:52.0501789Z ##[endgroup]
+2026-02-08T22:05:58.1119939Z Using cmake version 3.28.6
+2026-02-08T22:05:59.0067815Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/923db6d0-1397-4a7e-ac3d-2d7d7d8f5e0b -f /home/runner/work/_temp/34138e99-2f65-4745-8168-8d6dce72800b
+2026-02-08T22:06:01.5984864Z ##[group]Run mkdir -p "Ryzanstein LLM/build"
+2026-02-08T22:06:01.5985296Z [36;1mmkdir -p "Ryzanstein LLM/build"[0m
+2026-02-08T22:06:01.5985871Z [36;1mcmake -S "Ryzanstein LLM" -B "Ryzanstein LLM/build" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release[0m
+2026-02-08T22:06:01.6012199Z shell: /usr/bin/bash -e {0}
+2026-02-08T22:06:01.6012456Z ##[endgroup]
+2026-02-08T22:06:01.6098431Z CMake Error: The source directory "/home/runner/work/Ryzanstein/Ryzanstein/Ryzanstein LLM" does not appear to contain CMakeLists.txt.
+2026-02-08T22:06:01.6099397Z Specify --help for usage, or press the help button on the CMake GUI.
+2026-02-08T22:06:01.6114160Z ##[error]Process completed with exit code 1.
+2026-02-08T22:06:01.6221891Z Post job cleanup.
+2026-02-08T22:06:01.7102398Z [command]/usr/bin/git version
+2026-02-08T22:06:01.7134703Z git version 2.52.0
+2026-02-08T22:06:01.7174983Z Temporarily overriding HOME='/home/runner/work/_temp/a4b4c144-0e55-4f5f-9279-70f30b747081' before making global git config changes
+2026-02-08T22:06:01.7176309Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T22:06:01.7181467Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:06:01.7212436Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T22:06:01.7240597Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T22:06:01.7442245Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T22:06:01.7464613Z http.https://github.com/.extraheader
+2026-02-08T22:06:01.7478130Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-02-08T22:06:01.7508863Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T22:06:01.7691800Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T22:06:01.7719893Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T22:06:01.7996087Z Cleaning up orphan processes

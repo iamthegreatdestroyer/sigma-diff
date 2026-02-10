@@ -1,0 +1,82 @@
+# Build artifacts
+build/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Models (too large to commit)
+models/*/*.gguf
+models/*/*.safetensors
+models/*/*.pth
+models/*/*.bin
+
+# Keep .gitkeep files
+!models/*/.gitkeep
+
+# Storage
+storage/rsu_bank/*
+storage/kv_cache/*
+storage/embeddings/*
+!storage/*/.gitkeep
+
+# Temporary files
+tmp/
+*.tmp
+*.temp
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Ninja
+.ninja_deps
+.ninja_log
+build.ninja
+
+# Testing
+.tox/
+.coverage.*
+coverage.xml
+*.cover
+
+# Documentation
+docs/_build/
+site/
+\n# Project-specific build outputs to ignore (prevent accidental commits)\n/test_build/\n**/test_build/\n*.exe\n*.obj\n*.lib\n*.pdb\n*.tlog\n*.vcxproj*\n

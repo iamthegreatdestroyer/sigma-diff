@@ -1,0 +1,45 @@
+name: CI — Go Dependencies
+on:
+  push:
+    branches: [main, develop, 'sprint*/**']
+    paths:
+      - 'dependencies/mcp-mesh/**'
+      - 'dependencies/vault-git/**'
+      - 'dependencies/neurectomy-shell/**'
+  pull_request:
+    paths:
+      - 'dependencies/mcp-mesh/**'
+      - 'dependencies/vault-git/**'
+      - 'dependencies/neurectomy-shell/**'
+
+jobs:
+  go-ci:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module:
+          - mcp-mesh
+          - vault-git
+          - neurectomy-shell
+    defaults:
+      run:
+        working-directory: dependencies/${{ matrix.module }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache-dependency-path: dependencies/${{ matrix.module }}/go.sum
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Build
+        run: go build ./...
+
+      - name: Test
+        run: go test -v -race -coverprofile=coverage.out ./...
+
+      - name: Coverage report
+        run: go tool cover -func=coverage.out

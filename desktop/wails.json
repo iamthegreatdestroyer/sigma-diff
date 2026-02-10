@@ -1,0 +1,78 @@
+{
+  "name": "Ryzanstein",
+  "type": "desktop",
+  "outputType": "desktop",
+  "frontend": "frontend",
+  "build": {
+    "appType": "desktop",
+    "frontend": {
+      "dir": "frontend",
+      "install": "npm install",
+      "build": "npm run build",
+      "dev": "npm run dev"
+    },
+    "backend": {
+      "dir": "cmd/ryzanstein",
+      "main": "main.go"
+    }
+  },
+  "app": {
+    "title": "Ryzanstein",
+    "width": 1400,
+    "height": 900,
+    "minWidth": 800,
+    "minHeight": 600,
+    "maxWidth": 2560,
+    "maxHeight": 1440,
+    "fullscreen": false,
+    "alwaysOnTop": false,
+    "unsafeUseLocalStorage": false,
+    "disableTrayIcon": false,
+    "menu": "AppMenu",
+    "preloadScript": "",
+    "preloadJS": "",
+    "preloadTS": "",
+    "enableFraseContext": false,
+    "bind": [
+      "main.App.Greet",
+      "main.Chat.SendMessage",
+      "main.Chat.GetHistory",
+      "main.Models.ListModels",
+      "main.Models.LoadModel",
+      "main.Agents.ListAgents",
+      "main.Agents.InvokeAgent",
+      "main.Config.GetConfig",
+      "main.Config.SaveConfig"
+    ],
+    "mac": {
+      "group": "com.ryzanstein.app",
+      "identity": "",
+      "provisioningProfile": "",
+      "hardening": {}
+    },
+    "windows": {
+      "webviewIsTransparent": false,
+      "webviewUserDataPath": "",
+      "webview2UserDataFolder": "%APPDATA%\\Ryzanstein",
+      "enableSwipeGestures": true,
+      "nsis": {
+        "template": "",
+        "licenseFile": "",
+        "icon": "build/windows/icon.ico",
+        "oneClick": false,
+        "allowToChangeInstallationDirectory": true,
+        "createDesktopShortcut": true,
+        "createStartMenuShortcut": true,
+        "shortcutName": "Ryzanstein"
+      }
+    },
+    "linux": {
+      "icon": "build/linux/icon.png",
+      "executableName": "ryzanstein"
+    }
+  },
+  "logger": {
+    "level": "info"
+  },
+  "logLevelProduction": "error"
+}

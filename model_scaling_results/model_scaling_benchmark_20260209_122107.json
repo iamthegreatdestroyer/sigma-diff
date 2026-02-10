@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-02-09T12:21:04.884172",
+  "benchmark_config": {
+    "num_epochs": 2,
+    "batch_size": 32
+  },
+  "model_sizes": {
+    "small": {
+      "error": "ScalableTransformerModel is not an Optimizer"
+    },
+    "medium": {
+      "error": "ScalableTransformerModel is not an Optimizer"
+    },
+    "large": {
+      "error": "ScalableTransformerModel is not an Optimizer"
+    }
+  },
+  "scaling_analysis": {
+    "memory_scaling": {},
+    "throughput_scaling": {},
+    "time_scaling": {},
+    "efficiency_metrics": {}
+  }
+}

@@ -1,0 +1,115 @@
+# Prometheus Configuration for LLM Inference Monitoring
+# Sprint 3.1: Comprehensive Monitoring
+#
+# This configuration defines scrape targets, alert rules,
+# and recording rules for the distributed inference system.
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: "llm-inference-cluster"
+    env: "production"
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# Rule files for recording and alerting
+rule_files:
+  - "alerting_rules.yaml"
+  - "recording_rules.yaml"
+
+# Scrape configuration
+scrape_configs:
+  # Main inference API endpoints
+  - job_name: "llm-inference-api"
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    static_configs:
+      - targets: ["localhost:9090"]
+        labels:
+          service: "inference-api"
+          tier: "frontend"
+    # Dynamic discovery for Kubernetes
+    # kubernetes_sd_configs:
+    #   - role: pod
+    #     namespaces:
+    #       names: ['llm-inference']
+    # relabel_configs:
+    #   - source_labels: [__meta_kubernetes_pod_label_app]
+    #     action: keep
+    #     regex: llm-inference-api
+
+  # GPU worker nodes
+  - job_name: "llm-inference-workers"
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - "worker-1:9090"
+          - "worker-2:9090"
+          - "worker-3:9090"
+          - "worker-4:9090"
+        labels:
+          service: "inference-worker"
+          tier: "backend"
+    # For file-based service discovery
+    # file_sd_configs:
+    #   - files:
+    #     - '/etc/prometheus/workers/*.json'
+    #     refresh_interval: 30s
+
+  # NVIDIA GPU metrics (via DCGM or nvidia_exporter)
+  - job_name: "gpu-metrics"
+    scrape_interval: 5s
+    scrape_timeout: 3s
+    static_configs:
+      - targets:
+          - "localhost:9400" # DCGM exporter
+        labels:
+          service: "gpu-exporter"
+
+  # Node-level metrics (node_exporter)
+  - job_name: "node-metrics"
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - "localhost:9100"
+        labels:
+          service: "node-exporter"
+
+  # Cache metrics
+  - job_name: "cache-metrics"
+    scrape_interval: 10s
+    static_configs:
+      - targets: ["localhost:9091"]
+        labels:
+          service: "kv-cache"
+
+  # Load balancer metrics
+  - job_name: "load-balancer"
+    scrape_interval: 10s
+    static_configs:
+      - targets: ["localhost:9092"]
+        labels:
+          service: "load-balancer"
+          tier: "frontend"
+
+  # Self-monitoring (Prometheus itself)
+  - job_name: "prometheus"
+    scrape_interval: 15s
+    static_configs:
+      - targets: ["localhost:9090"]
+# Recording rules for efficient queries
+# These pre-compute expensive queries
+# recording_rules:
+#   - name: inference_aggregations
+#     rules:
+#       - record: llm_inference:tokens_per_second:avg5m
+#         expr: avg_over_time(llm_inference_tokens_per_second[5m])
+#       - record: llm_inference:latency_p99:5m
+#         expr: histogram_quantile(0.99, rate(llm_inference_generation_duration_seconds_bucket[5m]))

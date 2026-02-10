@@ -1,0 +1,185 @@
+# RYZEN-LLM Python Project Configuration
+# [REF:AP-009] - Appendix: Technical Stack
+
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ryzen-llm"
+version = "2.0.0"
+description = "CPU-First Large Language Model Infrastructure for AMD Ryzen"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "RYZEN-LLM Project"}
+]
+keywords = ["llm", "inference", "cpu", "amd", "ryzen", "bitnet", "mamba"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    # Web framework
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.4.0",
+    
+    # Vector database
+    "qdrant-client>=1.7.0",
+    
+    # ML and embeddings
+    "transformers>=4.36.0",
+    "sentence-transformers>=2.2.0",
+    "torch>=2.1.0",
+    
+    # Utilities
+    "pyyaml>=6.0",
+    "numpy>=1.24.0",
+    "requests>=2.31.0",
+    "tqdm>=4.66.0",
+    
+    # Async and concurrency
+    "asyncio>=3.4.3",
+    "aiofiles>=23.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.11.0",
+    "isort>=5.12.0",
+    "mypy>=1.7.0",
+    "ruff>=0.1.6",
+]
+
+benchmark = [
+    "matplotlib>=3.8.0",
+    "pandas>=2.1.0",
+]
+
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/iamthegreatdestroyer/Ryot"
+Documentation = "https://github.com/iamthegreatdestroyer/Ryot/tree/main/RYZEN-LLM/docs"
+Repository = "https://github.com/iamthegreatdestroyer/Ryot"
+Issues = "https://github.com/iamthegreatdestroyer/Ryot/issues"
+
+[project.scripts]
+ryzen-llm-server = "src.api.server:main"
+ryzen-llm-benchmark = "scripts.benchmark:main"
+ryzen-llm-download = "scripts.download_models:main"
+
+[tool.setuptools]
+packages = ["src.recycler", "src.orchestration", "src.api"]
+
+[tool.setuptools.package-dir]
+"src.recycler" = "src/recycler"
+"src.orchestration" = "src/orchestration"
+"src.api" = "src/api"
+
+# Black configuration
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# isort configuration
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+# mypy configuration
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_optional = true
+
+[[tool.mypy.overrides]]
+module = [
+    "qdrant_client.*",
+    "sentence_transformers.*",
+    "transformers.*",
+]
+ignore_missing_imports = true
+
+# pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "benchmark: marks tests as benchmarks",
+]
+
+# ruff configuration
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]  # unused imports

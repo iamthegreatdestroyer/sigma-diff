@@ -1,0 +1,49 @@
+=== PROFILER EXECUTION LOG ===
+Timestamp: 2026-02-09T14:57:07.446607
+Script: S:\Ryot\RYZEN-LLM\scripts\benchmark_overhead.py
+Working Directory: S:\Ryot\RYZEN-LLM
+Python: S:\Ryot\.venv\Scripts\python.exe
+Python Version: 3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]
+
+[TEST 1] Profiler script exists: True
+         File size: 39865 bytes
+
+[TEST 2] Scripts directory exists: True
+         Contents: [WindowsPath('S:/Ryot/RYZEN-LLM/scripts/benchmark.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/benchmark_e2e_inference.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/benchmark_mt_contention.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/benchmark_overhead.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/benchmark_regression.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/benchmark_tmac.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/compression_benchmark.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/detect_cpu_features.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/distributed_training_tester.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/download_models.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/inference_scaling.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/inference_speedup_measurement.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/integration_test_runner.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/kernel_optimizer.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/model_scaling_tester.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/optimization_controller.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/optimization_orchestrator.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/optimization_validator.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/phase2_orchestrator.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/real_ddp_trainer.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/run_integration_tests.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/semantic_compression.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/simple_mt_test.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/task_5_local_validation.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/task_5_real_weight_testing.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/task_5_synthetic_validation.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/test_bindings.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/test_ctypes.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/test_mt_contention_fix.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/training_loop.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/training_metrics_collector.py'), WindowsPath('S:/Ryot/RYZEN-LLM/scripts/verify_phase1.py')]
+
+[TEST 3] Reports directory exists: True
+         Is writable: True
+         Current contents: [WindowsPath('S:/Ryot/reports/overhead_analysis.json')]
+
+[TEST 4] Executing profiler...
+         Command: S:\Ryot\.venv\Scripts\python.exe S:\Ryot\RYZEN-LLM\scripts\benchmark_overhead.py
+         From directory: S:\Ryot\RYZEN-LLM
+--------------------------------------------------------------------------------
+STDOUT:
+
+
+STDERR:
+Traceback (most recent call last):
+  File "S:\Ryot\RYZEN-LLM\scripts\benchmark_overhead.py", line 29, in <module>
+    print("\u2705 kernel_optimizer imported")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+
+Return code: 1
+
+--------------------------------------------------------------------------------
+[TEST 5] Post-execution file check:
+         JSON report exists: True
+         JSON file size: 940 bytes
+         Markdown report exists: True
+         Markdown file size: 0 bytes
+
+[SUMMARY]
+Profiler executed: YES
+Return code: 1
+Output files created: True
+Execution successful: YES - All files created

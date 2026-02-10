@@ -1,0 +1,4 @@
+SIMD Fix Results - AVX-512 Now Active!
+Before: 0.42 tok/s (scalar)
+After: 55.44 tok/s (AVX-512)
+Speedup: 131.5×

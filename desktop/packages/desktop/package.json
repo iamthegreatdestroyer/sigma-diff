@@ -1,0 +1,22 @@
+{
+  "name": "ryzanstein-desktop-ui",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@tsconfig/svelte": "^5.0.0",
+    "svelte": "^4.0.0",
+    "svelte-check": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "wailsjs": "github:wailsapp/wails/v2/cmd/wails/internal/frontend/runtime/wailsjs"
+  }
+}

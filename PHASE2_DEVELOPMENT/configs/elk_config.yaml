@@ -1,0 +1,46 @@
+# ELK Stack Configuration for Ryzanstein LLM
+# Sprint 3.2: Distributed Logging
+# Created: January 6, 2026
+
+# Elasticsearch settings
+elasticsearch:
+  cluster.name: "ryzanstein-logs"
+  network.host: "0.0.0.0"
+  http.port: 9200
+  discovery.type: "single-node"
+  
+  # Index settings
+  index:
+    number_of_shards: 1
+    number_of_replicas: 0
+  
+  # Memory settings
+  xpack.ml.enabled: false
+  xpack.security.enabled: false
+
+# Logstash settings
+logstash:
+  pipeline:
+    workers: 2
+    batch.size: 125
+    batch.delay: 50
+  
+  # Input configuration
+  input:
+    - type: beats
+      port: 5044
+    - type: http
+      port: 8080
+  
+  # Output configuration
+  output:
+    elasticsearch:
+      hosts: ["elasticsearch:9200"]
+      index: "ryzanstein-logs-%{+YYYY.MM.dd}"
+
+# Kibana settings
+kibana:
+  server.name: "ryzanstein-kibana"
+  server.host: "0.0.0.0"
+  server.port: 5601
+  elasticsearch.hosts: ["http://elasticsearch:9200"]

@@ -1,0 +1,4 @@
+  File "<string>", line 47
+    report.append('    - process_query(query: str, context: str = \
+                  ^
+SyntaxError: unterminated string literal (detected at line 47)

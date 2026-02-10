@@ -1,0 +1,57 @@
+[1m============================= test session starts =============================[0m
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+benchmark: 5.2.3 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: S:\Ryot
+plugins: anyio-4.12.1, hypothesis-6.151.4, asyncio-1.3.0, benchmark-5.2.3, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+[1mcollecting ... [0mcollected 25 items
+
+tests/test_success_criteria.py::TestSpeedupMetrics::test_training_speedup_minimum [32mPASSED[0m[32m [  4%][0m
+tests/test_success_criteria.py::TestSpeedupMetrics::test_training_speedup_maximum [32mPASSED[0m[32m [  8%][0m
+tests/test_success_criteria.py::TestSpeedupMetrics::test_ttft_speedup_target [32mPASSED[0m[32m [ 12%][0m
+tests/test_success_criteria.py::TestSpeedupMetrics::test_throughput_target [32mPASSED[0m[32m [ 16%][0m
+tests/test_success_criteria.py::TestSpeedupMetrics::test_speedup_consistency [32mPASSED[0m[32m [ 20%][0m
+tests/test_success_criteria.py::TestAccuracyMetrics::test_accuracy_maintenance_gte_baseline [32mPASSED[0m[32m [ 24%][0m
+tests/test_success_criteria.py::TestAccuracyMetrics::test_no_accuracy_regression [32mPASSED[0m[32m [ 28%][0m
+tests/test_success_criteria.py::TestAccuracyMetrics::test_top1_accuracy_minimum [32mPASSED[0m[32m [ 32%][0m
+tests/test_success_criteria.py::TestAccuracyMetrics::test_top5_accuracy_minimum [32mPASSED[0m[32m [ 36%][0m
+tests/test_success_criteria.py::TestAccuracyMetrics::test_convergence_smoothness [31mFAILED[0m[31m [ 40%][0m
+tests/test_success_criteria.py::TestMemoryMetrics::test_memory_reduction_minimum [32mPASSED[0m[31m [ 44%][0m
+tests/test_success_criteria.py::TestMemoryMetrics::test_memory_stability [32mPASSED[0m[31m [ 48%][0m
+tests/test_success_criteria.py::TestMemoryMetrics::test_kv_cache_memory_savings [32mPASSED[0m[31m [ 52%][0m
+tests/test_success_criteria.py::TestMemoryMetrics::test_no_oom_errors [32mPASSED[0m[31m [ 56%][0m
+tests/test_success_criteria.py::TestInferenceMetrics::test_inference_latency_per_token [32mPASSED[0m[31m [ 60%][0m
+tests/test_success_criteria.py::TestInferenceMetrics::test_first_token_latency [32mPASSED[0m[31m [ 64%][0m
+tests/test_success_criteria.py::TestInferenceMetrics::test_throughput_consistency [32mPASSED[0m[31m [ 68%][0m
+tests/test_success_criteria.py::TestInferenceMetrics::test_batch_inference_efficiency [31mFAILED[0m[31m [ 72%][0m
+tests/test_success_criteria.py::TestComprehensiveValidation::test_all_metrics_within_thresholds [32mPASSED[0m[31m [ 76%][0m
+tests/test_success_criteria.py::TestComprehensiveValidation::test_no_metric_tradeoffs [32mPASSED[0m[31m [ 80%][0m
+tests/test_success_criteria.py::TestComprehensiveValidation::test_reproducibility_validation [31mFAILED[0m[31m [ 84%][0m
+tests/test_success_criteria.py::TestComprehensiveValidation::test_resource_utilization [32mPASSED[0m[31m [ 88%][0m
+tests/test_success_criteria.py::TestCriticalEdgeCases::test_no_nan_inf_in_metrics [32mPASSED[0m[31m [ 92%][0m
+tests/test_success_criteria.py::TestCriticalEdgeCases::test_positive_metrics [32mPASSED[0m[31m [ 96%][0m
+tests/test_success_criteria.py::TestCriticalEdgeCases::test_metrics_in_reasonable_range [32mPASSED[0m[31m [100%][0m
+
+================================== FAILURES ===================================
+[31m[1m_______________ TestAccuracyMetrics.test_convergence_smoothness _______________[0m
+[1m[31mtests\test_success_criteria.py[0m:236: in test_convergence_smoothness
+    [0m[94massert[39;49;00m mean_divergence <= max_divergence_threshold, \
+[1m[31mE   AssertionError: Convergence divergence 9.20% exceeds 5%[0m
+[1m[31mE   assert np.float64(0.092012987012987) <= 0.05[0m
+[31m[1m____________ TestInferenceMetrics.test_batch_inference_efficiency _____________[0m
+[1m[31mtests\test_success_criteria.py[0m:355: in test_batch_inference_efficiency
+    [0m[94massert[39;49;00m efficiency_ratio >= [94m0.95[39;49;00m, \
+[1m[31mE   AssertionError: Batch efficiency 88.0% below 95% optimal[0m
+[1m[31mE   assert 0.8799999999999999 >= 0.95[0m
+[31m[1m_________ TestComprehensiveValidation.test_reproducibility_validation _________[0m
+[1m[31mtests\test_success_criteria.py[0m:448: in test_reproducibility_validation
+    [0m[94massert[39;49;00m var < [94m0.001[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmetric_name[33m}[39;49;00m[33m varies by [39;49;00m[33m{[39;49;00mvar[33m:[39;49;00m[33m.2%[39;49;00m[33m}[39;49;00m[33m (should be < 0.1%)[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+[1m[31mE   AssertionError: throughput varies by 0.21% (should be < 0.1%)[0m
+[1m[31mE   assert 0.002083333333333363 < 0.001[0m
+[36m[1m=========================== short test summary info ===========================[0m
+[31mFAILED[0m tests/test_success_criteria.py::[1mTestAccuracyMetrics::test_convergence_smoothness[0m - AssertionError: Convergence divergence 9.20% exceeds 5%
+[31mFAILED[0m tests/test_success_criteria.py::[1mTestInferenceMetrics::test_batch_inference_efficiency[0m - AssertionError: Batch efficiency 88.0% below 95% optimal
+[31mFAILED[0m tests/test_success_criteria.py::[1mTestComprehensiveValidation::test_reproducibility_validation[0m - AssertionError: throughput varies by 0.21% (should be < 0.1%)
+[31m======================== [31m[1m3 failed[0m, [32m22 passed[0m[31m in 7.14s[0m[31m =========================[0m

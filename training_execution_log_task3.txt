@@ -1,0 +1,2 @@
+WARNING:root:Phase 1 modules not fully available: cannot import name 'CPUFeatureDetector' from 'kernel_optimizer' (S:\Ryot\RYZEN-LLM\scripts\kernel_optimizer.py)
+WARNING:__main__:ModelInferenceValidator not available - proceeding without inference validation

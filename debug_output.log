@@ -1,0 +1,18 @@
+================================================================================
+OVERHEAD PROFILER DEBUGGING SCRIPT
+================================================================================
+
+[1] PYTHON ENVIRONMENT CHECK
+  Python executable: S:\Ryot\.venv\Scripts\python.exe
+  Python version: 3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]
+  Python path: ['S:\\Ryot', 'C:\\Python314\\python314.zip', 'C:\\Python314\\DLLs', 'C:\\Python314\\Lib', 'C:\\Python314', 'S:\\Ryot\\.venv', 'S:\\Ryot\\.venv\\Lib\\site-packages', '__editable__.ryzanstein_llm-2.0.0.finder.__path_hook__', 'S:\\Ryot\\.venv\\Lib\\site-packages\\win32', 'S:\\Ryot\\.venv\\Lib\\site-packages\\win32\\lib', 'S:\\Ryot\\.venv\\Lib\\site-packages\\Pythonwin']
+
+[2] PYTORCH AVAILABILITY
+Traceback (most recent call last):
+  File "S:\Ryot\debug_overhead_execution.py", line 26, in <module>
+    print(f"  \u2705 PyTorch version: {torch.__version__}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 2: character maps to <undefined>

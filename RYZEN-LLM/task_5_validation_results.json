@@ -1,0 +1,19 @@
+{
+  "model_name": "synthetic/bitnet-b1.58-2B",
+  "total_parameters": 218,
+  "original_size_mb": 6644.375,
+  "quantized_size_mb": 415.2734375,
+  "compression_ratio": 16.0,
+  "total_layers": 218,
+  "quantized_layers": 0,
+  "mean_error": 8.729768827783986e-05,
+  "max_error": 0.0003920895978808403,
+  "min_error": 0.0,
+  "error_std": 0.0001600242878202983,
+  "quantization_time_ms": 74004.96720010415,
+  "load_time_ms": 274264.0953999944,
+  "total_time_ms": 348269.06260009855,
+  "timestamp": "2025-12-25T09:23:43.301703",
+  "model_url": "synthetic://synthetic/bitnet-b1.58-2B",
+  "quantization_config": "aggressive"
+}

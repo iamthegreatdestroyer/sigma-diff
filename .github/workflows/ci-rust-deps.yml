@@ -1,0 +1,74 @@
+name: CI — Rust Dependencies
+on:
+  push:
+    branches: [main, develop, 'sprint*/**']
+    paths:
+      - 'dependencies/sigma-index/**'
+      - 'dependencies/sigma-diff/**'
+      - 'dependencies/sigma-compress/**'
+      - 'dependencies/sigma-telemetry/**'
+      - 'dependencies/causedb/**'
+      - 'dependencies/dep-bloom/**'
+      - 'dependencies/cpu-infer/**'
+      - 'dependencies/sigma-api/**'
+      - 'dependencies/zkaudit/**'
+      - 'dependencies/semlog/**'
+      - 'dependencies/ann-hybrid/**'
+  pull_request:
+    paths:
+      - 'dependencies/sigma-index/**'
+      - 'dependencies/sigma-diff/**'
+      - 'dependencies/sigma-compress/**'
+      - 'dependencies/sigma-telemetry/**'
+      - 'dependencies/causedb/**'
+      - 'dependencies/dep-bloom/**'
+      - 'dependencies/cpu-infer/**'
+      - 'dependencies/sigma-api/**'
+      - 'dependencies/zkaudit/**'
+      - 'dependencies/semlog/**'
+      - 'dependencies/ann-hybrid/**'
+
+jobs:
+  rust-ci:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        crate:
+          - sigma-index
+          - sigma-diff
+          - sigma-compress
+          - sigma-telemetry
+          - causedb
+          - dep-bloom
+          - cpu-infer
+          - sigma-api
+          - zkaudit
+          - semlog
+          - ann-hybrid
+    defaults:
+      run:
+        working-directory: dependencies/${{ matrix.crate }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: dependencies/${{ matrix.crate }}
+
+      - name: Format check
+        run: cargo fmt -- --check
+
+      - name: Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Build
+        run: cargo build --all-features
+
+      - name: Test
+        run: cargo test --all-features -- --test-threads=4
+
+      - name: Test (release)
+        run: cargo test --release --all-features

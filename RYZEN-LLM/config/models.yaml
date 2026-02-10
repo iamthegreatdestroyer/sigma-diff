@@ -1,0 +1,167 @@
+# Model Configuration Registry
+# [REF:AP-009] - Appendix: Technical Stack
+
+models:
+  # BitNet Models
+  bitnet-7b:
+    type: "bitnet"
+    architecture: "llama"
+    path: "models/bitnet/bitnet-7b.gguf"
+    parameters: 7000000000
+    quantization: "ternary"
+    context_length: 4096
+    vocab_size: 32000
+    hidden_size: 4096
+    num_layers: 32
+    num_heads: 32
+    capabilities:
+      - "code_generation"
+      - "chat"
+      - "reasoning"
+    memory_mb: 3500
+    recommended_batch_size: 4
+  
+  bitnet-13b:
+    type: "bitnet"
+    architecture: "llama"
+    path: "models/bitnet/bitnet-13b.gguf"
+    parameters: 13000000000
+    quantization: "ternary"
+    context_length: 4096
+    vocab_size: 32000
+    hidden_size: 5120
+    num_layers: 40
+    num_heads: 40
+    capabilities:
+      - "code_generation"
+      - "chat"
+      - "reasoning"
+      - "creative_writing"
+    memory_mb: 6500
+    recommended_batch_size: 2
+  
+  # Mamba Models
+  mamba-2.8b:
+    type: "mamba"
+    architecture: "mamba"
+    path: "models/mamba/mamba-2.8b.safetensors"
+    parameters: 2800000000
+    quantization: "fp16"
+    context_length: 8192
+    vocab_size: 50280
+    hidden_size: 2560
+    num_layers: 64
+    state_size: 16
+    capabilities:
+      - "chat"
+      - "summarization"
+      - "qa"
+    memory_mb: 5600
+    recommended_batch_size: 8
+  
+  mamba-7b:
+    type: "mamba"
+    architecture: "mamba"
+    path: "models/mamba/mamba-7b.safetensors"
+    parameters: 7000000000
+    quantization: "fp16"
+    context_length: 16384
+    vocab_size: 50280
+    hidden_size: 4096
+    num_layers: 64
+    state_size: 16
+    capabilities:
+      - "chat"
+      - "summarization"
+      - "qa"
+      - "reasoning"
+    memory_mb: 14000
+    recommended_batch_size: 4
+  
+  # RWKV Models
+  rwkv-7b:
+    type: "rwkv"
+    architecture: "rwkv"
+    path: "models/rwkv/rwkv-7b.pth"
+    parameters: 7000000000
+    quantization: "fp16"
+    context_length: 8192
+    vocab_size: 50277
+    hidden_size: 4096
+    num_layers: 32
+    capabilities:
+      - "chat"
+      - "code_completion"
+      - "creative_writing"
+    memory_mb: 14000
+    recommended_batch_size: 8
+  
+  # Draft Models for Speculative Decoding
+  draft-350m:
+    type: "draft"
+    architecture: "llama"
+    path: "models/drafts/draft-350m.gguf"
+    parameters: 350000000
+    quantization: "int8"
+    context_length: 2048
+    vocab_size: 32000
+    hidden_size: 1024
+    num_layers: 12
+    num_heads: 16
+    capabilities:
+      - "draft_generation"
+    memory_mb: 350
+    recommended_batch_size: 16
+    
+    # Speculative decoding settings
+    compatible_targets:
+      - "bitnet-7b"
+      - "bitnet-13b"
+    draft_length: 5
+    acceptance_threshold: 0.8
+
+# Model Routing Rules
+routing_rules:
+  code_generation:
+    preferred: ["bitnet-7b", "bitnet-13b"]
+    fallback: ["rwkv-7b"]
+  
+  code_completion:
+    preferred: ["rwkv-7b", "bitnet-7b"]
+    fallback: ["mamba-2.8b"]
+  
+  chat:
+    preferred: ["mamba-2.8b", "bitnet-7b"]
+    fallback: ["rwkv-7b"]
+  
+  summarization:
+    preferred: ["mamba-2.8b", "mamba-7b"]
+    fallback: ["bitnet-7b"]
+  
+  qa:
+    preferred: ["mamba-2.8b", "bitnet-7b"]
+    fallback: ["rwkv-7b"]
+  
+  reasoning:
+    preferred: ["bitnet-13b", "bitnet-7b"]
+    fallback: ["mamba-7b"]
+  
+  creative_writing:
+    preferred: ["rwkv-7b", "bitnet-13b"]
+    fallback: ["bitnet-7b"]
+
+# Model Compatibility Matrix
+compatibility:
+  # Which models can use speculative decoding together
+  speculative_pairs:
+    - draft: "draft-350m"
+      target: "bitnet-7b"
+      speedup: 2.5
+    - draft: "draft-350m"
+      target: "bitnet-13b"
+      speedup: 2.3
+  
+  # Which models can share KV cache
+  cache_sharing:
+    - ["bitnet-7b", "bitnet-13b"]  # Same tokenizer
+    - ["mamba-2.8b", "mamba-7b"]   # Same tokenizer

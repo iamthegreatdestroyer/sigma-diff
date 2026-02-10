@@ -1,0 +1,249 @@
+# Docker Compose - Full Observability Stack
+# Ryzanstein LLM Sprint 3.5
+# Created: January 6, 2026
+#
+# This stack includes:
+# - Prometheus (metrics collection)
+# - Grafana (visualization)
+# - Jaeger (distributed tracing)
+# - Elasticsearch + Kibana (log aggregation)
+# - Alertmanager (alerting)
+
+version: "3.8"
+
+services:
+  # ==========================================================================
+  # PROMETHEUS - Metrics Collection
+  # ==========================================================================
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: ryzanstein-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
+      - ../configs/prometheus/rules:/etc/prometheus/rules:ro
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--web.enable-lifecycle"
+      - "--web.enable-admin-api"
+    networks:
+      - observability
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==========================================================================
+  # ALERTMANAGER - Alert Handling
+  # ==========================================================================
+  alertmanager:
+    image: prom/alertmanager:v0.26.0
+    container_name: ryzanstein-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ../configs/alertmanager/alertmanager.yaml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+    networks:
+      - observability
+    restart: unless-stopped
+
+  # ==========================================================================
+  # GRAFANA - Visualization
+  # ==========================================================================
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: ryzanstein-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../configs/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ../monitoring/grafana_dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=ryzanstein
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://localhost:3000
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-clock-panel
+    networks:
+      - observability
+    depends_on:
+      - prometheus
+      - jaeger
+    restart: unless-stopped
+    healthcheck:
+      test:
+        ["CMD", "wget", "-q", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==========================================================================
+  # JAEGER - Distributed Tracing
+  # ==========================================================================
+  jaeger:
+    image: jaegertracing/all-in-one:1.53
+    container_name: ryzanstein-jaeger
+    ports:
+      - "6831:6831/udp" # Thrift compact (agent)
+      - "6832:6832/udp" # Thrift binary (agent)
+      - "5778:5778" # Agent config
+      - "16686:16686" # Web UI
+      - "14268:14268" # HTTP collector
+      - "14250:14250" # gRPC collector
+      - "9411:9411" # Zipkin compatible
+      - "4317:4317" # OTLP gRPC
+      - "4318:4318" # OTLP HTTP
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
+      - SPAN_STORAGE_TYPE=memory
+      - MEMORY_MAX_TRACES=100000
+    networks:
+      - observability
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:14269/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==========================================================================
+  # ELASTICSEARCH - Log Storage
+  # ==========================================================================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+    container_name: ryzanstein-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - cluster.name=ryzanstein-logs
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - observability
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ==========================================================================
+  # KIBANA - Log Visualization
+  # ==========================================================================
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    container_name: ryzanstein-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_NAME=ryzanstein-kibana
+    networks:
+      - observability
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5601/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ==========================================================================
+  # FLUENT BIT - Log Collection (optional)
+  # ==========================================================================
+  fluentbit:
+    image: fluent/fluent-bit:2.2
+    container_name: ryzanstein-fluentbit
+    volumes:
+      - ../configs/fluentbit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
+      - ../configs/fluentbit/parsers.conf:/fluent-bit/etc/parsers.conf:ro
+      - /var/log:/var/log:ro
+    networks:
+      - observability
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - logging
+
+  # ==========================================================================
+  # NODE EXPORTER - Host Metrics (optional)
+  # ==========================================================================
+  node-exporter:
+    image: prom/node-exporter:v1.7.0
+    container_name: ryzanstein-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--path.rootfs=/rootfs"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+    networks:
+      - observability
+    restart: unless-stopped
+    profiles:
+      - metrics
+
+  # ==========================================================================
+  # CADVISOR - Container Metrics (optional)
+  # ==========================================================================
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    container_name: ryzanstein-cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - observability
+    restart: unless-stopped
+    profiles:
+      - metrics
+
+# ==========================================================================
+# NETWORKS
+# ==========================================================================
+networks:
+  observability:
+    driver: bridge
+    name: ryzanstein-observability
+
+# ==========================================================================
+# VOLUMES
+# ==========================================================================
+volumes:
+  prometheus_data:
+    name: ryzanstein-prometheus-data
+  alertmanager_data:
+    name: ryzanstein-alertmanager-data
+  grafana_data:
+    name: ryzanstein-grafana-data
+  elasticsearch_data:
+    name: ryzanstein-elasticsearch-data

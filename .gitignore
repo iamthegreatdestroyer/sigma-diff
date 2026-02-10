@@ -1,0 +1,50 @@
+.history/
+# Temp CI / helper files
+temp_ci.yml
+temp_ci_updated.yml
+temp_ci_b64.txt
+update_payload.json
+# Local test/build artifacts
+Ryzanstein LLM/test_build/
+# Model weights and storage (large files)
+Ryzanstein LLM/storage/
+storage/
+*.safetensors
+*.bin
+*.pth
+*.pt
+*.h5
+*.hdf5
+*.onnx
+*.pb
+# Editor backups
+*~
+*.swp
+
+# Build artifacts
+desktop/build/
+desktop/frontend/node_modules/
+mcp/*.exe
+mcp/proto/
+mcp/protoc.zip
+mcp/protoc_temp/
+vscode-extension/dist/
+vscode-extension/node_modules/
+vscode-extension/*.vsix
+
+# Go build artifacts
+go.sum
+*.exe
+
+# Python cache and build
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# CMake build directories
+build/
+cmake-build-*/
+out/

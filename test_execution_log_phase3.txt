@@ -1,0 +1,64 @@
+[1m============================= test session starts =============================[0m
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+benchmark: 5.2.3 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: S:\Ryot
+plugins: anyio-4.12.1, hypothesis-6.151.4, asyncio-1.3.0, benchmark-5.2.3, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+[1mcollecting ... [0mcollected 24 items
+
+tests/test_integration.py::TestOptimizationCombinations::test_kernel_optimization_alone [32mPASSED[0m[32m [  4%][0m
+tests/test_integration.py::TestOptimizationCombinations::test_compression_optimization_alone [32mPASSED[0m[32m [  8%][0m
+tests/test_integration.py::TestOptimizationCombinations::test_rlvr_optimization_alone [32mPASSED[0m[32m [ 12%][0m
+tests/test_integration.py::TestOptimizationCombinations::test_kernel_plus_compression [31mFAILED[0m[31m [ 16%][0m
+tests/test_integration.py::TestOptimizationCombinations::test_kernel_plus_rlvr [32mPASSED[0m[31m [ 20%][0m
+tests/test_integration.py::TestOptimizationCombinations::test_compression_plus_rlvr [32mPASSED[0m[31m [ 25%][0m
+tests/test_integration.py::TestOptimizationCombinations::test_all_three_optimizations [31mFAILED[0m[31m [ 29%][0m
+tests/test_integration.py::TestParameterConflictResolution::test_tile_size_compression_alignment [32mPASSED[0m[31m [ 33%][0m
+tests/test_integration.py::TestParameterConflictResolution::test_compression_rlvr_compatibility [32mPASSED[0m[31m [ 37%][0m
+tests/test_integration.py::TestParameterConflictResolution::test_parameter_precedence_enforcement [32mPASSED[0m[31m [ 41%][0m
+tests/test_integration.py::TestParameterConflictResolution::test_conflict_warning_generation [32mPASSED[0m[31m [ 45%][0m
+tests/test_integration.py::TestSafetyGateValidation::test_loss_nan_detection [32mPASSED[0m[31m [ 50%][0m
+tests/test_integration.py::TestSafetyGateValidation::test_loss_inf_detection [32mPASSED[0m[31m [ 54%][0m
+tests/test_integration.py::TestSafetyGateValidation::test_gradient_flow_validation [32mPASSED[0m[31m [ 58%][0m
+tests/test_integration.py::TestSafetyGateValidation::test_compression_reconstruction_error [32mPASSED[0m[31m [ 62%][0m
+tests/test_integration.py::TestSafetyGateValidation::test_safety_gate_recovery [32mPASSED[0m[31m [ 66%][0m
+tests/test_integration.py::TestReproducibility::test_fixed_seed_reproducibility [31mFAILED[0m[31m [ 70%][0m
+tests/test_integration.py::TestReproducibility::test_checkpoint_loading_consistency [32mPASSED[0m[31m [ 75%][0m
+tests/test_integration.py::TestReproducibility::test_optimization_state_snapshot [31mFAILED[0m[31m [ 79%][0m
+tests/test_integration.py::TestReproducibility::test_no_random_variation [32mPASSED[0m[31m [ 83%][0m
+tests/test_integration.py::TestEndToEndTraining::test_5_epoch_training_loop [32mPASSED[0m[31m [ 87%][0m
+tests/test_integration.py::TestEndToEndTraining::test_checkpoint_saving [32mPASSED[0m[31m [ 91%][0m
+tests/test_integration.py::TestEndToEndTraining::test_metrics_logging [32mPASSED[0m[31m [ 95%][0m
+tests/test_integration.py::TestEndToEndTraining::test_final_accuracy_vs_baseline [32mPASSED[0m[31m [100%][0m
+
+================================== FAILURES ===================================
+[31m[1m__________ TestOptimizationCombinations.test_kernel_plus_compression __________[0m
+[1m[31mtests\test_integration.py[0m:142: in test_kernel_plus_compression
+    [0m[94massert[39;49;00m [94m2.0[39;49;00m <= combined_speedup <= [94m2.5[39;49;00m, \
+[1m[31mE   AssertionError: Combined speedup 2.565 outside expected range [2.0, 2.5][0m
+[1m[31mE   assert 2.565 <= 2.5[0m
+[31m[1m__________ TestOptimizationCombinations.test_all_three_optimizations __________[0m
+[1m[31mtests\test_integration.py[0m:188: in test_all_three_optimizations
+    [0m[94massert[39;49;00m [94m3.0[39;49;00m <= combined_speedup <= [94m5.0[39;49;00m, \
+[1m[31mE   AssertionError: Combined speedup 2.9835000000000003 outside expected range [3.0, 5.0][0m
+[1m[31mE   assert 3.0 <= 2.9835000000000003[0m
+[31m[1m_____________ TestReproducibility.test_fixed_seed_reproducibility _____________[0m
+[1m[31mtests\test_integration.py[0m:482: in test_fixed_seed_reproducibility
+    [0m[94massert[39;49;00m torch.allclose(g1, g2, rtol=[94m1e-5[39;49;00m), [33m"[39;49;00m[33mGradients should be identical with same seed[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+[1m[31mE   AssertionError: Gradients should be identical with same seed[0m
+[1m[31mE   assert False[0m
+[1m[31mE    +  where False = <built-in method allclose of type object at 0x00007FF876ED38D0>(tensor([[[[-2.4224e-02, -3.9835e-02, -2.2650e-02],\n          [ 3.3743e-02,  2.5157e-03, -1.9461e-02],\n          [-1.3647e-02,  3.1081e-02, -2.3734e-02]],\n\n         [[ 1.7611e-02,  2.7760e-02,  5.6053e-03],\n          [ 9.6663e-03, -1.7616e-02,  8.8114e-03],\n          [ 1.4437e-03,  4.0631e-02,  3.0283e-03]],\n\n         [[ 3.2989e-02, -2.7494e-02,  4.0520e-02],\n          [ 2.4977e-02, -4.7963e-03, -3.9008e-02],\n          [ 3.3649e-03, -3.9401e-03,  1.9902e-02]]],\n\n\n        [[[ 3.6668e-02, -2.5949e-02, -2.0006e-03],\n          [-2.4373e-03,  4.0482e-02,  2.7356e-02],\n          [-2.8723e-02,  4.9854e-03, -2.9740e-03]],\n\n         [[ 7.0978e-04,  1.2403e-03, -2.4388e-02],\n          [-1.7039e-02,  2.6045e-02,  2.2943e-02],\n          [ 1.2628e-03,  2.1538e-02,  2.2647e-02]],\n\n         [[-2.1066e-02, -3.2034e-02, -6.5423e-02],\n          [ 7.2198e-03, -2.4045e-03,  7.4672e-03],\n          [ 4.6757e-03, -1.5167e-02, -2.8487e-02]]],\n\n\n        [[[ 2.1282e-02,  1.4069e-03,  8.5729e-03],\n          [-1.8056e-02,  2.8771e-03, -1.2828e-02],\n          [ 2.0956e-02,  8.1666e-03, -1.7794e-02]],\n\n         [[ 4.6102e-02,  1.0743e-02,  5.9994e-03],\n          [-6.0661e-03, -1.3934e-02, -2.7191e-02],\n       ...-02],\n          [ 1.4701e-02, -2.9478e-02,  1.8508e-02],\n          [ 1.6261e-03, -1.8549e-02,  2.9701e-03]],\n\n         [[-4.3307e-02, -5.3920e-02, -1.4669e-02],\n          [-2.4476e-02,  1.0292e-02,  2.4619e-02],\n          [-3.0275e-02, -1.3303e-02,  6.7510e-02]]],\n\n\n        [[[ 2.1510e-02, -7.7179e-03, -1.8925e-02],\n          [ 3.7403e-03,  1.2180e-03, -4.0001e-03],\n          [-1.0242e-02, -3.0119e-02,  7.5026e-03]],\n\n         [[-1.7615e-02,  7.7619e-03, -8.4087e-03],\n          [ 2.3909e-02,  2.8602e-02, -1.6540e-02],\n          [ 1.2544e-02, -3.0107e-03,  4.2716e-02]],\n\n         [[-2.0208e-02,  3.0622e-02,  1.2782e-02],\n          [ 4.2897e-03, -1.6601e-02, -1.8289e-02],\n          [-5.5745e-03, -1.1232e-02,  5.3108e-03]]],\n\n\n        [[[ 1.6664e-04,  4.4234e-02, -8.5360e-03],\n          [ 1.4804e-02,  3.5105e-02, -7.9859e-03],\n          [-4.2587e-02, -4.3349e-02,  3.1350e-02]],\n\n         [[ 1.7797e-02,  2.1893e-02, -2.5017e-02],\n          [ 4.0792e-02,  2.5151e-02,  1.5325e-02],\n          [ 1.8425e-02, -2.3249e-02, -1.1450e-02]],\n\n         [[ 5.6021e-02, -4.0684e-02, -1.2544e-02],\n          [-2.5989e-03,  5.6604e-03,  2.9197e-02],\n          [-1.6535e-02, -4.1791e-02,  1.8584e-02]]]]), tensor([[[[-4.8449e-02, -7.9670e-02, -4.5301e-02],\n          [ 6.7486e-02,  5.0314e-03, -3.8923e-02],\n          [-2.7294e-02,  6.2163e-02, -4.7468e-02]],\n\n         [[ 3.5222e-02,  5.5521e-02,  1.1211e-02],\n          [ 1.9333e-02, -3.5231e-02,  1.7623e-02],\n          [ 2.8873e-03,  8.1262e-02,  6.0566e-03]],\n\n         [[ 6.5978e-02, -5.4988e-02,  8.1040e-02],\n          [ 4.9954e-02, -9.5927e-03, -7.8016e-02],\n          [ 6.7297e-03, -7.8801e-03,  3.9804e-02]]],\n\n\n        [[[ 7.3336e-02, -5.1897e-02, -4.0012e-03],\n          [-4.8747e-03,  8.0965e-02,  5.4712e-02],\n          [-5.7446e-02,  9.9709e-03, -5.9481e-03]],\n\n         [[ 1.4196e-03,  2.4806e-03, -4.8777e-02],\n          [-3.4078e-02,  5.2090e-02,  4.5887e-02],\n          [ 2.5256e-03,  4.3076e-02,  4.5295e-02]],\n\n         [[-4.2132e-02, -6.4068e-02, -1.3085e-01],\n          [ 1.4440e-02, -4.8091e-03,  1.4934e-02],\n          [ 9.3514e-03, -3.0333e-02, -5.6973e-02]]],\n\n\n        [[[ 4.2565e-02,  2.8137e-03,  1.7146e-02],\n          [-3.6111e-02,  5.7541e-03, -2.5656e-02],\n          [ 4.1911e-02,  1.6333e-02, -3.5587e-02]],\n\n         [[ 9.2204e-02,  2.1486e-02,  1.1999e-02],\n          [-1.2132e-02, -2.7867e-02, -5.4382e-02],\n       ...-02],\n          [ 2.9401e-02, -5.8956e-02,  3.7016e-02],\n          [ 3.2523e-03, -3.7099e-02,  5.9402e-03]],\n\n         [[-8.6614e-02, -1.0784e-01, -2.9338e-02],\n          [-4.8951e-02,  2.0585e-02,  4.9238e-02],\n          [-6.0549e-02, -2.6606e-02,  1.3502e-01]]],\n\n\n        [[[ 4.3020e-02, -1.5436e-02, -3.7851e-02],\n          [ 7.4806e-03,  2.4360e-03, -8.0001e-03],\n          [-2.0484e-02, -6.0237e-02,  1.5005e-02]],\n\n         [[-3.5229e-02,  1.5524e-02, -1.6817e-02],\n          [ 4.7818e-02,  5.7204e-02, -3.3080e-02],\n          [ 2.5087e-02, -6.0213e-03,  8.5433e-02]],\n\n         [[-4.0417e-02,  6.1245e-02,  2.5564e-02],\n          [ 8.5794e-03, -3.3203e-02, -3.6577e-02],\n          [-1.1149e-02, -2.2465e-02,  1.0622e-02]]],\n\n\n        [[[ 3.3327e-04,  8.8468e-02, -1.7072e-02],\n          [ 2.9609e-02,  7.0210e-02, -1.5972e-02],\n          [-8.5174e-02, -8.6698e-02,  6.2700e-02]],\n\n         [[ 3.5594e-02,  4.3785e-02, -5.0035e-02],\n          [ 8.1585e-02,  5.0301e-02,  3.0649e-02],\n          [ 3.6851e-02, -4.6497e-02, -2.2901e-02]],\n\n         [[ 1.1204e-01, -8.1368e-02, -2.5089e-02],\n          [-5.1977e-03,  1.1321e-02,  5.8393e-02],\n          [-3.3070e-02, -8.3582e-02,  3.7167e-02]]]]), rtol=1e-05)[0m
+[1m[31mE    +    where <built-in method allclose of type object at 0x00007FF876ED38D0> = torch.allclose[0m
+[31m[1m____________ TestReproducibility.test_optimization_state_snapshot _____________[0m
+[1m[31mtests\test_integration.py[0m:536: in test_optimization_state_snapshot
+    [0m[33m"[39;49;00m[33mstep[39;49;00m[33m"[39;49;00m: optimizer.state_dict()[[33m"[39;49;00m[33mstate[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33m0[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mstep[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   KeyError: '0'[0m
+[36m[1m=========================== short test summary info ===========================[0m
+[31mFAILED[0m tests/test_integration.py::[1mTestOptimizationCombinations::test_kernel_plus_compression[0m - AssertionError: Combined speedup 2.565 outside expected range [2.0, 2.5]
+[31mFAILED[0m tests/test_integration.py::[1mTestOptimizationCombinations::test_all_three_optimizations[0m - AssertionError: Combined speedup 2.9835000000000003 outside expected range ...
+[31mFAILED[0m tests/test_integration.py::[1mTestReproducibility::test_fixed_seed_reproducibility[0m - AssertionError: Gradients should be identical with same seed
+[31mFAILED[0m tests/test_integration.py::[1mTestReproducibility::test_optimization_state_snapshot[0m - KeyError: '0'
+[31m======================== [31m[1m4 failed[0m, [32m20 passed[0m[31m in 4.85s[0m[31m =========================[0m

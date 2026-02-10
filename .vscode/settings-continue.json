@@ -1,0 +1,234 @@
+{
+  // ============================================================================
+  // Ryzanstein LLM - Continue.dev VS Code Settings
+  // ============================================================================
+
+  // Continue.dev Core Settings
+  "continue.serverUrl": "${workspaceFolder}/.continue",
+  "continue.apiKey": "${env:RYZANSTEIN_API_KEY}",
+  "continue.model": "ryzanstein-7b",
+
+  // ============================================================================
+  // Ryzanstein LLM Configuration
+  // ============================================================================
+
+  // API Configuration
+  "ryzanstein.apiUrl": "${env:RYZANSTEIN_API_URL:http://localhost:8000}",
+  "ryzanstein.apiKey": "${env:RYZANSTEIN_API_KEY:local-development}",
+  "ryzanstein.enableStreaming": true,
+  "ryzanstein.timeout": 30000,
+
+  // Model Configuration
+  "ryzanstein.model": {
+    "name": "ryzanstein-7b",
+    "contextLength": 4096,
+    "maxTokens": 2048,
+    "temperature": 0.7,
+    "topP": 0.9,
+    "topK": 40,
+    "frequencyPenalty": 0.0,
+    "presencePenalty": 0.0
+  },
+
+  // Performance Settings
+  "ryzanstein.performance": {
+    "batchSize": 8,
+    "cachingEnabled": true,
+    "prefetchEnabled": true,
+    "compressionEnabled": true,
+    "speculativeDecodingEnabled": true,
+    "kvCacheOptimization": "adaptive"
+  },
+
+  // Context Management
+  "ryzanstein.context": {
+    "maxContextLines": 4096,
+    "maxHistoryMessages": 20,
+    "contextWindow": "sliding",
+    "summaryEnabled": true,
+    "summaryInterval": 10
+  },
+
+  // Integration Settings
+  "ryzanstein.integration": {
+    "enableAutoCompletion": true,
+    "enableCodeLens": true,
+    "enableDiagnostics": true,
+    "enableHover": true,
+    "inlineCompletionEnabled": true
+  },
+
+  // Advanced Settings
+  "ryzanstein.advanced": {
+    "retries": 3,
+    "retryDelay": 1000,
+    "enableDetailedLogging": false,
+    "enableMetrics": true,
+    "metricsInterval": 5000,
+    "debugMode": false
+  },
+
+  // ============================================================================
+  // Continue.dev Slash Commands Configuration
+  // ============================================================================
+
+  "continue.slashCommandsEnabled": true,
+  "continue.customSlashCommands": [
+    {
+      "name": "inference",
+      "description": "Direct model inference"
+    },
+    {
+      "name": "chat",
+      "description": "Multi-turn conversation"
+    },
+    {
+      "name": "explain",
+      "description": "Code explanation"
+    },
+    {
+      "name": "optimize",
+      "description": "Performance optimization"
+    },
+    {
+      "name": "test",
+      "description": "Generate unit tests"
+    },
+    {
+      "name": "review",
+      "description": "Code review"
+    },
+    {
+      "name": "security",
+      "description": "Security audit"
+    },
+    {
+      "name": "arch",
+      "description": "Architecture review"
+    },
+    {
+      "name": "refactor",
+      "description": "Refactor code"
+    },
+    {
+      "name": "doc",
+      "description": "Generate documentation"
+    },
+    {
+      "name": "api",
+      "description": "Design API"
+    },
+    {
+      "name": "deploy",
+      "description": "Deployment config"
+    },
+    {
+      "name": "debug",
+      "description": "Debugging assistance"
+    },
+    {
+      "name": "profile",
+      "description": "Performance profiling"
+    },
+    {
+      "name": "cache",
+      "description": "Caching strategy"
+    }
+  ],
+
+  // ============================================================================
+  // VS Code Editor Configuration
+  // ============================================================================
+
+  // Editor Settings
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "continue.continue",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+
+  // Inline Completion Settings
+  "editor.inlineSuggest.enabled": true,
+  "editor.inlineSuggest.showToolbar": "always",
+
+  // Code Lens Settings
+  "editor.codeLens": true,
+  "[continue]": {
+    "editor.defaultFormatter": "continue.continue"
+  },
+
+  // ============================================================================
+  // Output & Logging
+  // ============================================================================
+
+  "continue.outputLevel": "info",
+  "continue.showNotifications": true,
+  "continue.autoSaveContext": true,
+  "continue.contextSaveInterval": 30000,
+
+  // ============================================================================
+  // Debugging Settings
+  // ============================================================================
+
+  "debug.console.fontSize": 12,
+  "debug.allowBreakpointsEverywhere": true,
+  "debug.showDebugOutput": false,
+
+  // ============================================================================
+  // AI Model Switching
+  // ============================================================================
+
+  "continue.modelsToUse": [
+    {
+      "name": "ryzanstein-7b",
+      "provider": "openai",
+      "model": "ryzanstein-7b"
+    }
+  ],
+
+  // ============================================================================
+  // Extension-Specific Settings
+  // ============================================================================
+
+  "[python]": {
+    "continue.slashCommands": ["test", "optimize", "debug", "profile"]
+  },
+  "[javascript]": {
+    "continue.slashCommands": ["test", "optimize", "debug", "profile"]
+  },
+  "[typescript]": {
+    "continue.slashCommands": ["test", "optimize", "debug", "profile"]
+  },
+  "[go]": {
+    "continue.slashCommands": ["test", "optimize", "debug", "profile"]
+  },
+  "[rust]": {
+    "continue.slashCommands": ["test", "optimize", "debug", "profile"]
+  },
+
+  // ============================================================================
+  // Excluded Patterns
+  // ============================================================================
+
+  "continue.excludePatterns": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.venv/**",
+    "**/__pycache__/**"
+  ],
+
+  // ============================================================================
+  // Keyboard Shortcuts (Recommended)
+  // ============================================================================
+
+  // Use Ctrl+K for Continue commands
+  // Use Ctrl+Shift+K for slash commands
+  // These should be added to keybindings.json
+
+  "continue.keyBindings": {
+    "continueCommand": "ctrl+k",
+    "slashCommand": "ctrl+shift+k"
+  }
+}

@@ -1,0 +1,219 @@
+# Alertmanager Configuration
+# Sprint 3.5 - Observability Stack
+# Ryzanstein LLM Distributed Inference Alerting
+# Created: January 6, 2026
+
+global:
+  # Global configuration
+  resolve_timeout: 5m
+  smtp_smarthost: "localhost:25"
+  smtp_from: "alertmanager@ryzanstein.local"
+  smtp_require_tls: false
+
+  # Slack integration (configure as needed)
+  # slack_api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
+
+# Alert templates
+templates:
+  - "/etc/alertmanager/templates/*.tmpl"
+
+# Inhibition rules - prevent redundant alerts
+inhibit_rules:
+  # If node is down, suppress all other node alerts
+  - source_matchers:
+      - alertname="NodeDown"
+    target_matchers:
+      - severity=~"warning|info"
+    equal:
+      - instance
+      - node
+
+  # If critical latency, suppress high latency warnings
+  - source_matchers:
+      - alertname="CriticalLatencyP99"
+    target_matchers:
+      - alertname="HighLatencyP99"
+    equal:
+      - service
+
+  # If critical error rate, suppress high error rate warnings
+  - source_matchers:
+      - alertname="CriticalErrorRate"
+    target_matchers:
+      - alertname="HighErrorRate"
+    equal:
+      - service
+
+  # If GPU memory exhausted, suppress high utilization
+  - source_matchers:
+      - alertname="GPUMemoryExhausted"
+    target_matchers:
+      - alertname="HighGPUUtilization"
+    equal:
+      - instance
+
+# Routing tree
+route:
+  # Default receiver
+  receiver: "default-receiver"
+
+  # Group alerts by these labels
+  group_by: ["alertname", "service", "severity"]
+
+  # Wait before sending first notification
+  group_wait: 30s
+
+  # Wait before sending updated notification
+  group_interval: 5m
+
+  # Wait before resending notification
+  repeat_interval: 4h
+
+  # Child routes for specific routing
+  routes:
+    # Critical alerts - immediate attention
+    - matchers:
+        - severity="critical"
+      receiver: "critical-receiver"
+      group_wait: 10s
+      group_interval: 1m
+      repeat_interval: 1h
+      continue: true
+
+    # Warning alerts - operational team
+    - matchers:
+        - severity="warning"
+      receiver: "warning-receiver"
+      group_wait: 1m
+      group_interval: 5m
+      repeat_interval: 4h
+
+    # Infrastructure alerts
+    - matchers:
+        - alertname=~"Prometheus.*|Node.*"
+      receiver: "infrastructure-receiver"
+      group_by: ["alertname", "instance"]
+
+    # GPU-related alerts
+    - matchers:
+        - alertname=~".*GPU.*"
+      receiver: "gpu-receiver"
+      group_by: ["alertname", "gpu"]
+
+    # Cache-related alerts
+    - matchers:
+        - alertname=~".*Cache.*"
+      receiver: "cache-receiver"
+      group_by: ["alertname", "cache_type"]
+
+    # Inference performance alerts
+    - matchers:
+        - alertname=~".*Latency.*|.*Throughput.*"
+      receiver: "performance-receiver"
+      group_by: ["alertname", "service"]
+
+# Receivers
+receivers:
+  # Default receiver - email
+  - name: "default-receiver"
+    email_configs:
+      - to: "ops@ryzanstein.local"
+        send_resolved: true
+        headers:
+          Subject: "[Ryzanstein] {{ .GroupLabels.alertname }}: {{ .Status | toUpper }}"
+
+  # Critical receiver - immediate page + email + slack
+  - name: "critical-receiver"
+    email_configs:
+      - to: "oncall@ryzanstein.local"
+        send_resolved: true
+        headers:
+          Subject: "[CRITICAL] {{ .GroupLabels.alertname }}: {{ .Status | toUpper }}"
+    # Uncomment for Slack integration
+    # slack_configs:
+    #   - channel: '#critical-alerts'
+    #     username: 'Alertmanager'
+    #     icon_emoji: ':rotating_light:'
+    #     title: '{{ .GroupLabels.alertname }}'
+    #     text: '{{ range .Alerts }}{{ .Annotations.description }}{{ end }}'
+    #     send_resolved: true
+    # Uncomment for PagerDuty integration
+    # pagerduty_configs:
+    #   - service_key: 'YOUR_PAGERDUTY_SERVICE_KEY'
+    #     severity: '{{ .GroupLabels.severity }}'
+    webhook_configs:
+      - url: "http://localhost:8080/webhook/critical"
+        send_resolved: true
+
+  # Warning receiver
+  - name: "warning-receiver"
+    email_configs:
+      - to: "ops@ryzanstein.local"
+        send_resolved: true
+        headers:
+          Subject: "[WARNING] {{ .GroupLabels.alertname }}"
+    # Uncomment for Slack integration
+    # slack_configs:
+    #   - channel: '#ops-alerts'
+    #     username: 'Alertmanager'
+    #     icon_emoji: ':warning:'
+    #     title: '{{ .GroupLabels.alertname }}'
+    #     text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+    #     send_resolved: true
+
+  # Infrastructure receiver
+  - name: "infrastructure-receiver"
+    email_configs:
+      - to: "infra@ryzanstein.local"
+        send_resolved: true
+    # Uncomment for Slack integration
+    # slack_configs:
+    #   - channel: '#infrastructure'
+    #     send_resolved: true
+
+  # GPU alerts receiver
+  - name: "gpu-receiver"
+    email_configs:
+      - to: "ml-team@ryzanstein.local"
+        send_resolved: true
+    # Uncomment for Slack integration
+    # slack_configs:
+    #   - channel: '#gpu-monitoring'
+    #     send_resolved: true
+
+  # Cache alerts receiver
+  - name: "cache-receiver"
+    email_configs:
+      - to: "cache-team@ryzanstein.local"
+        send_resolved: true
+
+  # Performance alerts receiver
+  - name: "performance-receiver"
+    email_configs:
+      - to: "performance@ryzanstein.local"
+        send_resolved: true
+    # Uncomment for Slack integration
+    # slack_configs:
+    #   - channel: '#performance'
+    #     send_resolved: true
+
+# Mute time intervals
+time_intervals:
+  - name: "business-hours"
+    time_intervals:
+      - weekdays: ["monday:friday"]
+        times:
+          - start_time: "09:00"
+            end_time: "17:00"
+        location: "America/New_York"
+
+  - name: "off-hours"
+    time_intervals:
+      - weekdays: ["saturday", "sunday"]
+      - times:
+          - start_time: "00:00"
+            end_time: "09:00"
+          - start_time: "17:00"
+            end_time: "24:00"
+        weekdays: ["monday:friday"]
+        location: "America/New_York"

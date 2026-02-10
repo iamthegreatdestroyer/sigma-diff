@@ -1,0 +1,52 @@
+{
+  "test_run": {
+    "timestamp": 1766754922.4792483,
+    "total_tests": 7,
+    "passed_tests": 7,
+    "failed_tests": 0
+  },
+  "results": [
+    {
+      "test": "Health Endpoint",
+      "status": "PASS",
+      "details": "Status: initializing, GPUs: 0/4",
+      "timestamp": 1766754922.2460067
+    },
+    {
+      "test": "Metrics Endpoint",
+      "status": "PASS",
+      "details": "Expected error: Metrics collector not initialized",
+      "timestamp": 1766754922.2572007
+    },
+    {
+      "test": "Chat Completions Validation",
+      "status": "PASS",
+      "details": "Request validation passed, model routing failed as expected",
+      "timestamp": 1766754922.2661438
+    },
+    {
+      "test": "Invalid Request Validation",
+      "status": "PASS",
+      "details": "All 6 invalid requests properly rejected",
+      "timestamp": 1766754922.3836012
+    },
+    {
+      "test": "OpenAPI Specification",
+      "status": "PASS",
+      "details": "Valid OpenAPI 3.1.0 spec with 3 endpoints",
+      "timestamp": 1766754922.4552777
+    },
+    {
+      "test": "Swagger UI",
+      "status": "PASS",
+      "details": "Swagger UI accessible and contains expected content",
+      "timestamp": 1766754922.463773
+    },
+    {
+      "test": "Error Handling",
+      "status": "PASS",
+      "details": "404 and 405 errors handled correctly",
+      "timestamp": 1766754922.4784093
+    }
+  ]
+}

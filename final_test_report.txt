@@ -1,0 +1,325 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0
+benchmark: 5.2.3 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: S:\Ryot
+plugins: anyio-4.12.1, hypothesis-6.151.4, asyncio-1.3.0, benchmark-5.2.3, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 72 items
+
+tests\test_success_criteria.py .........F.......F..F....                 [ 34%]
+tests\test_training_loop.py .....................F.                      [ 66%]
+C:\Users\sgbil\AppData\Roaming\Python\Python314\site-packages\coverage\control.py:958: CoverageWarning: No data was collected. (no-data-collected); see https://coverage.readthedocs.io/en/7.13.2/messages.html#warning-no-data-collected
+  self._warn("No data was collected.", slug="no-data-collected")
+C:\Users\sgbil\AppData\Roaming\Python\Python314\site-packages\coverage\report_core.py:107: CoverageWarning: Couldn't parse Python file 'S:\Ryot\RYZEN-LLM\deploy_production.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.13.2/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+tests\test_integration.py ...F..F.........F.F.....                       [100%]
+
+================================== FAILURES ===================================
+_______________ TestAccuracyMetrics.test_convergence_smoothness _______________
+
+self = <test_success_criteria.TestAccuracyMetrics object at 0x000001AE11718170>
+
+    def test_convergence_smoothness(self):
+        """
+        Test convergence is smooth with < 5% per-epoch divergence.
+    
+        Criteria: loss divergence per epoch < 5%
+        """
+        epoch_losses = [2.8, 2.5, 2.2, 2.0, 1.9]
+    
+        divergences = []
+        for i in range(1, len(epoch_losses)):
+            improvement = (epoch_losses[i-1] - epoch_losses[i]) / epoch_losses[i-1]
+            divergences.append(abs(improvement))
+    
+        mean_divergence = np.mean(divergences)
+        max_divergence_threshold = 0.05
+    
+>       assert mean_divergence <= max_divergence_threshold, \
+            f"Convergence divergence {mean_divergence:.2%} exceeds {max_divergence_threshold:.0%}"
+E       AssertionError: Convergence divergence 9.20% exceeds 5%
+E       assert np.float64(0.092012987012987) <= 0.05
+
+tests\test_success_criteria.py:236: AssertionError
+____________ TestInferenceMetrics.test_batch_inference_efficiency _____________
+
+self = <test_success_criteria.TestInferenceMetrics object at 0x000001AE116F16E0>
+
+    def test_batch_inference_efficiency(self):
+        """
+        Test batched inference efficiency is within 5% of optimal.
+    
+        Criteria: batched_efficiency >= 0.95 * optimal_efficiency
+        """
+        single_batch_time = 100.0  # ms for batch of 1
+        optimal_batch4_time = 220.0  # ms for batch of 4 (optimal would be 400)
+        optimal_throughput = 4 / (optimal_batch4_time / 1000)
+    
+        actual_batch4_time = 250.0  # ms (realistic)
+        actual_throughput = 4 / (actual_batch4_time / 1000)
+    
+        efficiency_ratio = actual_throughput / optimal_throughput
+    
+>       assert efficiency_ratio >= 0.95, \
+            f"Batch efficiency {efficiency_ratio:.1%} below 95% optimal"
+E       AssertionError: Batch efficiency 88.0% below 95% optimal
+E       assert 0.8799999999999999 >= 0.95
+
+tests\test_success_criteria.py:355: AssertionError
+_________ TestComprehensiveValidation.test_reproducibility_validation _________
+
+self = <test_success_criteria.TestComprehensiveValidation object at 0x000001AE116F1810>
+
+    def test_reproducibility_validation(self):
+        """
+        Test all metrics are reproducible with fixed seed.
+    
+        Criteria: metrics show < 0.1% variation across runs
+        """
+        metrics_run1 = {
+            "accuracy": 0.945,
+            "throughput": 48.0,
+            "memory": 1200.0,
+            "ttft": 100.0
+        }
+    
+        metrics_run2 = {
+            "accuracy": 0.945,
+            "throughput": 48.1,
+            "memory": 1199.0,
+            "ttft": 100.2
+        }
+    
+        # Check variation
+        variation = {
+            "accuracy": abs(metrics_run1["accuracy"] - metrics_run2["accuracy"]) / metrics_run1["accuracy"],
+            "throughput": abs(metrics_run1["throughput"] - metrics_run2["throughput"]) / metrics_run1["throughput"],
+            "memory": abs(metrics_run1["memory"] - metrics_run2["memory"]) / metrics_run1["memory"],
+            "ttft": abs(metrics_run1["ttft"] - metrics_run2["ttft"]) / metrics_run1["ttft"],
+        }
+    
+        for metric_name, var in variation.items():
+>           assert var < 0.001, f"{metric_name} varies by {var:.2%} (should be < 0.1%)"
+E           AssertionError: throughput varies by 0.21% (should be < 0.1%)
+E           assert 0.002083333333333363 < 0.001
+
+tests\test_success_criteria.py:448: AssertionError
+_________________ TestGradientFlow.test_no_gradient_vanishing _________________
+
+self = <test_training_loop.TestGradientFlow object at 0x000001AE116F2D70>
+device = device(type='cpu')
+
+    def test_no_gradient_vanishing(self, device: torch.device):
+        """
+        Test gradients don't vanish (become too small) during backprop.
+    
+        Tests:
+        - No gradient layer becomes smaller than 1e-7
+        - Deep layers receive non-vanishing gradients
+        - Gradient distribution is reasonable
+        """
+        # Create a deeper model
+        model = nn.Sequential(
+            nn.Linear(10, 100),
+            nn.ReLU(),
+            nn.Linear(100, 100),
+            nn.ReLU(),
+            nn.Linear(100, 100),
+            nn.ReLU(),
+            nn.Linear(100, 1)
+        ).to(device)
+    
+        x = torch.randn(4, 10).to(device)
+        y = torch.randn(4, 1).to(device)
+    
+        loss = nn.MSELoss()(model(x), y)
+        loss.backward()
+    
+        min_grad = float('inf')
+        for param in model.parameters():
+            if param.grad is not None:
+                min_abs_grad = param.grad.abs().min().item()
+                min_grad = min(min_grad, min_abs_grad)
+    
+>       assert min_grad > 1e-7, f"Gradient vanishing detected: min_grad = {min_grad}"
+E       AssertionError: Gradient vanishing detected: min_grad = 0.0
+E       assert 0.0 > 1e-07
+
+tests\test_training_loop.py:662: AssertionError
+__________ TestOptimizationCombinations.test_kernel_plus_compression __________
+
+self = <test_integration.TestOptimizationCombinations object at 0x000001AE116F3A80>
+device = device(type='cpu')
+
+    def test_kernel_plus_compression(self, device: torch.device):
+        """
+        Test combined kernel + compression optimization.
+    
+        Expected: 2.0-2.5x combined speedup
+        Tests that speedups roughly multiply (with interaction losses)
+        """
+        kernel_speedup = 1.8
+        compression_speedup = 1.5
+    
+        # Combined speedup (interaction factor ~0.95)
+        combined_speedup = kernel_speedup * compression_speedup * 0.95
+    
+>       assert 2.0 <= combined_speedup <= 2.5, \
+            f"Combined speedup {combined_speedup} outside expected range [2.0, 2.5]"
+E       AssertionError: Combined speedup 2.565 outside expected range [2.0, 2.5]
+E       assert 2.565 <= 2.5
+
+tests\test_integration.py:142: AssertionError
+__________ TestOptimizationCombinations.test_all_three_optimizations __________
+
+self = <test_integration.TestOptimizationCombinations object at 0x000001AE11731BF0>
+device = device(type='cpu')
+
+    def test_all_three_optimizations(self, device: torch.device):
+        """
+        Test all three optimizations together.
+    
+        Expected: 3.0-5.0x combined speedup (realistic: ~3.2x)
+        """
+        kernel_speedup = 1.8
+        compression_speedup = 1.5
+        rlvr_speedup = 1.3
+        interaction_factor = 0.85  # Three optimizations have more overhead
+    
+        combined_speedup = kernel_speedup * compression_speedup * rlvr_speedup * interaction_factor
+    
+>       assert 3.0 <= combined_speedup <= 5.0, \
+            f"Combined speedup {combined_speedup} outside expected range [3.0, 5.0]"
+E       AssertionError: Combined speedup 2.9835000000000003 outside expected range [3.0, 5.0]
+E       assert 3.0 <= 2.9835000000000003
+
+tests\test_integration.py:188: AssertionError
+_____________ TestReproducibility.test_fixed_seed_reproducibility _____________
+
+self = <test_integration.TestReproducibility object at 0x000001AE116F7D90>
+mock_model = IntegrationTestModel(
+  (conv1): Conv2d(3, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (bn1): BatchNorm2...ze=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (fc): Linear(in_features=16384, out_features=10, bias=True)
+)
+sample_batch = (tensor([[[[-1.1234e+00,  1.0411e-01,  3.8814e-01,  ...,  1.2801e+00,
+            1.1464e+00, -3.7160e-01],
+          ...  ...,  1.2571e+00,
+           -5.1240e-01,  1.2498e+00]]]]), tensor([4, 6, 9, 6, 5, 5, 9, 5, 6, 0, 3, 1, 7, 2, 1, 5]))
+device = device(type='cpu')
+
+    def test_fixed_seed_reproducibility(self, mock_model: nn.Module, sample_batch: Tuple, device: torch.device):
+        """
+        Test that fixed seed produces identical results.
+    
+        Tests:
+        - Same seed produces identical gradients
+        - Reproducibility works across runs
+        - Random state is properly managed
+        """
+        seed = 42
+        loss_fn = nn.CrossEntropyLoss()
+    
+        # First run
+        torch.manual_seed(seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed(seed)
+    
+        np.random.seed(seed)
+    
+        model1 = mock_model.to(device)
+        images, labels = sample_batch
+        images, labels = images.to(device), labels.to(device)
+    
+        logits1 = model1(images)
+        loss1 = loss_fn(logits1, labels)
+        loss1.backward()
+        grad1 = [p.grad.clone() if p.grad is not None else None for p in model1.parameters()]
+    
+        # Second run with same seed
+        torch.manual_seed(seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed(seed)
+        np.random.seed(seed)
+    
+        model2 = mock_model.to(device)
+        logits2 = model2(images)
+        loss2 = loss_fn(logits2, labels)
+        loss2.backward()
+        grad2 = [p.grad.clone() if p.grad is not None else None for p in model2.parameters()]
+    
+        # Verify reproducibility
+        for g1, g2 in zip(grad1, grad2):
+            if g1 is not None and g2 is not None:
+>               assert torch.allclose(g1, g2, rtol=1e-5), "Gradients should be identical with same seed"
+E               AssertionError: Gradients should be identical with same seed
+E               assert False
+E                +  where False = <built-in method allclose of type object at 0x00007FF876ED38D0>(tensor([[[[-6.9970e-02,  5.4682e-02,  3.6558e-02],\n          [ 2.4046e-02, -4.8133e-02, -1.1625e-02],\n          [-1.32... -4.1835e-02],\n          [ 1.5999e-02, -8.2057e-03, -3.6586e-02],\n          [-4.1530e-03, -3.5478e-02, -2.5821e-02]]]]), tensor([[[[-1.3994e-01,  1.0936e-01,  7.3117e-02],\n          [ 4.8091e-02, -9.6267e-02, -2.3249e-02],\n          [-2.64... -8.3670e-02],\n          [ 3.1998e-02, -1.6411e-02, -7.3173e-02],\n          [-8.3059e-03, -7.0957e-02, -5.1643e-02]]]]), rtol=1e-05)
+E                +    where <built-in method allclose of type object at 0x00007FF876ED38D0> = torch.allclose
+
+tests\test_integration.py:482: AssertionError
+____________ TestReproducibility.test_optimization_state_snapshot _____________
+
+self = <test_integration.TestReproducibility object at 0x000001AE1179C180>
+
+    def test_optimization_state_snapshot(self):
+        """
+        Test that optimization state snapshots are exact.
+    
+        Tests:
+        - Optimizer state captured completely
+        - Snapshots can be compared for equality
+        - State recovery is exact
+        """
+        optimizer = torch.optim.Adam([torch.randn(10, 10)], lr=0.001)
+    
+        # Perform a step to populate optimizer state
+        dummy_param = list(optimizer.param_groups[0]["params"])[0]
+        dummy_param.grad = torch.randn_like(dummy_param)
+        optimizer.step()
+    
+        # Snapshot
+        state1 = {
+            "param_groups": optimizer.param_groups,
+            "state": optimizer.state,
+>           "step": optimizer.state_dict()["state"]["0"]["step"]
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        }
+E       KeyError: '0'
+
+tests\test_integration.py:536: KeyError
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.3-final-0 _______________
+
+Name                                          Stmts   Miss  Cover   Missing
+---------------------------------------------------------------------------
+RYZEN-LLM\build_extension.py                    126    126     0%   7-208
+RYZEN-LLM\build_extension_vs.py                 214    214     0%   7-346
+RYZEN-LLM\debug_test.py                          16     16     0%   1-22
+RYZEN-LLM\diagnose_imports.py                    58     58     0%   3-78
+RYZEN-LLM\e2e_test_distributed_api.py           161    161     0%   10-298
+RYZEN-LLM\test_cpp_extension.py                 115    115     0%   7-188
+RYZEN-LLM\test_distributed_comprehensive.py     167    167     0%   28-370
+RYZEN-LLM\test_distributed_inference.py          99     99     0%   17-199
+RYZEN-LLM\test_distributed_server.py             46     46     0%   10-94
+RYZEN-LLM\test_engine_components.py             154    154     0%   6-244
+RYZEN-LLM\test_engine_components_pure.py        133    133     0%   7-217
+RYZEN-LLM\test_extension_load.py                 37     37     0%   5-53
+RYZEN-LLM\test_import.py                        304    304     0%   1-420
+RYZEN-LLM\test_kv_cache_optimization.py         194    194     0%   27-455
+RYZEN-LLM\test_quantization_performance.py      180    180     0%   7-307
+RYZEN-LLM\test_server_debug.py                  192    192     0%   5-286
+RYZEN-LLM\validate_environment.py               164    164     0%   15-323
+---------------------------------------------------------------------------
+TOTAL                                          2360   2360     0%
+Coverage HTML written to dir htmlcov
+=========================== short test summary info ===========================
+FAILED tests/test_success_criteria.py::TestAccuracyMetrics::test_convergence_smoothness
+FAILED tests/test_success_criteria.py::TestInferenceMetrics::test_batch_inference_efficiency
+FAILED tests/test_success_criteria.py::TestComprehensiveValidation::test_reproducibility_validation
+FAILED tests/test_training_loop.py::TestGradientFlow::test_no_gradient_vanishing
+FAILED tests/test_integration.py::TestOptimizationCombinations::test_kernel_plus_compression
+FAILED tests/test_integration.py::TestOptimizationCombinations::test_all_three_optimizations
+FAILED tests/test_integration.py::TestReproducibility::test_fixed_seed_reproducibility
+FAILED tests/test_integration.py::TestReproducibility::test_optimization_state_snapshot
+======================== 8 failed, 64 passed in 10.54s ========================

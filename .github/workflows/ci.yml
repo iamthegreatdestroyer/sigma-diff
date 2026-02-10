@@ -1,0 +1,82 @@
+name: CI - Ryzanstein LLM
+
+on:
+  pull_request:
+  push:
+    branches: [main, "release/**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v1.14
+        with:
+          cmake-version: "3.28.x"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install pybind11 numpy psutil
+
+      - name: "🤖 Phase 1 Autonomous Optimization: Task 1 - BitNet Kernel Tuning"
+        run: |
+          python "RYZEN-LLM/scripts/kernel_optimizer.py" --repo-root "." --output "RYZEN-LLM/build/kernel_config.cmake" --report
+
+      - name: "🗜️ Phase 1 Autonomous Optimization: Task 2 - Semantic Compression"
+        run: |
+          python "RYZEN-LLM/scripts/semantic_compression.py" --embedding-dim 1024 --sparse-k 32 --report
+
+      - name: "🚀 Phase 1 Autonomous Optimization: Task 3 - Inference-Time Scaling (RLVR)"
+        run: |
+          python "RYZEN-LLM/scripts/inference_scaling.py" --query "Implement binary search tree" --output-type code --report
+
+      - name: Install GTest (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y googletest
+
+      - name: Configure (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          mkdir -p "RYZEN-LLM/build"
+          cmake -S "RYZEN-LLM" -B "RYZEN-LLM/build" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_TESTING=ON \
+            -DCMAKE_PREFIX_PATH=/usr/lib/cmake/GTest \
+            -Dpybind11_DIR=$(python3 -m pybind11 --cmakedir)
+
+      - name: Configure (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path "RYZEN-LLM/build" -Force | Out-Null
+          $pybind11Dir = python -m pybind11 --cmakedir
+          cmake -S "RYZEN-LLM" -B "RYZEN-LLM/build" -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release -DENABLE_GTEST_DISCOVERY=OFF -Dpybind11_DIR="$pybind11Dir"
+
+      - name: Build (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          # Build main targets first
+          cmake --build "RYZEN-LLM/build" --config Release -- -j
+          # Then build test targets
+          cmake --build "RYZEN-LLM/build" --target all_tests --config Release -- -j
+
+      - name: Build (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: cmake --build "RYZEN-LLM/build" --config Release -- /m
+
+      - name: Run tests
+        run: |
+          cd "RYZEN-LLM/build"
+          ctest --output-on-failure --build-config Release

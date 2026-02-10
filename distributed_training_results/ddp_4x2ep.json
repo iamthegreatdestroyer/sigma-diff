@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-02-09T12:51:52.329647",
+  "num_processes": 4,
+  "num_epochs": 2,
+  "batch_size": 16,
+  "rank_results": [
+    {
+      "rank": 0,
+      "world_size": 4,
+      "epochs": [
+        {
+          "epoch": 0,
+          "train_loss": 7.791466331481933,
+          "duration_sec": 2.5535945892333984,
+          "num_batches": 5,
+          "learning_rate": 0.000505
+        },
+        {
+          "epoch": 1,
+          "train_loss": 7.793504524230957,
+          "duration_sec": 2.1828672885894775,
+          "num_batches": 5,
+          "learning_rate": 1e-05
+        }
+      ],
+      "total_duration_sec": 4.737329721450806
+    },
+    {
+      "rank": 1,
+      "world_size": 4,
+      "epochs": [
+        {
+          "epoch": 0,
+          "train_loss": 7.7807440757751465,
+          "duration_sec": 1.632596492767334,
+          "num_batches": 5,
+          "learning_rate": 0.000505
+        },
+        {
+          "epoch": 1,
+          "train_loss": 7.79529333114624,
+          "duration_sec": 1.3900847434997559,
+          "num_batches": 5,
+          "learning_rate": 1e-05
+        }
+      ],
+      "total_duration_sec": 3.0232369899749756
+    },
+    {
+      "rank": 2,
+      "world_size": 4,
+      "epochs": [
+        {
+          "epoch": 0,
+          "train_loss": 7.786843967437744,
+          "duration_sec": 1.4425220489501953,
+          "num_batches": 5,
+          "learning_rate": 0.000505
+        },
+        {
+          "epoch": 1,
+          "train_loss": 7.793062973022461,
+          "duration_sec": 1.9994971752166748,
+          "num_batches": 5,
+          "learning_rate": 1e-05
+        }
+      ],
+      "total_duration_sec": 3.4425230026245117
+    },
+    {
+      "rank": 3,
+      "world_size": 4,
+      "epochs": [
+        {
+          "epoch": 0,
+          "train_loss": 7.787840938568115,
+          "duration_sec": 1.8183791637420654,
+          "num_batches": 5,
+          "learning_rate": 0.000505
+        },
+        {
+          "epoch": 1,
+          "train_loss": 7.793849945068359,
+          "duration_sec": 1.9018733501434326,
+          "num_batches": 5,
+          "learning_rate": 1e-05
+        }
+      ],
+      "total_duration_sec": 3.7208216190338135
+    }
+  ],
+  "aggregated_metrics": {
+    "avg_loss": 7.793927693367005,
+    "total_duration_sec": 4.737329721450806,
+    "samples_per_sec": 270.1944080869255
+  }
+}

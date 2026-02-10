@@ -1,0 +1,390 @@
+∩╗┐2026-02-08T22:59:35.0041168Z Current runner version: '2.331.0'
+2026-02-08T22:59:35.0064662Z ##[group]Runner Image Provisioner
+2026-02-08T22:59:35.0065624Z Hosted Compute Agent
+2026-02-08T22:59:35.0066263Z Version: 20260123.484
+2026-02-08T22:59:35.0066861Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+2026-02-08T22:59:35.0067497Z Build Date: 2026-01-23T19:41:17Z
+2026-02-08T22:59:35.0068230Z Worker ID: {aafd1250-ff8a-4972-9fcb-fa475770664c}
+2026-02-08T22:59:35.0068947Z Azure Region: westus
+2026-02-08T22:59:35.0069477Z ##[endgroup]
+2026-02-08T22:59:35.0070907Z ##[group]Operating System
+2026-02-08T22:59:35.0071518Z Ubuntu
+2026-02-08T22:59:35.0072033Z 24.04.3
+2026-02-08T22:59:35.0072518Z LTS
+2026-02-08T22:59:35.0072956Z ##[endgroup]
+2026-02-08T22:59:35.0073474Z ##[group]Runner Image
+2026-02-08T22:59:35.0074286Z Image: ubuntu-24.04
+2026-02-08T22:59:35.0074785Z Version: 20260201.15.1
+2026-02-08T22:59:35.0075890Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260201.15/images/ubuntu/Ubuntu2404-Readme.md
+2026-02-08T22:59:35.0077388Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260201.15
+2026-02-08T22:59:35.0078260Z ##[endgroup]
+2026-02-08T22:59:35.0079349Z ##[group]GITHUB_TOKEN Permissions
+2026-02-08T22:59:35.0081351Z Contents: read
+2026-02-08T22:59:35.0081891Z Metadata: read
+2026-02-08T22:59:35.0082458Z Packages: read
+2026-02-08T22:59:35.0082954Z ##[endgroup]
+2026-02-08T22:59:35.0085290Z Secret source: Actions
+2026-02-08T22:59:35.0086099Z Prepare workflow directory
+2026-02-08T22:59:35.0404476Z Prepare all required actions
+2026-02-08T22:59:35.0441716Z Getting action download info
+2026-02-08T22:59:35.5220165Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-02-08T22:59:35.6323226Z Download action repository 'jwlawson/actions-setup-cmake@v1.14' (SHA:d06b37b47cfd043ec794ffa3e40e0b6b5858a7ec)
+2026-02-08T22:59:36.5326351Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-02-08T22:59:36.7583178Z Complete job name: build (ubuntu-latest)
+2026-02-08T22:59:36.8344507Z ##[group]Run actions/checkout@v4
+2026-02-08T22:59:36.8345535Z with:
+2026-02-08T22:59:36.8346030Z   repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:59:36.8346841Z   token: ***
+2026-02-08T22:59:36.8347272Z   ssh-strict: true
+2026-02-08T22:59:36.8347713Z   ssh-user: git
+2026-02-08T22:59:36.8348169Z   persist-credentials: true
+2026-02-08T22:59:36.8348649Z   clean: true
+2026-02-08T22:59:36.8349099Z   sparse-checkout-cone-mode: true
+2026-02-08T22:59:36.8349617Z   fetch-depth: 1
+2026-02-08T22:59:36.8350057Z   fetch-tags: false
+2026-02-08T22:59:36.8350504Z   show-progress: true
+2026-02-08T22:59:36.8350963Z   lfs: false
+2026-02-08T22:59:36.8351395Z   submodules: false
+2026-02-08T22:59:36.8351840Z   set-safe-directory: true
+2026-02-08T22:59:36.8352565Z ##[endgroup]
+2026-02-08T22:59:36.9439319Z Syncing repository: iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:59:36.9441303Z ##[group]Getting Git version info
+2026-02-08T22:59:36.9442243Z Working directory is '/home/runner/work/Ryzanstein/Ryzanstein'
+2026-02-08T22:59:36.9443317Z [command]/usr/bin/git version
+2026-02-08T22:59:36.9511602Z git version 2.52.0
+2026-02-08T22:59:36.9538273Z ##[endgroup]
+2026-02-08T22:59:36.9552346Z Temporarily overriding HOME='/home/runner/work/_temp/007f6f7b-8146-415e-9c3c-ea48fec08848' before making global git config changes
+2026-02-08T22:59:36.9554757Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T22:59:36.9565437Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:59:36.9605256Z Deleting the contents of '/home/runner/work/Ryzanstein/Ryzanstein'
+2026-02-08T22:59:36.9608922Z ##[group]Initializing the repository
+2026-02-08T22:59:36.9612853Z [command]/usr/bin/git init /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T22:59:36.9711353Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-08T22:59:36.9712594Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-08T22:59:36.9714056Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-08T22:59:36.9715252Z hint: call:
+2026-02-08T22:59:36.9716084Z hint:
+2026-02-08T22:59:36.9716781Z hint: 	git config --global init.defaultBranch <name>
+2026-02-08T22:59:36.9717990Z hint:
+2026-02-08T22:59:36.9719179Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-08T22:59:36.9721184Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-08T22:59:36.9722766Z hint:
+2026-02-08T22:59:36.9723838Z hint: 	git branch -m <name>
+2026-02-08T22:59:36.9724752Z hint:
+2026-02-08T22:59:36.9725956Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-08T22:59:36.9728115Z Initialized empty Git repository in /home/runner/work/Ryzanstein/Ryzanstein/.git/
+2026-02-08T22:59:36.9731608Z [command]/usr/bin/git remote add origin https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:59:36.9765886Z ##[endgroup]
+2026-02-08T22:59:36.9766715Z ##[group]Disabling automatic garbage collection
+2026-02-08T22:59:36.9771626Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-08T22:59:36.9809937Z ##[endgroup]
+2026-02-08T22:59:36.9811384Z ##[group]Setting up auth
+2026-02-08T22:59:36.9818193Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T22:59:36.9852586Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T22:59:37.0193774Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T22:59:37.0223057Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T22:59:37.0442643Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T22:59:37.0474194Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T22:59:37.0715161Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-08T22:59:37.0754686Z ##[endgroup]
+2026-02-08T22:59:37.0755721Z ##[group]Fetching the repository
+2026-02-08T22:59:37.0767844Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +17b1947fa3ca4f5e79ccd4445e61d9e7bde8fa65:refs/remotes/origin/sprint6/api-integration
+2026-02-08T22:59:38.5441167Z From https://github.com/iamthegreatdestroyer/Ryzanstein
+2026-02-08T22:59:38.5443119Z  * [new ref]         17b1947fa3ca4f5e79ccd4445e61d9e7bde8fa65 -> origin/sprint6/api-integration
+2026-02-08T22:59:38.5474206Z ##[endgroup]
+2026-02-08T22:59:38.5475289Z ##[group]Determining the checkout info
+2026-02-08T22:59:38.5476845Z ##[endgroup]
+2026-02-08T22:59:38.5480854Z [command]/usr/bin/git sparse-checkout disable
+2026-02-08T22:59:38.5520251Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-08T22:59:38.5546115Z ##[group]Checking out the ref
+2026-02-08T22:59:38.5549582Z [command]/usr/bin/git checkout --progress --force -B sprint6/api-integration refs/remotes/origin/sprint6/api-integration
+2026-02-08T22:59:39.5238954Z Switched to a new branch 'sprint6/api-integration'
+2026-02-08T22:59:39.5240054Z branch 'sprint6/api-integration' set up to track 'origin/sprint6/api-integration'.
+2026-02-08T22:59:39.5541403Z ##[endgroup]
+2026-02-08T22:59:39.5580888Z [command]/usr/bin/git log -1 --format=%H
+2026-02-08T22:59:39.5602438Z 17b1947fa3ca4f5e79ccd4445e61d9e7bde8fa65
+2026-02-08T22:59:39.5792107Z ##[group]Run jwlawson/actions-setup-cmake@v1.14
+2026-02-08T22:59:39.5792437Z with:
+2026-02-08T22:59:39.5792609Z   cmake-version: 3.28.x
+2026-02-08T22:59:39.5792991Z   github-api-token: ***
+2026-02-08T22:59:39.5793510Z   use-32bit: false
+2026-02-08T22:59:39.5793949Z ##[endgroup]
+2026-02-08T22:59:45.4856903Z Using cmake version 3.28.6
+2026-02-08T22:59:46.1127125Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/29708ba1-975c-4025-ad9e-b1b574b91d69 -f /home/runner/work/_temp/817af614-4d23-462f-b668-ee44f5061757
+2026-02-08T22:59:49.5770619Z ##[group]Run actions/setup-python@v5
+2026-02-08T22:59:49.5770909Z with:
+2026-02-08T22:59:49.5771083Z   python-version: 3.11
+2026-02-08T22:59:49.5771294Z   check-latest: false
+2026-02-08T22:59:49.5771602Z   token: ***
+2026-02-08T22:59:49.5771783Z   update-environment: true
+2026-02-08T22:59:49.5772005Z   allow-prereleases: false
+2026-02-08T22:59:49.5772240Z   freethreaded: false
+2026-02-08T22:59:49.5772456Z ##[endgroup]
+2026-02-08T22:59:49.7455952Z ##[group]Installed versions
+2026-02-08T22:59:49.8277957Z Successfully set up CPython (3.11.14)
+2026-02-08T22:59:49.8278783Z ##[endgroup]
+2026-02-08T22:59:49.8464817Z ##[group]Run pip install pybind11
+2026-02-08T22:59:49.8465365Z [36;1mpip install pybind11[0m
+2026-02-08T22:59:49.8600849Z shell: /usr/bin/bash -e {0}
+2026-02-08T22:59:49.8601099Z env:
+2026-02-08T22:59:49.8601352Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:49.8601789Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-08T22:59:49.8602216Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:49.8602582Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:49.8602946Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:49.8603306Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-08T22:59:49.8603838Z ##[endgroup]
+2026-02-08T22:59:53.6093226Z Collecting pybind11
+2026-02-08T22:59:53.6902187Z   Downloading pybind11-3.0.1-py3-none-any.whl.metadata (10.0 kB)
+2026-02-08T22:59:53.6980223Z Downloading pybind11-3.0.1-py3-none-any.whl (293 kB)
+2026-02-08T22:59:53.8447438Z Installing collected packages: pybind11
+2026-02-08T22:59:53.8672259Z Successfully installed pybind11-3.0.1
+2026-02-08T22:59:53.9543334Z 
+2026-02-08T22:59:53.9544160Z [notice] A new release of pip is available: 26.0 -> 26.0.1
+2026-02-08T22:59:53.9544822Z [notice] To update, run: pip install --upgrade pip
+2026-02-08T22:59:53.9950943Z ##[group]Run mkdir -p "RYZEN-LLM/build"
+2026-02-08T22:59:53.9951281Z [36;1mmkdir -p "RYZEN-LLM/build"[0m
+2026-02-08T22:59:53.9951746Z [36;1mcmake -S "RYZEN-LLM" -B "RYZEN-LLM/build" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release \[0m
+2026-02-08T22:59:53.9952256Z [36;1m  -Dpybind11_DIR=$(python3 -m pybind11 --cmakedir)[0m
+2026-02-08T22:59:53.9983713Z shell: /usr/bin/bash -e {0}
+2026-02-08T22:59:53.9983928Z env:
+2026-02-08T22:59:53.9984159Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:53.9984572Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-08T22:59:53.9984983Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:53.9985346Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:53.9985692Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:53.9986048Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-08T22:59:53.9986369Z ##[endgroup]
+2026-02-08T22:59:55.1206794Z -- The CXX compiler identification is GNU 13.3.0
+2026-02-08T22:59:55.1519635Z -- Detecting CXX compiler ABI info
+2026-02-08T22:59:55.3101031Z -- Detecting CXX compiler ABI info - done
+2026-02-08T22:59:55.3210858Z -- Check for working CXX compiler: /usr/bin/c++ - skipped
+2026-02-08T22:59:55.3214669Z -- Detecting CXX compile features
+2026-02-08T22:59:55.3220339Z -- Detecting CXX compile features - done
+2026-02-08T22:59:55.3227386Z -- Build type: Release
+2026-02-08T22:59:55.5668773Z -- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+2026-02-08T22:59:55.5671785Z -- Found OpenMP: TRUE (found version "4.5")  
+2026-02-08T22:59:55.5673296Z -- OpenMP found - enabling parallel processing
+2026-02-08T22:59:55.5689552Z -- Performing Test COMPILER_SUPPORTS_AVX512F
+2026-02-08T22:59:55.6282090Z -- Performing Test COMPILER_SUPPORTS_AVX512F - Success
+2026-02-08T22:59:55.6290185Z -- Performing Test COMPILER_SUPPORTS_AVX512DQ
+2026-02-08T22:59:55.6870524Z -- Performing Test COMPILER_SUPPORTS_AVX512DQ - Success
+2026-02-08T22:59:55.6878127Z -- Performing Test COMPILER_SUPPORTS_AVX512VL
+2026-02-08T22:59:55.7467623Z -- Performing Test COMPILER_SUPPORTS_AVX512VL - Success
+2026-02-08T22:59:55.7475553Z -- Performing Test COMPILER_SUPPORTS_AVX512VNNI
+2026-02-08T22:59:55.8062043Z -- Performing Test COMPILER_SUPPORTS_AVX512VNNI - Success
+2026-02-08T22:59:55.8062980Z -- AVX-512 compiler support detected (NOT enabling globally - use runtime detection)
+2026-02-08T22:59:55.8063943Z -- AVX-512 VNNI compiler support detected
+2026-02-08T22:59:55.8071321Z -- Performing Test COMPILER_SUPPORTS_FMA
+2026-02-08T22:59:55.8653758Z -- Performing Test COMPILER_SUPPORTS_FMA - Success
+2026-02-08T22:59:55.8654380Z -- FMA3 support detected
+2026-02-08T22:59:55.8661741Z -- Performing Test COMPILER_SUPPORTS_AVX2
+2026-02-08T22:59:55.9242318Z -- Performing Test COMPILER_SUPPORTS_AVX2 - Success
+2026-02-08T22:59:55.9242908Z -- AVX2 support detected
+2026-02-08T22:59:56.1149386Z -- Found Python: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python3.11 (found version "3.11.14") found components: Interpreter Development Development.Module Development.Embed 
+2026-02-08T22:59:56.1409147Z -- Performing Test HAS_FLTO_AUTO
+2026-02-08T22:59:57.1212587Z -- Performing Test HAS_FLTO_AUTO - Success
+2026-02-08T22:59:57.1219666Z -- Found pybind11: /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pybind11/include (found version "3.0.1")
+2026-02-08T22:59:57.1243111Z -- Performing Test HAVE_AVX512
+2026-02-08T22:59:57.7081617Z -- Performing Test HAVE_AVX512 - Failed
+2026-02-08T22:59:57.7082153Z -- AVX-512 support: NO (will use fallback)
+2026-02-08T22:59:57.7938454Z -- The C compiler identification is GNU 13.3.0
+2026-02-08T22:59:57.8054097Z -- Detecting C compiler ABI info
+2026-02-08T22:59:57.8694859Z -- Detecting C compiler ABI info - done
+2026-02-08T22:59:57.8810492Z -- Check for working C compiler: /usr/bin/cc - skipped
+2026-02-08T22:59:57.8814576Z -- Detecting C compile features
+2026-02-08T22:59:57.8820100Z -- Detecting C compile features - done
+2026-02-08T22:59:57.8828197Z -- RWKV Core module configured
+2026-02-08T22:59:57.8837239Z -- AVX-512 optimizations DISABLED (using AVX2 fallback)
+2026-02-08T22:59:57.8850132Z -- 
+2026-02-08T22:59:57.8850648Z -- ========== Ryzanstein LLM Configuration ==========
+2026-02-08T22:59:57.8851128Z -- Version: 2.0.0
+2026-02-08T22:59:57.8851446Z -- Build type: Release
+2026-02-08T22:59:57.8851775Z -- C++ Standard: C++17
+2026-02-08T22:59:57.8852111Z -- C++ Compiler: GNU 13.3.0
+2026-02-08T22:59:57.8852448Z -- AVX-512: 1
+2026-02-08T22:59:57.8852725Z -- AVX-512 VNNI: 1
+2026-02-08T22:59:57.8853003Z -- FMA3: 1
+2026-02-08T22:59:57.8853271Z -- Build tests: OFF
+2026-02-08T22:59:57.8853786Z -- Build benchmarks: OFF
+2026-02-08T22:59:57.8854184Z -- =============================================
+2026-02-08T22:59:57.8854580Z -- 
+2026-02-08T22:59:57.8857807Z -- Configuring done (3.9s)
+2026-02-08T22:59:57.9045121Z -- Generating done (0.0s)
+2026-02-08T22:59:57.9063285Z -- Build files have been written to: /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/build
+2026-02-08T22:59:57.9144409Z ##[group]Run cmake --build "RYZEN-LLM/build" --config Release -- -j
+2026-02-08T22:59:57.9144915Z [36;1mcmake --build "RYZEN-LLM/build" --config Release -- -j[0m
+2026-02-08T22:59:57.9176589Z shell: /usr/bin/bash -e {0}
+2026-02-08T22:59:57.9176812Z env:
+2026-02-08T22:59:57.9177049Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:57.9177473Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-02-08T22:59:57.9177887Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:57.9178250Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:57.9178796Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-02-08T22:59:57.9179159Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-02-08T22:59:57.9179458Z ##[endgroup]
+2026-02-08T22:59:57.9415585Z [  2%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/lut_gemm.cpp.o
+2026-02-08T22:59:57.9425316Z [  5%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/pattern_generator.cpp.o
+2026-02-08T22:59:57.9427773Z [  7%] Building CXX object src/core/mamba/CMakeFiles/ryzen_llm_mamba.dir/ssm.cpp.o
+2026-02-08T22:59:57.9428789Z [ 10%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/frequency_analyzer.cpp.o
+2026-02-08T22:59:57.9430551Z [ 13%] Building CXX object src/core/rwkv/CMakeFiles/ryzen_llm_rwkv.dir/time_mixing.cpp.o
+2026-02-08T22:59:57.9435596Z [ 15%] Building CXX object src/core/rwkv/CMakeFiles/ryzen_llm_rwkv.dir/channel_mixing.cpp.o
+2026-02-08T22:59:57.9446843Z [ 18%] Building CXX object src/core/mamba/CMakeFiles/ryzen_llm_mamba.dir/scan.cpp.o
+2026-02-08T22:59:57.9459606Z [ 21%] Building CXX object src/core/rwkv/CMakeFiles/ryzen_llm_rwkv.dir/wkv.cpp.o
+2026-02-08T22:59:57.9502291Z [ 23%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/delta_encoder.cpp.o
+2026-02-08T22:59:57.9532965Z [ 26%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/table_builder.cpp.o
+2026-02-08T22:59:57.9547340Z [ 31%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/tmac_gemm.cpp.o
+2026-02-08T22:59:57.9639647Z [ 34%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/tmac_gemm_optimized.cpp.o
+2026-02-08T22:59:57.9641042Z [ 34%] Building CXX object src/core/tmac/CMakeFiles/ryzen_llm_tmac.dir/lut_lookup.cpp.o
+2026-02-08T22:59:58.8186349Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:104: warning: ignoring ΓÇÿ#pragma unroll ΓÇÖ [-Wunknown-pragmas]
+2026-02-08T22:59:58.8244505Z   104 | #pragma unroll(16)
+2026-02-08T22:59:58.8244927Z       | 
+2026-02-08T22:59:58.8246263Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:183: warning: ignoring ΓÇÿ#pragma unroll ΓÇÖ [-Wunknown-pragmas]
+2026-02-08T22:59:58.8247479Z   183 | #pragma unroll(16)
+2026-02-08T22:59:58.8247840Z       | 
+2026-02-08T22:59:58.8249146Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:196: warning: ignoring ΓÇÿ#pragma unroll ΓÇÖ [-Wunknown-pragmas]
+2026-02-08T22:59:58.8250308Z   196 | #pragma unroll(16)
+2026-02-08T22:59:58.8250667Z       | 
+2026-02-08T23:00:00.7248340Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/rwkv/channel_mixing.cpp: In member function ΓÇÿbool ryzanstein_llm::rwkv::ChannelMixingLayer::forward_sequence(const std::vector<float>&, uint32_t, std::vector<float>&)ΓÇÖ:
+2026-02-08T23:00:00.7251851Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/rwkv/channel_mixing.cpp:585:18: warning: unused variable ΓÇÿtotal_sizeΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:00.7254166Z   585 |         uint32_t total_size = seq_len * hidden_dim_;
+2026-02-08T23:00:00.7255094Z       |                  ^~~~~~~~~~
+2026-02-08T23:00:02.9514410Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp: In function ΓÇÿvoid ryzanstein_llm::tmac::gemm_vnni_experimental(const int8_t*, const int8_t*, int32_t*, uint32_t, uint32_t, uint32_t)ΓÇÖ:
+2026-02-08T23:00:02.9521454Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:672:27: warning: unused parameter ΓÇÿWΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:02.9523081Z   672 |             const int8_t *W,
+2026-02-08T23:00:02.9527681Z       |             ~~~~~~~~~~~~~~^
+2026-02-08T23:00:02.9529447Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:673:27: warning: unused parameter ΓÇÿXΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:02.9530841Z   673 |             const int8_t *X,
+2026-02-08T23:00:02.9531436Z       |             ~~~~~~~~~~~~~~^
+2026-02-08T23:00:02.9532848Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:674:22: warning: unused parameter ΓÇÿYΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:02.9534672Z   674 |             int32_t *Y,
+2026-02-08T23:00:02.9535203Z       |             ~~~~~~~~~^
+2026-02-08T23:00:02.9536591Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:675:22: warning: unused parameter ΓÇÿMΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:02.9537970Z   675 |             uint32_t M,
+2026-02-08T23:00:02.9538535Z       |             ~~~~~~~~~^
+2026-02-08T23:00:02.9540010Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:676:22: warning: unused parameter ΓÇÿKΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:02.9541336Z   676 |             uint32_t K,
+2026-02-08T23:00:02.9541883Z       |             ~~~~~~~~~^
+2026-02-08T23:00:02.9543422Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm_optimized.cpp:677:22: warning: unused parameter ΓÇÿNΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:02.9544766Z   677 |             uint32_t N)
+2026-02-08T23:00:02.9545210Z       |             ~~~~~~~~~^
+2026-02-08T23:00:03.1602362Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm.cpp: In member function ΓÇÿvoid ryzanstein_llm::tmac::TMACGemm::gemm_inner_avx512(const int8_t*, const int8_t*, int32_t*, uint32_t, uint32_t)ΓÇÖ:
+2026-02-08T23:00:03.1645677Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/tmac_gemm.cpp:229:33: warning: unused variable ΓÇÿactivations_loΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:03.1647020Z   229 |                         __m256i activations_lo = _mm256_cvtepi8_epi32(acts_128);
+2026-02-08T23:00:03.1647674Z       |                                 ^~~~~~~~~~~~~~
+2026-02-08T23:00:03.1694440Z [ 36%] Linking CXX static library libryzen_llm_rwkv.a
+2026-02-08T23:00:03.6816548Z In file included from /usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h:53,
+2026-02-08T23:00:03.6821148Z                  from /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/lut_gemm.cpp:30:
+2026-02-08T23:00:03.6823028Z In function ΓÇÿ__m512i _mm512_loadu_si512(const void*)ΓÇÖ,
+2026-02-08T23:00:03.6825756Z     inlined from ΓÇÿvoid ryzanstein_llm::tmac::LookupTableGEMM::compute_avx512(const int8_t*, float, int8_t, float*, uint32_t, uint32_t, uint32_t)ΓÇÖ at /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/lut_gemm.cpp:365:65:
+2026-02-08T23:00:03.6830528Z /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512fintrin.h:6501:24: warning: array subscript ΓÇÿ__m512i_u[0]ΓÇÖ is partly outside array bounds of ΓÇÿuint8_t [16]ΓÇÖ {aka ΓÇÿunsigned char [16]ΓÇÖ} [-Warray-bounds=]
+2026-02-08T23:00:03.6834037Z  6501 |   return *(__m512i_u *)__P;
+2026-02-08T23:00:03.6834685Z       |                        ^~~
+2026-02-08T23:00:03.6850217Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/lut_gemm.cpp: In member function ΓÇÿvoid ryzanstein_llm::tmac::LookupTableGEMM::compute_avx512(const int8_t*, float, int8_t, float*, uint32_t, uint32_t, uint32_t)ΓÇÖ:
+2026-02-08T23:00:03.6856212Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/tmac/lut_gemm.cpp:346:33: note: object ΓÇÿindicesΓÇÖ of size 16
+2026-02-08T23:00:03.6862510Z   346 |                         uint8_t indices[16];
+2026-02-08T23:00:03.6868599Z       |                                 ^~~~~~~
+2026-02-08T23:00:03.9985929Z [ 36%] Built target ryzen_llm_rwkv
+2026-02-08T23:00:04.0033041Z [ 39%] Linking CXX static library libryzen_llm_tmac.a
+2026-02-08T23:00:04.1294142Z [ 39%] Built target ryzen_llm_tmac
+2026-02-08T23:00:04.6039498Z [ 42%] Linking CXX static library libryzen_llm_mamba.a
+2026-02-08T23:00:04.6863815Z [ 42%] Built target ryzen_llm_mamba
+2026-02-08T23:00:04.6949406Z [ 44%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/cache_manager.cpp.o
+2026-02-08T23:00:04.6952094Z [ 47%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/avx512/matmul.cpp.o
+2026-02-08T23:00:04.6954863Z [ 50%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/avx512/activation.cpp.o
+2026-02-08T23:00:04.6956484Z [ 52%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/avx512/vnni.cpp.o
+2026-02-08T23:00:04.6969813Z [ 55%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/speculative/draft_model.cpp.o
+2026-02-08T23:00:04.7012128Z [ 57%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/speculative/verifier.cpp.o
+2026-02-08T23:00:04.7050797Z [ 60%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/memory/kv_cache.cpp.o
+2026-02-08T23:00:04.7067112Z [ 63%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/speculative/speculative_decoder.cpp.o
+2026-02-08T23:00:04.7163394Z [ 65%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/memory/kv_cache_optimized.cpp.o
+2026-02-08T23:00:04.7168561Z [ 68%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/memory/pool.cpp.o
+2026-02-08T23:00:04.7185513Z [ 71%] Building CXX object src/optimization/CMakeFiles/ryzen_llm_optimization.dir/__/recycler/basic_recycler.cpp.o
+2026-02-08T23:00:07.1095056Z In file included from /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/optimization/memory/kv_cache_optimized.cpp:13:
+2026-02-08T23:00:07.1101770Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/optimization/memory/kv_cache_optimized.h: In function ΓÇÿvoid ryzanstein_llm::optimization::prefetch_cache_line(const void*)ΓÇÖ:
+2026-02-08T23:00:07.1108224Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/optimization/memory/kv_cache_optimized.h:294:53: warning: unused parameter ΓÇÿptrΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:07.1113442Z   294 |         inline void prefetch_cache_line(const void *ptr)
+2026-02-08T23:00:07.1118688Z       |                                         ~~~~~~~~~~~~^~~
+2026-02-08T23:00:08.5776016Z [ 73%] Linking CXX static library libryzen_llm_optimization.a
+2026-02-08T23:00:08.6664268Z [ 73%] Built target ryzen_llm_optimization
+2026-02-08T23:00:08.6741955Z [ 76%] Building CXX object src/core/bitnet/CMakeFiles/ryzen_llm_bitnet.dir/quantize.cpp.o
+2026-02-08T23:00:08.6745048Z [ 78%] Building CXX object src/core/bitnet/CMakeFiles/ryzen_llm_bitnet.dir/engine.cpp.o
+2026-02-08T23:00:08.6748792Z [ 81%] Building CXX object src/core/bitnet/CMakeFiles/ryzen_llm_bitnet.dir/kernels/matmul.cpp.o
+2026-02-08T23:00:08.6750067Z [ 84%] Building CXX object src/core/bitnet/CMakeFiles/ryzen_llm_bitnet.dir/kernels/lut_gemm.cpp.o
+2026-02-08T23:00:08.6774577Z [ 86%] Building CXX object src/core/bitnet/CMakeFiles/ryzen_llm_bitnet.dir/kernels/parallel_kernels.cpp.o
+2026-02-08T23:00:08.6822650Z [ 89%] Building CXX object src/core/bitnet/CMakeFiles/ryzen_llm_bitnet.dir/bitnet_layer.cpp.o
+2026-02-08T23:00:08.6844799Z [ 92%] Building CXX object src/core/bitnet/CMakeFiles/ryzen_llm_bitnet.dir/bitnet_model.cpp.o
+2026-02-08T23:00:10.2236953Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/quantize.cpp: In function ΓÇÿryzanstein_llm::bitnet::TernaryWeightCPU ryzanstein_llm::bitnet::quantize_weights_ternary_cpu(const float*, uint32_t, uint32_t, const QuantConfig&)ΓÇÖ:
+2026-02-08T23:00:10.2295804Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/quantize.cpp:615:56: warning: unused parameter ΓÇÿconfigΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:10.2297147Z   615 |             const ryzanstein_llm::bitnet::QuantConfig &config)
+2026-02-08T23:00:10.2298171Z       |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+2026-02-08T23:00:11.0926946Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/bitnet_model.cpp: In function ΓÇÿryzanstein_llm::bitnet::ModelWeights ryzanstein_llm::bitnet::load_model_weights(const std::string&, const ModelConfig&)ΓÇÖ:
+2026-02-08T23:00:11.0929887Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/bitnet_model.cpp:486:32: warning: unused parameter ΓÇÿconfigΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:11.0931392Z   486 |             const ModelConfig &config)
+2026-02-08T23:00:11.0932253Z       |             ~~~~~~~~~~~~~~~~~~~^~~~~~
+2026-02-08T23:00:11.5400987Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/bitnet_layer.cpp: In member function ΓÇÿvoid ryzanstein_llm::bitnet::BitNetLayer::forward(const float*, float*, uint32_t, uint32_t, void*)ΓÇÖ:
+2026-02-08T23:00:11.5404318Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/bitnet_layer.cpp:83:19: warning: unused parameter ΓÇÿcacheΓÇÖ [-Wunused-parameter]
+2026-02-08T23:00:11.5405759Z    83 |             void *cache)
+2026-02-08T23:00:11.5406418Z       |             ~~~~~~^~~~~
+2026-02-08T23:00:11.5472879Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/bitnet_layer.cpp: In member function ΓÇÿvoid ryzanstein_llm::bitnet::BitNetLayer::multi_head_attention(const float*, float*, uint32_t, uint32_t)ΓÇÖ:
+2026-02-08T23:00:11.5480203Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/core/bitnet/bitnet_layer.cpp:371:39: warning: comparison of integer expressions of different signedness: ΓÇÿint32_tΓÇÖ {aka ΓÇÿintΓÇÖ} and ΓÇÿuint32_tΓÇÖ {aka ΓÇÿunsigned intΓÇÖ} [-Wsign-compare]
+2026-02-08T23:00:11.5486060Z   371 |                             if (d + 1 < head_dim)
+2026-02-08T23:00:11.5490371Z       |                                 ~~~~~~^~~~~~~~~~
+2026-02-08T23:00:13.8861422Z [ 94%] Linking CXX static library libryzen_llm_bitnet.a
+2026-02-08T23:00:13.9722022Z [ 94%] Built target ryzen_llm_bitnet
+2026-02-08T23:00:13.9789797Z [ 97%] Building CXX object src/api/bindings/CMakeFiles/ryzen_llm_bindings.dir/bitnet_bindings.cpp.o
+2026-02-08T23:00:15.8275108Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp: In function ΓÇÿint test_basic_quantize_large()ΓÇÖ:
+2026-02-08T23:00:15.8276943Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:295:20: warning: variable ΓÇÿresultΓÇÖ set but not used [-Wunused-but-set-variable]
+2026-02-08T23:00:15.8278014Z   295 |             int8_t result[size];
+2026-02-08T23:00:15.8278363Z       |                    ^~~~~~
+2026-02-08T23:00:15.8286928Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp: In function ΓÇÿint test_floating_point_accumulation()ΓÇÖ:
+2026-02-08T23:00:15.8288314Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:392:15: warning: unused variable ΓÇÿsumΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:15.8289078Z   392 |         float sum = a + b;
+2026-02-08T23:00:15.8289352Z       |               ^~~
+2026-02-08T23:00:15.8290162Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:396:15: warning: unused variable ΓÇÿabs_valΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:15.8290955Z   396 |         float abs_val = std::abs(val);
+2026-02-08T23:00:15.8291251Z       |               ^~~~~~~
+2026-02-08T23:00:15.8292010Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp: In function ΓÇÿint test_division_operations()ΓÇÖ:
+2026-02-08T23:00:15.8293272Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:418:15: warning: unused variable ΓÇÿresultΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:15.8294287Z   418 |         float result = numerator / denominator;
+2026-02-08T23:00:15.8294600Z       |               ^~~~~~
+2026-02-08T23:00:15.8295423Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:421:15: warning: unused variable ΓÇÿsafe_divΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:15.8296627Z   421 |         float safe_div = (denominator > 0) ? (numerator / denominator) : 1.0f;
+2026-02-08T23:00:15.8297063Z       |               ^~~~~~~~
+2026-02-08T23:00:15.8297888Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:436:15: warning: unused variable ΓÇÿmeanΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:15.8298646Z   436 |         float mean = total / count;
+2026-02-08T23:00:15.8298935Z       |               ^~~~
+2026-02-08T23:00:15.8300262Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp: In function ΓÇÿint test_min_max_avoidance()ΓÇÖ:
+2026-02-08T23:00:15.8301663Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:504:16: warning: variable ΓÇÿquantizedΓÇÖ set but not used [-Wunused-but-set-variable]
+2026-02-08T23:00:15.8302734Z   504 |         int8_t quantized[4];
+2026-02-08T23:00:15.8302999Z       |                ^~~~~~~~~
+2026-02-08T23:00:15.8315364Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp: In function ΓÇÿint test_full_quantization_cpu()ΓÇÖ:
+2026-02-08T23:00:15.8316513Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:710:19: warning: unused variable ΓÇÿerror_weightsΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:15.8317337Z   710 |             float error_weights = ryzanstein_llm::bitnet::compute_quantization_error_cpu(
+2026-02-08T23:00:15.8317733Z       |                   ^~~~~~~~~~~~~
+2026-02-08T23:00:15.8318498Z /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/src/api/bindings/bitnet_bindings.cpp:712:19: warning: unused variable ΓÇÿerror_activationsΓÇÖ [-Wunused-variable]
+2026-02-08T23:00:15.8319323Z   712 |             float error_activations = ryzanstein_llm::bitnet::compute_quantization_error_cpu(
+2026-02-08T23:00:15.8319727Z       |                   ^~~~~~~~~~~~~~~~~
+2026-02-08T23:00:19.3089765Z [100%] Linking CXX shared module /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/python/ryzanstein_llm/ryzen_llm_bindings.pyd
+2026-02-08T23:00:21.9762072Z /usr/bin/ld: ../../optimization/libryzen_llm_optimization.a(draft_model.cpp.o): relocation R_X86_64_TPOFF32 against `_ZGVZN14ryzanstein_llm11speculative10DraftModel12sample_tokenERKSt6vectorIfSaIfEEE3rng' can not be used when making a shared object; recompile with -fPIC
+2026-02-08T23:00:21.9763318Z /usr/bin/ld: failed to set dynamic section sizes: bad value
+2026-02-08T23:00:21.9783416Z collect2: error: ld returned 1 exit status
+2026-02-08T23:00:21.9795023Z gmake[2]: *** [src/api/bindings/CMakeFiles/ryzen_llm_bindings.dir/build.make:106: /home/runner/work/Ryzanstein/Ryzanstein/RYZEN-LLM/python/ryzanstein_llm/ryzen_llm_bindings.pyd] Error 1
+2026-02-08T23:00:21.9796894Z gmake[1]: *** [CMakeFiles/Makefile2:338: src/api/bindings/CMakeFiles/ryzen_llm_bindings.dir/all] Error 2
+2026-02-08T23:00:21.9799089Z gmake: *** [Makefile:136: all] Error 2
+2026-02-08T23:00:21.9822836Z ##[error]Process completed with exit code 2.
+2026-02-08T23:00:21.9911555Z Post job cleanup.
+2026-02-08T23:00:22.0858427Z [command]/usr/bin/git version
+2026-02-08T23:00:22.0894157Z git version 2.52.0
+2026-02-08T23:00:22.0938207Z Temporarily overriding HOME='/home/runner/work/_temp/7d5698e8-8a68-4ae4-9b66-51d5e3fd5b87' before making global git config changes
+2026-02-08T23:00:22.0939564Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T23:00:22.0944468Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Ryzanstein/Ryzanstein
+2026-02-08T23:00:22.0980113Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T23:00:22.1013275Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T23:00:22.1239638Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T23:00:22.1259573Z http.https://github.com/.extraheader
+2026-02-08T23:00:22.1272497Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-02-08T23:00:22.1302714Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T23:00:22.1524234Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T23:00:22.1555240Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T23:00:22.1908191Z Cleaning up orphan processes

@@ -1,0 +1,55 @@
+{
+  "timestamp": "2026-02-09T12:51:37.279328",
+  "num_processes": 2,
+  "num_epochs": 2,
+  "batch_size": 16,
+  "rank_results": [
+    {
+      "rank": 0,
+      "world_size": 2,
+      "epochs": [
+        {
+          "epoch": 0,
+          "train_loss": 7.7890161037445065,
+          "duration_sec": 3.0097455978393555,
+          "num_batches": 10,
+          "learning_rate": 0.000505
+        },
+        {
+          "epoch": 1,
+          "train_loss": 7.780514287948608,
+          "duration_sec": 4.305428504943848,
+          "num_batches": 10,
+          "learning_rate": 1e-05
+        }
+      ],
+      "total_duration_sec": 7.315943956375122
+    },
+    {
+      "rank": 1,
+      "world_size": 2,
+      "epochs": [
+        {
+          "epoch": 0,
+          "train_loss": 7.784747314453125,
+          "duration_sec": 3.9643752574920654,
+          "num_batches": 10,
+          "learning_rate": 0.000505
+        },
+        {
+          "epoch": 1,
+          "train_loss": 7.778322172164917,
+          "duration_sec": 2.8488106727600098,
+          "num_batches": 10,
+          "learning_rate": 1e-05
+        }
+      ],
+      "total_duration_sec": 6.813806533813477
+    }
+  ],
+  "aggregated_metrics": {
+    "avg_loss": 7.779418230056763,
+    "total_duration_sec": 7.315943956375122,
+    "samples_per_sec": 87.48016712762039
+  }
+}

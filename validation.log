@@ -1,0 +1,61 @@
+[2025-12-14 11:20:25] [INFO] ========================================
+[2025-12-14 11:20:25] [INFO] RYZEN-LLM PRODUCTION READINESS VALIDATION
+[2025-12-14 11:20:25] [INFO] ========================================
+[2025-12-14 11:20:25] [SUCCESS] ✅ Test executables found
+[2025-12-14 11:20:25] [SECTION] Gathering system information...
+[2025-12-14 11:20:27] [INFO] System: AMD Ryzen 7 7730U with Radeon Graphics          / 8 cores / 31.31GB RAM
+[2025-12-14 11:20:27] [SECTION] ======================================
+[2025-12-14 11:20:27] [SECTION] PHASE 1: CORRECTNESS VALIDATION
+[2025-12-14 11:20:27] [SECTION] ======================================
+[2025-12-14 11:20:27] [PHASE] Correctness Run 1/5
+[2025-12-14 11:20:27] [TEST] Running test_channel_mixing (Run 1)...
+[2025-12-14 11:20:27] [SUCCESS] ✅ test_channel_mixing PASSED (0.0760619s)
+[2025-12-14 11:20:27] [TEST] Running test_rwkv (Run 1)...
+[2025-12-14 11:20:27] [SUCCESS] ✅ test_rwkv PASSED (0.0635365s)
+[2025-12-14 11:20:27] [PHASE] Correctness Run 2/5
+[2025-12-14 11:20:27] [TEST] Running test_channel_mixing (Run 2)...
+[2025-12-14 11:20:27] [SUCCESS] ✅ test_channel_mixing PASSED (0.0527601s)
+[2025-12-14 11:20:27] [TEST] Running test_rwkv (Run 2)...
+[2025-12-14 11:20:27] [SUCCESS] ✅ test_rwkv PASSED (0.060999s)
+[2025-12-14 11:20:28] [PHASE] Correctness Run 3/5
+[2025-12-14 11:20:28] [TEST] Running test_channel_mixing (Run 3)...
+[2025-12-14 11:20:28] [SUCCESS] ✅ test_channel_mixing PASSED (0.0600116s)
+[2025-12-14 11:20:28] [TEST] Running test_rwkv (Run 3)...
+[2025-12-14 11:20:28] [SUCCESS] ✅ test_rwkv PASSED (0.0875263s)
+[2025-12-14 11:20:29] [PHASE] Correctness Run 4/5
+[2025-12-14 11:20:29] [TEST] Running test_channel_mixing (Run 4)...
+[2025-12-14 11:20:29] [SUCCESS] ✅ test_channel_mixing PASSED (0.055525s)
+[2025-12-14 11:20:29] [TEST] Running test_rwkv (Run 4)...
+[2025-12-14 11:20:29] [SUCCESS] ✅ test_rwkv PASSED (0.0590118s)
+[2025-12-14 11:20:29] [PHASE] Correctness Run 5/5
+[2025-12-14 11:20:29] [TEST] Running test_channel_mixing (Run 5)...
+[2025-12-14 11:20:29] [SUCCESS] ✅ test_channel_mixing PASSED (0.0530013s)
+[2025-12-14 11:20:29] [TEST] Running test_rwkv (Run 5)...
+[2025-12-14 11:20:29] [SUCCESS] ✅ test_rwkv PASSED (0.1107626s)
+[2025-12-14 11:20:30] [RESULT] Correctness: Channel Mixing = ✅ 5/5
+[2025-12-14 11:20:30] [RESULT] Correctness: RWKV = ✅ 5/5
+[2025-12-14 11:20:30] [SECTION] ======================================
+[2025-12-14 11:20:30] [SECTION] PHASE 2: STRESS TESTING
+[2025-12-14 11:20:30] [SECTION] ======================================
+[2025-12-14 11:20:30] [PHASE] Stress Testing: 10 consecutive runs
+[2025-12-14 11:20:30] [PHASE] Stress Run 1/10 : 0.0339086s
+[2025-12-14 11:20:31] [PHASE] Stress Run 2/10 : 0.0324373s
+[2025-12-14 11:20:32] [PHASE] Stress Run 3/10 : 0.0320045s
+[2025-12-14 11:20:33] [PHASE] Stress Run 4/10 : 0.0325413s
+[2025-12-14 11:20:34] [PHASE] Stress Run 5/10 : 0.0331334s
+[2025-12-14 11:20:35] [PHASE] Stress Run 6/10 : 0.0335398s
+[2025-12-14 11:20:36] [PHASE] Stress Run 7/10 : 0.0329987s
+[2025-12-14 11:20:37] [PHASE] Stress Run 8/10 : 0.0330125s
+[2025-12-14 11:20:38] [PHASE] Stress Run 9/10 : 0.0330139s
+[2025-12-14 11:20:39] [PHASE] Stress Run 10/10 : 0.0329942s
+[2025-12-14 11:20:40] [RESULT] Average stress run duration: 0.03295842s
+[2025-12-14 11:20:40] [SECTION] ======================================
+[2025-12-14 11:20:40] [SECTION] PHASE 3: FAILURE MODE TESTING
+[2025-12-14 11:20:40] [SECTION] ======================================
+[2025-12-14 11:20:40] [PHASE] Testing graceful shutdown...
+[2025-12-14 11:20:40] [TEST] ✅ Graceful shutdown: Working
+[2025-12-14 11:20:40] [TEST] ✅ Error handling: Comprehensive (verified via tests)
+[2025-12-14 11:20:40] [TEST] ✅ Bounds checking: Present (verified via test execution)
+[2025-12-14 11:20:40] [SECTION] Generating validation report...
+[2025-12-14 11:20:40] [SUCCESS] Report written to: c:\Users\sgbil\Ryot\validation_report.txt
+[2025-12-14 11:20:40] [INFO] VALIDATION COMPLETE

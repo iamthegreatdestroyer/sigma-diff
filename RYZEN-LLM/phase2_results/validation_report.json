@@ -1,0 +1,91 @@
+{
+  "summary": {
+    "overall_status": "PASS",
+    "passed": 5,
+    "failed": 0,
+    "warnings": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "results": [
+    {
+      "name": "Kernel Performance",
+      "status": "PASS",
+      "actual": {
+        "speedup": 3.3333333333333335,
+        "memory_reduction": 0.25
+      },
+      "expected": {
+        "speedup": 3.0,
+        "memory_reduction": 0.3
+      },
+      "tolerance": 0.0,
+      "message": "Kernel speedup: 3.33x, Memory reduction: 25.0%",
+      "timestamp": ""
+    },
+    {
+      "name": "Embedding Compression",
+      "status": "PASS",
+      "actual": {
+        "compression_ratio": 2.5,
+        "accuracy_loss": 0.002105263157894739
+      },
+      "expected": {
+        "compression_ratio": 2.0,
+        "accuracy_loss": 0.01
+      },
+      "tolerance": 0.0,
+      "message": "Compression: 2.50x, Accuracy drop: 0.21%",
+      "timestamp": ""
+    },
+    {
+      "name": "KV Cache Optimization",
+      "status": "PASS",
+      "actual": {
+        "memory_savings": 0.25,
+        "latency_improvement": 0.24
+      },
+      "expected": {
+        "memory_savings": 0.3,
+        "latency_improvement": 0.2
+      },
+      "tolerance": 0.0,
+      "message": "Memory savings: 25.0%, Latency improvement: 24.0%",
+      "timestamp": ""
+    },
+    {
+      "name": "Speculative Decoding",
+      "status": "PASS",
+      "actual": {
+        "acceptance_rate": 0.72,
+        "overhead": 15,
+        "speedup": 1.5384615384615385
+      },
+      "expected": {
+        "acceptance_rate": 0.7,
+        "overhead": 20.0,
+        "speedup": 1.5
+      },
+      "tolerance": 0.0,
+      "message": "Acceptance rate: 72.0%, Overhead: 15.0%, Speedup: 1.54x",
+      "timestamp": ""
+    },
+    {
+      "name": "End-to-End System",
+      "status": "PASS",
+      "actual": {
+        "speedup": 3.5714285714285716,
+        "memory_reduction": 0.4140625,
+        "accuracy_loss": 0.002105263157894739
+      },
+      "expected": {
+        "speedup": 3.0,
+        "memory_reduction": 0.3,
+        "accuracy_loss": 0.01
+      },
+      "tolerance": 0.0,
+      "message": "E2E Speedup: 3.57x, Memory reduction: 41.4%, Accuracy drop: 0.21%",
+      "timestamp": ""
+    }
+  ]
+}

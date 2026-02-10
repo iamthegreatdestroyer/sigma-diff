@@ -1,0 +1,190 @@
+# Prometheus Alerting Rules for Ryzanstein LLM Inference
+# Sprint 3.5 - Observability Stack
+# Created: January 6, 2026
+
+groups:
+  # ==========================================================================
+  # Inference Performance Alerts
+  # ==========================================================================
+  - name: inference_performance
+    interval: 30s
+    rules:
+      - alert: HighLatencyP99
+        expr: llm_inference_request_latency_ms{quantile="0.99"} > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High P99 latency on {{ $labels.node_id }}"
+          description: "P99 latency is {{ $value }}ms (threshold: 1000ms)"
+
+      - alert: CriticalLatencyP99
+        expr: llm_inference_request_latency_ms{quantile="0.99"} > 5000
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical P99 latency on {{ $labels.node_id }}"
+          description: "P99 latency is {{ $value }}ms (threshold: 5000ms)"
+
+      - alert: LowThroughput
+        expr: llm_inference_throughput_tokens_per_sec < 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low token throughput on {{ $labels.node_id }}"
+          description: "Throughput is {{ $value }} tokens/sec (threshold: 100)"
+
+  # ==========================================================================
+  # Error Rate Alerts
+  # ==========================================================================
+  - name: error_rates
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          rate(llm_inference_errors_total[5m]) / 
+          rate(llm_inference_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate on {{ $labels.node_id }}"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+      - alert: CriticalErrorRate
+        expr: |
+          rate(llm_inference_errors_total[5m]) / 
+          rate(llm_inference_requests_total[5m]) > 0.10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical error rate on {{ $labels.node_id }}"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 10%)"
+
+  # ==========================================================================
+  # Node Health Alerts
+  # ==========================================================================
+  - name: node_health
+    interval: 30s
+    rules:
+      - alert: NodeUnhealthy
+        expr: llm_inference_node_healthy == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node {{ $labels.node_id }} is unhealthy"
+          description: "Node has been unhealthy for more than 1 minute"
+
+      - alert: NodeDown
+        expr: up{job="llm-inference"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node {{ $labels.instance }} is down"
+          description: "Prometheus cannot scrape metrics from this node"
+
+      - alert: HighCPUUsage
+        expr: llm_inference_cpu_usage_percent > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.node_id }}"
+          description: "CPU usage is {{ $value }}% (threshold: 90%)"
+
+      - alert: HighMemoryUsage
+        expr: llm_inference_memory_usage_percent > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.node_id }}"
+          description: "Memory usage is {{ $value }}% (threshold: 90%)"
+
+  # ==========================================================================
+  # GPU Alerts
+  # ==========================================================================
+  - name: gpu_health
+    interval: 30s
+    rules:
+      - alert: HighGPUUtilization
+        expr: llm_inference_gpu_utilization_percent > 95
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High GPU utilization on {{ $labels.node_id }}"
+          description: "GPU utilization is {{ $value }}% (threshold: 95%)"
+
+      - alert: GPUMemoryExhausted
+        expr: |
+          (llm_inference_gpu_memory_used_bytes / llm_inference_gpu_memory_total_bytes) > 0.95
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "GPU memory nearly exhausted on {{ $labels.node_id }}"
+          description: "GPU memory usage is {{ $value | humanizePercentage }}"
+
+  # ==========================================================================
+  # Cache Alerts
+  # ==========================================================================
+  - name: cache_health
+    interval: 30s
+    rules:
+      - alert: LowCacheHitRate
+        expr: llm_inference_cache_hit_rate < 0.5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value | humanizePercentage }} (threshold: 50%)"
+
+      - alert: HighCacheEvictions
+        expr: rate(llm_inference_cache_evictions_total[5m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High cache eviction rate"
+          description: "Cache evictions: {{ $value }}/sec"
+
+      - alert: CacheNearlyFull
+        expr: |
+          (llm_inference_cache_size_bytes / llm_inference_cache_capacity_bytes) > 0.90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Cache nearly full"
+          description: "Cache is {{ $value | humanizePercentage }} full"
+
+  # ==========================================================================
+  # Infrastructure Alerts
+  # ==========================================================================
+  - name: infrastructure
+    interval: 60s
+    rules:
+      - alert: PrometheusTargetDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus target {{ $labels.job }} is down"
+          description: "Cannot scrape {{ $labels.instance }}"
+
+      - alert: PrometheusHighMemory
+        expr: process_resident_memory_bytes{job="prometheus"} > 2e9
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus using high memory"
+          description: "Prometheus memory: {{ $value | humanize1024 }}"

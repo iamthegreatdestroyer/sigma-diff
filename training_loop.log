@@ -1,0 +1,304 @@
+[2026-02-09 17:00:54,764] INFO: Configuration loaded from training_configuration.yaml
+[2026-02-09 17:00:54,765] INFO: TrainingMetricsCollector initialized
+[2026-02-09 17:00:54,765] INFO: ModelInferenceValidator initialized
+[2026-02-09 17:00:54,765] INFO: TrainingLoop initialized | Device: cpu | Optimization: True
+[2026-02-09 17:00:54,765] INFO: Starting training for 10 epochs
+[2026-02-09 17:00:54,765] INFO: Optimization enabled: True
+[2026-02-09 17:00:54,765] INFO: Setting up model and data...
+[2026-02-09 17:00:54,782] INFO: Model created: SimpleTransformerModel
+[2026-02-09 17:00:54,782] INFO: Model parameters: 2,137,600
+[2026-02-09 17:00:55,799] INFO: Data loaders created | Train samples: 320 | Val samples: 64
+[2026-02-09 17:00:55,799] ERROR: Failed to initialize OptimizationOrchestrator: 'optimization'
+[2026-02-09 17:00:55,799] INFO: Initializing Phase 1 optimizations...
+[2026-02-09 17:00:55,799] INFO: CPU features detected: {'avx512': False, 'vnni': False, 'avx2': True, 'fma': False, 'num_cores': 16}
+[2026-02-09 17:00:55,799] INFO: Kernel optimizer initialized
+[2026-02-09 17:00:55,799] WARNING: Failed to initialize Phase 1 optimizations: 'optimization'
+[2026-02-09 17:00:56,320] INFO: Epoch 1 | Batch 1/10 | Loss: 7.7865 | Throughput: 61.6 samples/sec
+[2026-02-09 17:00:58,966] INFO: Epoch 1 | Batch 6/10 | Loss: 7.7868 | Throughput: 60.3 samples/sec
+[2026-02-09 17:01:01,136] INFO: Epoch 1 complete | Loss: 7.7885 | Duration: 5.3s | Throughput: 60.1 samples/sec
+[2026-02-09 17:01:01,687] INFO: Epoch 2 | Batch 1/10 | Loss: 7.5631 | Throughput: 58.3 samples/sec
+[2026-02-09 17:01:04,443] INFO: Epoch 2 | Batch 6/10 | Loss: 7.5110 | Throughput: 57.5 samples/sec
+[2026-02-09 17:01:06,727] INFO: Epoch 2 complete | Loss: 7.4847 | Duration: 5.6s | Throughput: 57.4 samples/sec
+[2026-02-09 17:01:06,916] INFO: Validation loss: 7.7719
+[2026-02-09 17:01:07,215] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:01:07,826] INFO: Epoch 3 | Batch 1/10 | Loss: 7.3333 | Throughput: 52.5 samples/sec
+[2026-02-09 17:01:10,563] INFO: Epoch 3 | Batch 6/10 | Loss: 7.2845 | Throughput: 60.5 samples/sec
+[2026-02-09 17:01:12,771] INFO: Epoch 3 complete | Loss: 7.2640 | Duration: 5.6s | Throughput: 57.8 samples/sec
+[2026-02-09 17:01:13,304] INFO: Epoch 4 | Batch 1/10 | Loss: 7.1110 | Throughput: 60.1 samples/sec
+[2026-02-09 17:01:15,955] INFO: Epoch 4 | Batch 6/10 | Loss: 7.0842 | Throughput: 60.1 samples/sec
+[2026-02-09 17:01:18,146] INFO: Epoch 4 complete | Loss: 7.0748 | Duration: 5.4s | Throughput: 59.6 samples/sec
+[2026-02-09 17:01:18,327] INFO: Validation loss: 7.7933
+[2026-02-09 17:01:18,853] INFO: Epoch 5 | Batch 1/10 | Loss: 6.9406 | Throughput: 61.0 samples/sec
+[2026-02-09 17:01:21,464] INFO: Epoch 5 | Batch 6/10 | Loss: 6.9246 | Throughput: 61.1 samples/sec
+[2026-02-09 17:01:23,589] INFO: Epoch 5 complete | Loss: 6.9097 | Duration: 5.3s | Throughput: 60.9 samples/sec
+[2026-02-09 17:01:23,886] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_epoch_4.pt
+[2026-02-09 17:01:24,444] INFO: Epoch 6 | Batch 1/10 | Loss: 6.8270 | Throughput: 57.6 samples/sec
+[2026-02-09 17:01:27,116] INFO: Epoch 6 | Batch 6/10 | Loss: 6.7864 | Throughput: 58.9 samples/sec
+[2026-02-09 17:01:29,312] INFO: Epoch 6 complete | Loss: 6.7738 | Duration: 5.4s | Throughput: 59.1 samples/sec
+[2026-02-09 17:01:29,489] INFO: Validation loss: 7.8202
+[2026-02-09 17:01:30,048] INFO: Epoch 7 | Batch 1/10 | Loss: 6.7003 | Throughput: 57.4 samples/sec
+[2026-02-09 17:01:32,869] INFO: Epoch 7 | Batch 6/10 | Loss: 6.6769 | Throughput: 57.2 samples/sec
+[2026-02-09 17:01:35,113] INFO: Epoch 7 complete | Loss: 6.6662 | Duration: 5.6s | Throughput: 57.0 samples/sec
+[2026-02-09 17:01:35,671] INFO: Epoch 8 | Batch 1/10 | Loss: 6.6253 | Throughput: 57.6 samples/sec
+[2026-02-09 17:01:38,533] INFO: Epoch 8 | Batch 6/10 | Loss: 6.5972 | Throughput: 52.3 samples/sec
+[2026-02-09 17:01:40,788] INFO: Epoch 8 complete | Loss: 6.5925 | Duration: 5.7s | Throughput: 56.5 samples/sec
+[2026-02-09 17:01:40,982] INFO: Validation loss: 7.8364
+[2026-02-09 17:01:41,538] INFO: Epoch 9 | Batch 1/10 | Loss: 6.5980 | Throughput: 57.7 samples/sec
+[2026-02-09 17:01:44,454] INFO: Epoch 9 | Batch 6/10 | Loss: 6.5547 | Throughput: 56.1 samples/sec
+[2026-02-09 17:01:46,590] INFO: Epoch 9 complete | Loss: 6.5492 | Duration: 5.6s | Throughput: 57.3 samples/sec
+[2026-02-09 17:01:47,148] INFO: Epoch 10 | Batch 1/10 | Loss: 6.5100 | Throughput: 57.5 samples/sec
+[2026-02-09 17:01:49,890] INFO: Epoch 10 | Batch 6/10 | Loss: 6.5278 | Throughput: 59.4 samples/sec
+[2026-02-09 17:01:52,337] INFO: Epoch 10 complete | Loss: 6.5298 | Duration: 5.7s | Throughput: 56.3 samples/sec
+[2026-02-09 17:01:52,569] INFO: Validation loss: 7.8400
+[2026-02-09 17:01:52,843] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:01:52,843] INFO: 
+Training complete!
+[2026-02-09 17:01:52,843] INFO: Total duration: 57.0s (1.0 minutes)
+[2026-02-09 17:01:52,843] INFO: Average epoch time: 5.7s
+[2026-02-09 17:01:52,870] INFO: Metrics exported to training_metrics_report.json
+[2026-02-09 17:01:52,870] INFO: Training metrics exported to training_metrics_report.json
+[2026-02-09 17:11:40,210] INFO: Configuration loaded from training_configuration.yaml
+[2026-02-09 17:11:40,211] INFO: TrainingMetricsCollector initialized
+[2026-02-09 17:11:40,212] INFO: ModelInferenceValidator initialized
+[2026-02-09 17:11:40,212] INFO: TrainingLoop initialized | Device: cpu | Optimization: False
+[2026-02-09 17:11:40,212] INFO: Starting training for 10 epochs
+[2026-02-09 17:11:40,212] INFO: Optimization enabled: False
+[2026-02-09 17:11:40,213] INFO: Setting up model and data...
+[2026-02-09 17:11:40,291] INFO: Model created: SimpleTransformerModel
+[2026-02-09 17:11:40,292] INFO: Model parameters: 2,137,600
+[2026-02-09 17:11:43,429] INFO: Data loaders created | Train samples: 320 | Val samples: 64
+[2026-02-09 17:11:44,365] INFO: Epoch 1 | Batch 1/10 | Loss: 7.7829 | Throughput: 34.8 samples/sec
+[2026-02-09 17:11:48,455] INFO: Epoch 1 | Batch 6/10 | Loss: 7.7826 | Throughput: 41.3 samples/sec
+[2026-02-09 17:11:51,410] INFO: Epoch 1 complete | Loss: 7.7842 | Duration: 8.0s | Throughput: 41.0 samples/sec
+[2026-02-09 17:11:53,494] INFO: Epoch 2 | Batch 1/10 | Loss: 7.5235 | Throughput: 15.4 samples/sec
+[2026-02-09 17:11:58,541] INFO: Epoch 2 | Batch 6/10 | Loss: 7.5010 | Throughput: 43.5 samples/sec
+[2026-02-09 17:12:02,398] INFO: Epoch 2 complete | Loss: 7.4799 | Duration: 11.0s | Throughput: 33.6 samples/sec
+[2026-02-09 17:12:02,903] INFO: Validation loss: 7.7840
+[2026-02-09 17:12:22,484] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:12:23,237] INFO: Epoch 3 | Batch 1/10 | Loss: 7.3210 | Throughput: 42.6 samples/sec
+[2026-02-09 17:12:27,123] INFO: Epoch 3 | Batch 6/10 | Loss: 7.2706 | Throughput: 39.2 samples/sec
+[2026-02-09 17:12:33,115] INFO: Epoch 3 complete | Loss: 7.2620 | Duration: 10.6s | Throughput: 34.4 samples/sec
+[2026-02-09 17:12:33,985] INFO: Epoch 4 | Batch 1/10 | Loss: 7.1276 | Throughput: 36.9 samples/sec
+[2026-02-09 17:12:40,432] INFO: Epoch 4 | Batch 6/10 | Loss: 7.0829 | Throughput: 23.3 samples/sec
+[2026-02-09 17:12:45,157] INFO: Epoch 4 complete | Loss: 7.0732 | Duration: 12.0s | Throughput: 29.4 samples/sec
+[2026-02-09 17:12:45,358] INFO: Validation loss: 7.8040
+[2026-02-09 17:12:46,008] INFO: Epoch 5 | Batch 1/10 | Loss: 6.9261 | Throughput: 49.4 samples/sec
+[2026-02-09 17:12:49,774] INFO: Epoch 5 | Batch 6/10 | Loss: 6.9272 | Throughput: 54.1 samples/sec
+[2026-02-09 17:12:54,732] INFO: Epoch 5 complete | Loss: 6.9092 | Duration: 9.4s | Throughput: 39.0 samples/sec
+[2026-02-09 17:12:56,425] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_epoch_4.pt
+[2026-02-09 17:12:57,076] INFO: Epoch 6 | Batch 1/10 | Loss: 6.7886 | Throughput: 49.3 samples/sec
+[2026-02-09 17:13:02,585] INFO: Epoch 6 | Batch 6/10 | Loss: 6.7824 | Throughput: 21.0 samples/sec
+[2026-02-09 17:13:05,921] INFO: Epoch 6 complete | Loss: 6.7727 | Duration: 9.5s | Throughput: 36.8 samples/sec
+[2026-02-09 17:13:06,149] INFO: Validation loss: 7.8308
+[2026-02-09 17:13:06,916] INFO: Epoch 7 | Batch 1/10 | Loss: 6.6575 | Throughput: 41.8 samples/sec
+[2026-02-09 17:13:14,537] INFO: Epoch 7 | Batch 6/10 | Loss: 6.6746 | Throughput: 29.2 samples/sec
+[2026-02-09 17:13:17,914] INFO: Epoch 7 complete | Loss: 6.6661 | Duration: 11.8s | Throughput: 31.7 samples/sec
+[2026-02-09 17:13:19,196] INFO: Epoch 8 | Batch 1/10 | Loss: 6.6065 | Throughput: 25.0 samples/sec
+[2026-02-09 17:13:24,827] INFO: Epoch 8 | Batch 6/10 | Loss: 6.5972 | Throughput: 42.4 samples/sec
+[2026-02-09 17:13:29,384] INFO: Epoch 8 complete | Loss: 6.5931 | Duration: 11.5s | Throughput: 30.2 samples/sec
+[2026-02-09 17:13:29,621] INFO: Validation loss: 7.8469
+[2026-02-09 17:13:30,475] INFO: Epoch 9 | Batch 1/10 | Loss: 6.5518 | Throughput: 37.6 samples/sec
+[2026-02-09 17:13:36,953] INFO: Epoch 9 | Batch 6/10 | Loss: 6.5539 | Throughput: 18.3 samples/sec
+[2026-02-09 17:13:41,281] INFO: Epoch 9 complete | Loss: 6.5504 | Duration: 11.7s | Throughput: 30.9 samples/sec
+[2026-02-09 17:13:42,494] INFO: Epoch 10 | Batch 1/10 | Loss: 6.4975 | Throughput: 26.4 samples/sec
+[2026-02-09 17:13:49,200] INFO: Epoch 10 | Batch 6/10 | Loss: 6.5362 | Throughput: 42.9 samples/sec
+[2026-02-09 17:13:52,148] INFO: Epoch 10 complete | Loss: 6.5307 | Duration: 10.9s | Throughput: 34.8 samples/sec
+[2026-02-09 17:13:52,570] INFO: Validation loss: 7.8506
+[2026-02-09 17:13:52,985] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:13:52,985] INFO: 
+Training complete!
+[2026-02-09 17:13:52,986] INFO: Total duration: 129.6s (2.2 minutes)
+[2026-02-09 17:13:52,986] INFO: Average epoch time: 13.0s
+[2026-02-09 17:13:53,024] INFO: Metrics exported to training_metrics_report.json
+[2026-02-09 17:13:53,025] INFO: Training metrics exported to training_metrics_report.json
+[2026-02-09 17:14:10,115] INFO: Configuration loaded from training_configuration.yaml
+[2026-02-09 17:14:10,115] INFO: TrainingMetricsCollector initialized
+[2026-02-09 17:14:10,116] INFO: ModelInferenceValidator initialized
+[2026-02-09 17:14:10,116] INFO: TrainingLoop initialized | Device: cpu | Optimization: True
+[2026-02-09 17:14:10,116] INFO: Starting training for 10 epochs
+[2026-02-09 17:14:10,116] INFO: Optimization enabled: True
+[2026-02-09 17:14:10,116] INFO: Setting up model and data...
+[2026-02-09 17:14:10,134] INFO: Model created: SimpleTransformerModel
+[2026-02-09 17:14:10,135] INFO: Model parameters: 2,137,600
+[2026-02-09 17:14:11,538] INFO: Data loaders created | Train samples: 320 | Val samples: 64
+[2026-02-09 17:14:11,538] ERROR: Failed to initialize OptimizationOrchestrator: 'optimization'
+[2026-02-09 17:14:11,538] INFO: Initializing Phase 1 optimizations...
+[2026-02-09 17:14:11,539] INFO: CPU features detected: {'avx512': False, 'vnni': False, 'avx2': True, 'fma': False, 'num_cores': 16}
+[2026-02-09 17:14:11,539] INFO: Kernel optimizer initialized
+[2026-02-09 17:14:11,539] WARNING: Failed to initialize Phase 1 optimizations: 'optimization'
+[2026-02-09 17:14:12,323] INFO: Epoch 1 | Batch 1/10 | Loss: 7.7912 | Throughput: 40.9 samples/sec
+[2026-02-09 17:14:17,589] INFO: Epoch 1 | Batch 6/10 | Loss: 7.7929 | Throughput: 28.3 samples/sec
+[2026-02-09 17:14:20,373] INFO: Epoch 1 complete | Loss: 7.7869 | Duration: 8.8s | Throughput: 38.2 samples/sec
+[2026-02-09 17:14:21,104] INFO: Epoch 2 | Batch 1/10 | Loss: 7.4930 | Throughput: 43.9 samples/sec
+[2026-02-09 17:14:24,770] INFO: Epoch 2 | Batch 6/10 | Loss: 7.4976 | Throughput: 55.2 samples/sec
+[2026-02-09 17:14:28,570] INFO: Epoch 2 complete | Loss: 7.4821 | Duration: 8.2s | Throughput: 41.1 samples/sec
+[2026-02-09 17:14:28,796] INFO: Validation loss: 7.7712
+[2026-02-09 17:14:29,157] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:14:29,935] INFO: Epoch 3 | Batch 1/10 | Loss: 7.3346 | Throughput: 41.3 samples/sec
+[2026-02-09 17:14:34,013] INFO: Epoch 3 | Batch 6/10 | Loss: 7.2828 | Throughput: 43.1 samples/sec
+[2026-02-09 17:14:37,871] INFO: Epoch 3 complete | Loss: 7.2667 | Duration: 8.7s | Throughput: 38.0 samples/sec
+[2026-02-09 17:14:38,525] INFO: Epoch 4 | Batch 1/10 | Loss: 7.1134 | Throughput: 49.1 samples/sec
+[2026-02-09 17:14:42,234] INFO: Epoch 4 | Batch 6/10 | Loss: 7.0906 | Throughput: 36.1 samples/sec
+[2026-02-09 17:14:47,649] INFO: Epoch 4 complete | Loss: 7.0791 | Duration: 9.8s | Throughput: 37.7 samples/sec
+[2026-02-09 17:14:47,887] INFO: Validation loss: 7.7956
+[2026-02-09 17:14:48,540] INFO: Epoch 5 | Batch 1/10 | Loss: 6.9486 | Throughput: 49.3 samples/sec
+[2026-02-09 17:14:51,717] INFO: Epoch 5 | Batch 6/10 | Loss: 6.9333 | Throughput: 42.6 samples/sec
+[2026-02-09 17:14:55,159] INFO: Epoch 5 complete | Loss: 6.9149 | Duration: 7.3s | Throughput: 46.0 samples/sec
+[2026-02-09 17:14:55,458] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_epoch_4.pt
+[2026-02-09 17:14:56,662] INFO: Epoch 6 | Batch 1/10 | Loss: 6.7990 | Throughput: 26.6 samples/sec
+[2026-02-09 17:15:00,177] INFO: Epoch 6 | Batch 6/10 | Loss: 6.7829 | Throughput: 58.1 samples/sec
+[2026-02-09 17:15:02,937] INFO: Epoch 6 complete | Loss: 6.7781 | Duration: 7.5s | Throughput: 46.8 samples/sec
+[2026-02-09 17:15:03,165] INFO: Validation loss: 7.8237
+[2026-02-09 17:15:03,794] INFO: Epoch 7 | Batch 1/10 | Loss: 6.6835 | Throughput: 51.0 samples/sec
+[2026-02-09 17:15:07,468] INFO: Epoch 7 | Batch 6/10 | Loss: 6.6748 | Throughput: 44.3 samples/sec
+[2026-02-09 17:15:10,317] INFO: Epoch 7 complete | Loss: 6.6703 | Duration: 7.2s | Throughput: 45.7 samples/sec
+[2026-02-09 17:15:10,956] INFO: Epoch 8 | Batch 1/10 | Loss: 6.6060 | Throughput: 50.3 samples/sec
+[2026-02-09 17:15:14,514] INFO: Epoch 8 | Batch 6/10 | Loss: 6.5949 | Throughput: 50.0 samples/sec
+[2026-02-09 17:15:18,102] INFO: Epoch 8 complete | Loss: 6.5961 | Duration: 7.8s | Throughput: 42.8 samples/sec
+[2026-02-09 17:15:18,306] INFO: Validation loss: 7.8392
+[2026-02-09 17:15:18,878] INFO: Epoch 9 | Batch 1/10 | Loss: 6.5806 | Throughput: 56.1 samples/sec
+[2026-02-09 17:15:21,841] INFO: Epoch 9 | Batch 6/10 | Loss: 6.5577 | Throughput: 49.7 samples/sec
+[2026-02-09 17:15:25,063] INFO: Epoch 9 complete | Loss: 6.5524 | Duration: 6.8s | Throughput: 49.4 samples/sec
+[2026-02-09 17:15:26,105] INFO: Epoch 10 | Batch 1/10 | Loss: 6.5277 | Throughput: 30.8 samples/sec
+[2026-02-09 17:15:29,132] INFO: Epoch 10 | Batch 6/10 | Loss: 6.5327 | Throughput: 58.3 samples/sec
+[2026-02-09 17:15:31,177] INFO: Epoch 10 complete | Loss: 6.5323 | Duration: 6.1s | Throughput: 55.4 samples/sec
+[2026-02-09 17:15:31,362] INFO: Validation loss: 7.8431
+[2026-02-09 17:15:31,644] INFO: Checkpoint saved: s:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:15:31,644] INFO: 
+Training complete!
+[2026-02-09 17:15:31,645] INFO: Total duration: 80.1s (1.3 minutes)
+[2026-02-09 17:15:31,645] INFO: Average epoch time: 8.0s
+[2026-02-09 17:15:31,659] INFO: Metrics exported to training_metrics_report.json
+[2026-02-09 17:15:31,660] INFO: Training metrics exported to training_metrics_report.json
+[2026-02-09 17:20:26,124] INFO: ======================================================================
+[2026-02-09 17:20:26,125] INFO: PHASE 2 STAGE 2c: COMPARATIVE INFERENCE ANALYSIS
+[2026-02-09 17:20:26,125] INFO: ======================================================================
+[2026-02-09 17:20:26,125] INFO: Found checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:20:26,125] INFO: Found checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:20:26,126] INFO: Baseline checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:20:26,126] INFO: Optimized checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:20:26,126] INFO: ModelInferenceValidator initialized
+[2026-02-09 17:20:26,126] INFO: 
+Loading models...
+[2026-02-09 17:20:26,185] INFO: Checkpoint loaded from S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:20:26,185] INFO: Checkpoint keys: dict_keys(['epoch', 'model_state_dict', 'optimizer_state_dict', 'scheduler_state_dict', 'best_val_loss', 'config'])
+[2026-02-09 17:20:26,186] INFO: Creating model with config: {'vocab_size': 32000, 'num_layers': 20, 'hidden_size': 512, 'num_heads': 8, 'intermediate_size': 2048, 'max_sequence_length': 2048, 'dropout': 0.1, 'device': 'cpu'}
+[2026-02-09 17:20:26,186] ERROR: Failed to load model from S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt: SimpleTransformerModel.__init__() got an unexpected keyword argument 'hidden_size'
+[2026-02-09 17:20:26,238] INFO: Checkpoint loaded from S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:20:26,238] INFO: Checkpoint keys: dict_keys(['epoch', 'model_state_dict', 'optimizer_state_dict', 'scheduler_state_dict', 'best_val_loss', 'config'])
+[2026-02-09 17:20:26,239] INFO: Creating model with config: {'vocab_size': 32000, 'num_layers': 20, 'hidden_size': 512, 'num_heads': 8, 'intermediate_size': 2048, 'max_sequence_length': 2048, 'dropout': 0.1, 'device': 'cpu'}
+[2026-02-09 17:20:26,239] ERROR: Failed to load model from S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt: SimpleTransformerModel.__init__() got an unexpected keyword argument 'hidden_size'
+[2026-02-09 17:20:26,241] ERROR: Failed to load models
+[2026-02-09 17:22:20,585] INFO: ======================================================================
+[2026-02-09 17:22:20,586] INFO: PHASE 2 STAGE 2c: COMPARATIVE INFERENCE ANALYSIS
+[2026-02-09 17:22:20,586] INFO: ======================================================================
+[2026-02-09 17:22:20,586] INFO: Found checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:22:20,586] INFO: Found checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:22:20,586] INFO: Baseline checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:22:20,586] INFO: Optimized checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:22:20,587] INFO: ModelInferenceValidator initialized
+[2026-02-09 17:22:20,587] INFO: 
+Loading models...
+[2026-02-09 17:22:20,628] INFO: Checkpoint loaded from S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:22:20,628] INFO: Checkpoint keys: dict_keys(['epoch', 'model_state_dict', 'optimizer_state_dict', 'scheduler_state_dict', 'best_val_loss', 'config'])
+[2026-02-09 17:22:20,628] INFO: Creating model with config: {'vocab_size': 2048, 'embedding_dim': 256, 'num_heads': 4, 'num_layers': 2, 'ff_dim': 512, 'max_seq_len': 128}
+[2026-02-09 17:22:20,661] INFO: Model state dict loaded successfully
+[2026-02-09 17:22:20,719] INFO: Checkpoint loaded from S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:22:20,720] INFO: Checkpoint keys: dict_keys(['epoch', 'model_state_dict', 'optimizer_state_dict', 'scheduler_state_dict', 'best_val_loss', 'config'])
+[2026-02-09 17:22:20,720] INFO: Creating model with config: {'vocab_size': 2048, 'embedding_dim': 256, 'num_heads': 4, 'num_layers': 2, 'ff_dim': 512, 'max_seq_len': 128}
+[2026-02-09 17:22:20,747] INFO: Model state dict loaded successfully
+[2026-02-09 17:22:20,749] INFO: Creating test data...
+[2026-02-09 17:22:20,750] INFO: 
+======================================================================
+[2026-02-09 17:22:20,750] INFO: BASELINE INFERENCE VALIDATION (5 runs)
+[2026-02-09 17:22:20,750] INFO: ======================================================================
+[2026-02-09 17:22:20,751] INFO: Validating baseline model on cpu
+[2026-02-09 17:22:20,784] ERROR: Baseline validation run 1 failed: index out of range in self
+[2026-02-09 17:22:20,785] ERROR: Baseline validation run 2 failed: index out of range in self
+[2026-02-09 17:22:20,786] ERROR: Baseline validation run 3 failed: index out of range in self
+[2026-02-09 17:22:20,786] ERROR: Baseline validation run 4 failed: index out of range in self
+[2026-02-09 17:22:20,787] ERROR: Baseline validation run 5 failed: index out of range in self
+[2026-02-09 17:22:20,787] INFO: 
+======================================================================
+[2026-02-09 17:22:20,787] INFO: OPTIMIZED INFERENCE VALIDATION (5 runs)
+[2026-02-09 17:22:20,787] INFO: ======================================================================
+[2026-02-09 17:22:20,787] INFO: Validating optimized model on cpu
+[2026-02-09 17:22:20,788] ERROR: Optimized validation run 1 failed: index out of range in self
+[2026-02-09 17:22:20,789] ERROR: Optimized validation run 2 failed: index out of range in self
+[2026-02-09 17:22:20,790] ERROR: Optimized validation run 3 failed: index out of range in self
+[2026-02-09 17:22:20,791] ERROR: Optimized validation run 4 failed: index out of range in self
+[2026-02-09 17:22:20,793] ERROR: Optimized validation run 5 failed: index out of range in self
+[2026-02-09 17:22:20,793] INFO: 
+======================================================================
+[2026-02-09 17:22:20,793] INFO: GENERATING COMPARATIVE REPORT
+[2026-02-09 17:22:20,794] INFO: ======================================================================
+[2026-02-09 17:22:50,695] INFO: ======================================================================
+[2026-02-09 17:22:50,695] INFO: PHASE 2 STAGE 2c: COMPARATIVE INFERENCE ANALYSIS
+[2026-02-09 17:22:50,695] INFO: ======================================================================
+[2026-02-09 17:22:50,696] INFO: Found checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:22:50,696] INFO: Found checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:22:50,696] INFO: Baseline checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:22:50,696] INFO: Optimized checkpoint: S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:22:50,697] INFO: ModelInferenceValidator initialized
+[2026-02-09 17:22:50,697] INFO: 
+Loading models...
+[2026-02-09 17:22:50,737] INFO: Checkpoint loaded from S:\Ryot\RYZEN-LLM\checkpoints\model_best.pt
+[2026-02-09 17:22:50,737] INFO: Checkpoint keys: dict_keys(['epoch', 'model_state_dict', 'optimizer_state_dict', 'scheduler_state_dict', 'best_val_loss', 'config'])
+[2026-02-09 17:22:50,737] INFO: Creating model with config: {'vocab_size': 2048, 'embedding_dim': 256, 'num_heads': 4, 'num_layers': 2, 'ff_dim': 512, 'max_seq_len': 128}
+[2026-02-09 17:22:50,766] INFO: Model state dict loaded successfully
+[2026-02-09 17:22:50,806] INFO: Checkpoint loaded from S:\Ryot\RYZEN-LLM\checkpoints\model_epoch_9.pt
+[2026-02-09 17:22:50,807] INFO: Checkpoint keys: dict_keys(['epoch', 'model_state_dict', 'optimizer_state_dict', 'scheduler_state_dict', 'best_val_loss', 'config'])
+[2026-02-09 17:22:50,807] INFO: Creating model with config: {'vocab_size': 2048, 'embedding_dim': 256, 'num_heads': 4, 'num_layers': 2, 'ff_dim': 512, 'max_seq_len': 128}
+[2026-02-09 17:22:50,836] INFO: Model state dict loaded successfully
+[2026-02-09 17:22:50,838] INFO: Creating test data...
+[2026-02-09 17:22:50,838] INFO: 
+======================================================================
+[2026-02-09 17:22:50,839] INFO: BASELINE INFERENCE VALIDATION (5 runs)
+[2026-02-09 17:22:50,839] INFO: ======================================================================
+[2026-02-09 17:22:50,839] INFO: Validating baseline model on cpu
+[2026-02-09 17:22:51,046] INFO: Baseline run 1: TTFT=4.51ms, Throughput=329.29 tok/s, Memory=262.69MB
+[2026-02-09 17:22:51,147] INFO: Baseline run 2: TTFT=3.60ms, Throughput=604.09 tok/s, Memory=262.69MB
+[2026-02-09 17:22:51,227] INFO: Baseline run 3: TTFT=3.89ms, Throughput=735.18 tok/s, Memory=262.69MB
+[2026-02-09 17:22:51,318] INFO: Baseline run 4: TTFT=3.77ms, Throughput=630.39 tok/s, Memory=262.69MB
+[2026-02-09 17:22:51,428] INFO: Baseline run 5: TTFT=5.14ms, Throughput=524.01 tok/s, Memory=262.69MB
+[2026-02-09 17:22:51,428] INFO: 
+======================================================================
+[2026-02-09 17:22:51,428] INFO: OPTIMIZED INFERENCE VALIDATION (5 runs)
+[2026-02-09 17:22:51,428] INFO: ======================================================================
+[2026-02-09 17:22:51,428] INFO: Validating optimized model on cpu
+[2026-02-09 17:22:51,546] INFO: Optimized run 1: TTFT=3.88ms, Throughput=487.00 tok/s, Memory=262.69MB
+[2026-02-09 17:22:51,648] INFO: Optimized run 2: TTFT=5.05ms, Throughput=572.42 tok/s, Memory=262.70MB
+[2026-02-09 17:22:51,755] INFO: Optimized run 3: TTFT=3.64ms, Throughput=533.48 tok/s, Memory=262.70MB
+[2026-02-09 17:22:51,932] INFO: Optimized run 4: TTFT=4.16ms, Throughput=307.17 tok/s, Memory=262.70MB
+[2026-02-09 17:22:52,082] INFO: Optimized run 5: TTFT=23.00ms, Throughput=529.60 tok/s, Memory=262.70MB
+[2026-02-09 17:22:52,082] INFO: 
+======================================================================
+[2026-02-09 17:22:52,082] INFO: GENERATING COMPARATIVE REPORT
+[2026-02-09 17:22:52,082] INFO: ======================================================================
+[2026-02-09 17:22:52,083] INFO: Speedups computed: TTFT=0.53x, Throughput=0.86x, Memory reduction=0.0%
+[2026-02-09 17:22:52,083] INFO: Speedups computed: TTFT=0.53x, Throughput=0.86x, Memory reduction=0.0%
+[2026-02-09 17:22:52,092] INFO: Validation report saved to reports\inference_validation_report.json
+[2026-02-09 17:22:52,092] INFO: 
+======================================================================
+[2026-02-09 17:22:52,092] INFO: INFERENCE VALIDATION SUMMARY
+[2026-02-09 17:22:52,092] INFO: ======================================================================
+[2026-02-09 17:22:52,093] INFO: 
+BASELINE:
+[2026-02-09 17:22:52,093] INFO:   TTFT: 4.18ms
+[2026-02-09 17:22:52,093] INFO:   Throughput: 564.59 tokens/sec
+[2026-02-09 17:22:52,093] INFO:   Memory: 262.69MB
+[2026-02-09 17:22:52,093] INFO:   Success Rate: 100.0%
+[2026-02-09 17:22:52,093] INFO: 
+OPTIMIZED:
+[2026-02-09 17:22:52,093] INFO:   TTFT: 7.95ms
+[2026-02-09 17:22:52,093] INFO:   Throughput: 485.93 tokens/sec
+[2026-02-09 17:22:52,093] INFO:   Memory: 262.69MB
+[2026-02-09 17:22:52,094] INFO:   Success Rate: 100.0%
+[2026-02-09 17:22:52,094] INFO: 
+SPEEDUPS:
+[2026-02-09 17:22:52,100] INFO:   Memory Reduction: 0.0%
+[2026-02-09 17:22:52,100] INFO: 
+PHASE 1 TARGETS:
+[2026-02-09 17:22:52,102] INFO: 
+Report saved to: reports\inference_validation_report.json
+[2026-02-09 17:22:52,103] INFO: ======================================================================

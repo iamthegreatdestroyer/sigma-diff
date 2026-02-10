@@ -1,0 +1,137 @@
+# RYZEN-LLM Default Configuration
+# [REF:AP-009] - Appendix: Technical Stack
+
+# Server Configuration
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false
+  log_level: "info"
+
+# Model Configuration
+models:
+  default: "bitnet-7b"
+  model_dir: "models/"
+  
+  # Model-specific settings
+  bitnet:
+    max_batch_size: 4
+    context_length: 4096
+    quantization: "ternary"
+  
+  mamba:
+    max_batch_size: 8
+    context_length: 8192
+    state_size: 16
+  
+  rwkv:
+    max_batch_size: 8
+    context_length: 8192
+    layers: 32
+
+# Generation Configuration
+generation:
+  max_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  repetition_penalty: 1.1
+  stop_sequences: ["</s>", "<|endoftext|>"]
+
+# Token Recycling Configuration
+recycler:
+  enabled: true
+  density_threshold: 0.5
+  max_rsu_size: 32
+  compression_model: "sentence-transformers/all-MiniLM-L6-v2"
+  embedding_dim: 384
+  
+  # Vector database settings
+  vector_db:
+    host: "localhost"
+    port: 6333
+    collection_name: "rsu_bank"
+    distance_metric: "cosine"
+  
+  # Retrieval settings
+  retrieval:
+    top_k: 10
+    diversity_weight: 0.3
+    max_context_tokens: 1024
+
+# Cache Configuration
+cache:
+  kv_cache:
+    enabled: true
+    max_memory_gb: 8.0
+    compression_enabled: true
+    compression_threshold: 2048
+  
+  memory_pool:
+    block_size: 4096
+    num_blocks: 1024
+
+# Optimization Configuration
+optimization:
+  # AVX-512 settings
+  avx512:
+    enabled: true
+    tile_size: 64
+    prefetch_distance: 8
+  
+  # Speculative decoding
+  speculative:
+    enabled: false
+    draft_model: "draft-350m"
+    max_draft_length: 5
+    acceptance_threshold: 0.8
+
+# Orchestration Configuration
+orchestration:
+  # Model routing
+  routing:
+    strategy: "task_based"  # task_based, round_robin, least_loaded
+    fallback_enabled: true
+  
+  # Model management
+  model_manager:
+    memory_budget_gb: 16.0
+    max_loaded_models: 3
+    eviction_policy: "lru"  # lru, lfu, fifo
+
+# API Configuration
+api:
+  # Rate limiting
+  rate_limit:
+    enabled: false
+    requests_per_minute: 60
+  
+  # CORS
+  cors:
+    enabled: true
+    allow_origins: ["*"]
+    allow_methods: ["GET", "POST"]
+  
+  # Authentication
+  auth:
+    enabled: false
+    api_key_header: "X-API-Key"
+
+# Monitoring Configuration
+monitoring:
+  metrics:
+    enabled: true
+    port: 9090
+    path: "/metrics"
+  
+  logging:
+    level: "info"
+    format: "json"
+    file: "logs/ryzen-llm.log"
+
+# Hardware Configuration
+hardware:
+  profile: "ryzen_9"  # ryzen_7, ryzen_9, threadripper
+  num_threads: 16
+  numa_enabled: false

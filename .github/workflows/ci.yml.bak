@@ -1,0 +1,46 @@
+name: CI - RYZEN-LLM
+
+on:
+    pull_request:
+    push:
+        branches: [main, "release/**"]
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup CMake
+              uses: lukka/get-cmake@v3
+
+            - name: Configure (Linux)
+              if: matrix.os == 'ubuntu-latest'
+              run: |
+                  mkdir -p RYZEN-LLM/build
+                  cmake -S RYZEN-LLM -B RYZEN-LLM/build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+
+            - name: Configure (Windows)
+              if: matrix.os == 'windows-latest'
+              shell: pwsh
+              run: |
+                  New-Item -ItemType Directory -Path RYZEN-LLM/build -Force | Out-Null
+                  cmake -S RYZEN-LLM -B RYZEN-LLM/build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release -DENABLE_GTEST_DISCOVERY=OFF
+
+            - name: Build (Linux)
+              if: matrix.os == 'ubuntu-latest'
+              run: cmake --build RYZEN-LLM/build --config Release -- -j
+
+            - name: Build (Windows)
+              if: matrix.os == 'windows-latest'
+              shell: pwsh
+              run: cmake --build RYZEN-LLM/build --config Release -- /m
+
+            - name: Run tests
+              run: |
+                  cd RYZEN-LLM/build
+                  ctest --output-on-failure --build-config Release

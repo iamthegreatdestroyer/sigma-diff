@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-02-09T20:53:50.208746",
+  "process": {
+    "pid": null,
+    "running": false,
+    "memory_mb": 0,
+    "cpu_percent": 0
+  },
+  "files": {
+    "checkpoint_files": 1,
+    "latest_checkpoint": "scaled_model_best.pt",
+    "checkpoint_size_mb": 110.09433269500732,
+    "log_files": 1,
+    "hasComparison": false
+  },
+  "complete": false
+}

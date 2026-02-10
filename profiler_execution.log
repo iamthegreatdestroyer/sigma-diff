@@ -1,0 +1,12 @@
+=== PROFILER DEBUG EXECUTION ===
+CWD: S:\Ryot
+Python: 3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]
+Executable: S:\Ryot\.venv\Scripts\python.exe
+
+Scripts dir: s:\Ryot\RYZEN-LLM\scripts
+Exists: True
+benchmark_overhead.py exists: True
+sys.path[0]: s:\Ryot\RYZEN-LLM\scripts
+
+--- IMPORTS ---
+Testing PyTorch...

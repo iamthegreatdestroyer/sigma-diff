@@ -1,0 +1,49 @@
+================================================================================
+PROFILER DEBUG EXECUTION
+================================================================================
+
+[LOG] Python version: 3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]
+[LOG] Working directory: S:\Ryot
+[LOG] Scripts directory: s:\Ryot\RYZEN-LLM\scripts
+[LOG] Scripts exist: True
+[LOG] Added to sys.path
+
+[LOG] Attempting PyTorch import...
+[OK] PyTorch: 2.10.0+cpu
+[LOG] CUDA available: False
+
+[LOG] Attempting NumPy import...
+[OK] NumPy: 2.4.2
+
+[LOG] Attempting Phase 1 module imports...
+[OK] KernelOptimizer imported
+[OK] SemanticCompressor imported
+[OK] InferenceScalingEngine imported
+
+[LOG] Attempting benchmark_overhead import...
+[OK] OverheadProfiler imported
+
+[LOG] Checking output directories...
+[OK] Reports directory: s:\Ryot\reports
+
+[LOG] Creating OverheadProfiler instance...
+[OK] Profiler instance created
+
+[LOG] Starting profiler.run()...
+[ERROR] Profiler.run() failed: UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 241: character maps to <undefined>
+
+[TRACEBACK]
+Traceback (most recent call last):
+  File "S:\Ryot\profiler_debug_run.py", line 124, in <module>
+    gate_pass = profiler.run(JSON_OUTPUT, MD_OUTPUT)
+  File "s:\Ryot\RYZEN-LLM\scripts\benchmark_overhead.py", line 906, in run
+    self.generate_markdown_report(json_output, md_output)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "s:\Ryot\RYZEN-LLM\scripts\benchmark_overhead.py", line 883, in generate_markdown_report
+    f.write(md)
+    ~~~~~~~^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 241: character maps to <undefined>
+

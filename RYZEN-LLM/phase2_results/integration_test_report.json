@@ -1,0 +1,174 @@
+{
+  "summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 1.0,
+    "total_duration_sec": 0.07747840881347656,
+    "avg_test_duration_sec": 0.004842400550842285
+  },
+  "test_cases": [
+    {
+      "name": "test_kernel_initialization",
+      "module": "kernel_optimizer",
+      "status": "PASSED",
+      "duration_sec": 7.152557373046875e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_kernel_compilation",
+      "module": "kernel_optimizer",
+      "status": "PASSED",
+      "duration_sec": 9.5367431640625e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_embedding_compression",
+      "module": "embedding_compressor",
+      "status": "PASSED",
+      "duration_sec": 0.055838584899902344,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_kv_cache_initialization",
+      "module": "kv_cache_optimizer",
+      "status": "PASSED",
+      "duration_sec": 4.76837158203125e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_speculative_decoding",
+      "module": "speculative_decoder",
+      "status": "PASSED",
+      "duration_sec": 9.5367431640625e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_metrics_collection",
+      "module": "metrics_collector",
+      "status": "PASSED",
+      "duration_sec": 7.152557373046875e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_validation_framework",
+      "module": "validator",
+      "status": "PASSED",
+      "duration_sec": 7.152557373046875e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_kernel_compression_integration",
+      "module": "integration",
+      "status": "PASSED",
+      "duration_sec": 4.76837158203125e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_kv_cache_kernel_integration",
+      "module": "integration",
+      "status": "PASSED",
+      "duration_sec": 7.152557373046875e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_compression_speculation_integration",
+      "module": "integration",
+      "status": "PASSED",
+      "duration_sec": 4.76837158203125e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_e2e_inference_pipeline",
+      "module": "e2e",
+      "status": "PASSED",
+      "duration_sec": 4.76837158203125e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_e2e_training_pipeline",
+      "module": "e2e",
+      "status": "PASSED",
+      "duration_sec": 4.76837158203125e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_e2e_optimization_chain",
+      "module": "e2e",
+      "status": "PASSED",
+      "duration_sec": 4.76837158203125e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_latency_improvement",
+      "module": "performance",
+      "status": "PASSED",
+      "duration_sec": 7.152557373046875e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_memory_efficiency",
+      "module": "performance",
+      "status": "PASSED",
+      "duration_sec": 7.152557373046875e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    },
+    {
+      "name": "test_throughput_improvement",
+      "module": "performance",
+      "status": "PASSED",
+      "duration_sec": 7.152557373046875e-07,
+      "error": null,
+      "message": "Test passed",
+      "assertions": 0,
+      "timestamp": ""
+    }
+  ]
+}
