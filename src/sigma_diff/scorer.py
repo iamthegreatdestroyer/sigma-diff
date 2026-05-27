@@ -1,12 +1,14 @@
-"""Semantic scoring — weight changes by impact level."""
+"""Semantic scoring — weight changes by impact level + embedding-based similarity."""
 
 from __future__ import annotations
 
+import os
+from dataclasses import dataclass
 from enum import Enum
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from sigma_diff.differ import FileChange, StructuralElement
+    from sigma_diff.differ import ASTDiffResult, FileChange, StructuralElement
 
 
 class ImpactLevel(Enum):
@@ -92,3 +94,83 @@ def compute_semantic_score(files: list[FileChange]) -> float:
     raw = total_weight / total_lines
     # Clamp to [0, 1]
     return min(1.0, max(0.0, raw))
+
+
+# ── Embedding-based scorer ──
+
+@dataclass
+class DiffScore:
+    structural: float
+    semantic: float
+    combined: float
+    risk_level: str  # "low" | "medium" | "high"
+
+
+def _tfidf_similarity(code_a: str, code_b: str) -> float:
+    try:
+        from sklearn.feature_extraction.text import TfidfVectorizer
+        from sklearn.metrics.pairwise import cosine_similarity as _cosine
+        import numpy as np  # noqa: F401 — imported for sklearn internals
+
+        vec = TfidfVectorizer().fit_transform([code_a, code_b])
+        return float(_cosine(vec[0], vec[1])[0][0])
+    except Exception:
+        # Last-resort: simple token overlap (Jaccard)
+        toks_a = set(code_a.split())
+        toks_b = set(code_b.split())
+        if not toks_a and not toks_b:
+            return 1.0
+        if not toks_a or not toks_b:
+            return 0.0
+        return len(toks_a & toks_b) / len(toks_a | toks_b)
+
+
+class EmbeddingScorer:
+    def __init__(self, ryzanstein_url: str | None = None) -> None:
+        self._url = ryzanstein_url or os.getenv("RYZANSTEIN_URL")
+
+    def _get_embedding(self, code: str) -> list[float]:
+        import urllib.request, json  # noqa: E401
+
+        payload = json.dumps({"input": code}).encode()
+        req = urllib.request.Request(
+            f"{self._url}/v1/embeddings",
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read())
+        return data["data"][0]["embedding"]
+
+    def semantic_similarity(self, code_a: str, code_b: str) -> float:
+        if self._url:
+            try:
+                import numpy as np
+
+                emb_a = self._get_embedding(code_a)
+                emb_b = self._get_embedding(code_b)
+                va = np.array(emb_a, dtype=float)
+                vb = np.array(emb_b, dtype=float)
+                norm = np.linalg.norm(va) * np.linalg.norm(vb)
+                if norm == 0:
+                    return 0.0
+                return float(np.dot(va, vb) / norm)
+            except Exception:
+                pass
+        return _tfidf_similarity(code_a, code_b)
+
+    def semantic_distance(self, code_a: str, code_b: str) -> float:
+        return 1.0 - self.semantic_similarity(code_a, code_b)
+
+    def score(self, diff_result: "ASTDiffResult", code_a: str, code_b: str) -> DiffScore:
+        structural = diff_result.structural_similarity
+        semantic = self.semantic_similarity(code_a, code_b)
+        combined = 0.7 * structural + 0.3 * semantic
+        if combined < 0.5:
+            risk = "high"
+        elif combined < 0.8:
+            risk = "medium"
+        else:
+            risk = "low"
+        return DiffScore(structural=structural, semantic=semantic, combined=combined, risk_level=risk)

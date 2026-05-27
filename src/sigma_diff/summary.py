@@ -5,7 +5,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from sigma_diff.differ import DiffResult, FileChange
+    from sigma_diff.differ import ASTDiffResult, DiffResult, FileChange
+    from sigma_diff.scorer import DiffScore
 
 from sigma_diff.scorer import ImpactLevel, element_impact
 
@@ -69,3 +70,36 @@ def _score_label(score: float) -> str:
     if score >= 0.2:
         return "low"
     return "minimal"
+
+
+class DiffSummarizer:
+    def summarize(self, diff: "ASTDiffResult", score: "DiffScore") -> str:
+        parts: list[str] = []
+
+        if score.risk_level == "high":
+            lead = "⚠️  High-risk diff detected."
+        elif score.risk_level == "medium":
+            lead = "Moderate changes detected."
+        else:
+            lead = "No significant behavioral changes."
+        parts.append(lead)
+
+        n_modified = len(diff.node_changes)
+        if n_modified:
+            parts.append(
+                f"{n_modified} node change(s) ({score.risk_level} risk). "
+                f"Structural similarity: {score.structural:.0%}. "
+                f"Semantic distance: {score.semantic_distance if hasattr(score, 'semantic_distance') else 1.0 - score.semantic:.2f}."
+            )
+        else:
+            parts.append(
+                f"Structural similarity: {score.structural:.0%}. "
+                f"Semantic distance: {(1.0 - score.semantic):.2f}."
+            )
+
+        if diff.additions:
+            parts.append(f"Added: [{', '.join(diff.additions)}].")
+        if diff.deletions:
+            parts.append(f"Removed: [{', '.join(diff.deletions)}].")
+
+        return " ".join(parts)

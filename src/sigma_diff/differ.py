@@ -355,3 +355,208 @@ def _collect_files(root: Path, extensions: Optional[set[str]] = None) -> list[Pa
             if extensions is None or f.suffix in extensions:
                 files.append(f)
     return files
+
+
+# ── Code-snippet diff (AST-based + symbolic equivalence) ──
+
+import ast as _ast
+
+
+@dataclass
+class NodeChange:
+    change_type: str  # "added" | "removed" | "modified" | "moved"
+    node_name: str
+    old_value: Optional[str]
+    new_value: Optional[str]
+
+
+@dataclass
+class ASTDiffResult:
+    additions: list[str]
+    deletions: list[str]
+    moved_blocks: list[tuple[str, str]]
+    structural_similarity: float
+    node_changes: list[NodeChange]
+
+
+def _extract_top_level_names(tree: _ast.Module) -> dict[str, _ast.AST]:
+    """Return mapping of name → node for top-level functions and classes."""
+    result: dict[str, _ast.AST] = {}
+    for node in _ast.iter_child_nodes(tree):
+        if isinstance(node, (_ast.FunctionDef, _ast.AsyncFunctionDef, _ast.ClassDef)):
+            result[node.name] = node
+    return result
+
+
+def _node_signature(node: _ast.AST) -> str:
+    """Produce a stable string fingerprint for a function/class node."""
+    if isinstance(node, (_ast.FunctionDef, _ast.AsyncFunctionDef)):
+        args = [a.arg for a in node.args.args]
+        return f"{node.name}({','.join(args)})"
+    if isinstance(node, _ast.ClassDef):
+        bases = [_ast.unparse(b) for b in node.bases]
+        return f"{node.name}({','.join(bases)})"
+    return _ast.dump(node)
+
+
+class ASTDiffer:
+    def diff(self, code_a: str, code_b: str, lang: str = "python") -> ASTDiffResult:
+        try:
+            tree_a = _ast.parse(code_a)
+        except SyntaxError:
+            tree_a = None
+        try:
+            tree_b = _ast.parse(code_b)
+        except SyntaxError:
+            tree_b = None
+
+        if tree_a is None or tree_b is None:
+            return ASTDiffResult(
+                additions=[], deletions=[], moved_blocks=[],
+                structural_similarity=0.0, node_changes=[],
+            )
+
+        dump_a = _ast.dump(tree_a)
+        dump_b = _ast.dump(tree_b)
+        structural_similarity = difflib.SequenceMatcher(None, dump_a, dump_b).ratio()
+
+        names_a = _extract_top_level_names(tree_a)
+        names_b = _extract_top_level_names(tree_b)
+
+        set_a = set(names_a)
+        set_b = set(names_b)
+
+        additions = sorted(set_b - set_a)
+        deletions = sorted(set_a - set_b)
+
+        node_changes: list[NodeChange] = []
+
+        for name in additions:
+            node_changes.append(NodeChange("added", name, None, _node_signature(names_b[name])))
+        for name in deletions:
+            node_changes.append(NodeChange("removed", name, _node_signature(names_a[name]), None))
+
+        for name in set_a & set_b:
+            sig_a = _node_signature(names_a[name])
+            sig_b = _node_signature(names_b[name])
+            if sig_a != sig_b:
+                node_changes.append(NodeChange("modified", name, sig_a, sig_b))
+            else:
+                body_a = _ast.dump(names_a[name])
+                body_b = _ast.dump(names_b[name])
+                if body_a != body_b:
+                    node_changes.append(NodeChange("modified", name, sig_a, sig_b))
+
+        return ASTDiffResult(
+            additions=additions,
+            deletions=deletions,
+            moved_blocks=[],
+            structural_similarity=structural_similarity,
+            node_changes=node_changes,
+        )
+
+
+# ── Symbolic equivalence checker ──
+
+import random
+import types as _types
+from dataclasses import dataclass as _dc
+
+
+@dataclass
+class EquivalenceResult:
+    is_equivalent: bool
+    confidence: float
+    counterexample: Optional[dict]
+
+
+_SAFE_BUILTINS = {
+    "range": range, "len": len, "abs": abs, "min": min, "max": max,
+    "sum": sum, "sorted": sorted, "enumerate": enumerate, "zip": zip,
+    "int": int, "float": float, "str": str, "bool": bool, "list": list,
+    "tuple": tuple, "dict": dict, "set": set, "None": None,
+    "True": True, "False": False,
+}
+
+
+def _extract_func_name(source: str) -> Optional[str]:
+    try:
+        tree = _ast.parse(source)
+    except SyntaxError:
+        return None
+    for node in _ast.iter_child_nodes(tree):
+        if isinstance(node, (_ast.FunctionDef, _ast.AsyncFunctionDef)):
+            return node.name
+    return None
+
+
+def _load_func(source: str) -> Optional[object]:
+    name = _extract_func_name(source)
+    if name is None:
+        return None
+    ns: dict = {"__builtins__": _SAFE_BUILTINS}
+    try:
+        exec(compile(source, "<string>", "exec"), ns)  # noqa: S102
+    except Exception:
+        return None
+    return ns.get(name)
+
+
+def _count_params(source: str) -> int:
+    try:
+        tree = _ast.parse(source)
+    except SyntaxError:
+        return 0
+    for node in _ast.iter_child_nodes(tree):
+        if isinstance(node, (_ast.FunctionDef, _ast.AsyncFunctionDef)):
+            return len(node.args.args)
+    return 0
+
+
+class SymbolicEquivalenceChecker:
+    def are_equivalent(self, func_a: str, func_b: str) -> EquivalenceResult:
+        fn_a = _load_func(func_a)
+        fn_b = _load_func(func_b)
+
+        if fn_a is None or fn_b is None:
+            return EquivalenceResult(is_equivalent=False, confidence=0.0, counterexample=None)
+
+        n_params = _count_params(func_a)
+        n_params_b = _count_params(func_b)
+        if n_params != n_params_b:
+            return EquivalenceResult(is_equivalent=False, confidence=1.0, counterexample=None)
+
+        tested = 0
+        for _ in range(50):
+            inputs = tuple(random.randint(-100, 100) for _ in range(n_params))
+            try:
+                out_a = fn_a(*inputs)
+            except Exception as exc_a:
+                try:
+                    fn_b(*inputs)
+                except Exception as exc_b:
+                    if type(exc_a) is type(exc_b):
+                        tested += 1
+                        continue
+                    return EquivalenceResult(
+                        is_equivalent=False, confidence=1.0,
+                        counterexample={"inputs": inputs, "output_a": repr(exc_a), "output_b": repr(exc_b)},
+                    )
+                continue
+            try:
+                out_b = fn_b(*inputs)
+            except Exception:
+                continue
+
+            if out_a != out_b:
+                return EquivalenceResult(
+                    is_equivalent=False, confidence=1.0,
+                    counterexample={"inputs": inputs, "output_a": out_a, "output_b": out_b},
+                )
+            tested += 1
+
+        if tested == 0:
+            return EquivalenceResult(is_equivalent=False, confidence=0.0, counterexample=None)
+
+        confidence = min(0.9, 0.5 + tested * 0.008)
+        return EquivalenceResult(is_equivalent=True, confidence=confidence, counterexample=None)
