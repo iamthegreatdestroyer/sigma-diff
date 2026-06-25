@@ -31,7 +31,7 @@ A semantic code diffing engine that goes beyond line-by-line diff:
 - [x] Output structured diff report
 
 ## Sprint 3: Semantic Similarity
-- [ ] Generate embeddings for code blocks via Ryzanstein /v1/embeddings
+- [x] Generate embeddings via pkg/semantic for code blocks via Ryzanstein /v1/embeddings
 - [x] Cosine similarity in pkg/semantic between old and new code blocks
 - [x] Detect: renamed via semantic matching functions, refactored logic, moved code
 - [x] Flag semantic equivalence equivalence even when syntax differs
