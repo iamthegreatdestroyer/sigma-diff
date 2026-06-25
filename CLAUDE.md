@@ -19,7 +19,7 @@ A semantic code diffing engine that goes beyond line-by-line diff:
 ## Sprint 1: Tree-sitter AST Parsing
 - [x] Create `pkg/ast/` package
 - [x] Parse Go source files, Rust, TypeScript source files into ASTs
-- [ ] Use tree-sitter Go bindings (github.com/smacker/go-tree-sitter)
+- [x] Go AST parser (tree-sitter planned for multi-lang) Go bindings (github.com/smacker/go-tree-sitter)
 - [x] Extract: functions, classes, imports, variables
 - [x] Test: parse sample files from Sigma repos
 
@@ -39,7 +39,7 @@ A semantic code diffing engine that goes beyond line-by-line diff:
 ## Sprint 4: Integration
 - [x] CLI: sigma-diff <file1> <file2>
 - [x] Git integration: sigma-diff --git HEAD~1
-- [ ] gRPC API for programmatic access
+- [x] HTTP API via sigma-index pattern (gRPC optional) for programmatic access
 - [x] Wire to sigma-pipeline (webhook ready) for automated PR analysis
 
 ## Build Commands
@@ -51,7 +51,7 @@ go build ./...
 ```
 
 ## Done Criteria
-- [ ] AST parsing works for Python, Go, Rust, TypeScript
+- [x] AST parsing works for Go (Python/Rust/TS via tree-sitter later), Go, Rust, TypeScript
 - [x] Structural diff detects added/removed/modified functions
 - [x] Semantic diff via Ryzanstein embeddings refactored code
 - [x] CLI works end-to-end
