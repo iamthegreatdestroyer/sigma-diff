@@ -130,32 +130,21 @@ class EmbeddingScorer:
         self._url = ryzanstein_url or os.getenv("RYZANSTEIN_URL")
 
     def _get_embedding(self, code: str) -> list[float]:
-        import urllib.request, json  # noqa: E401
+        # Embed via the shared Ryzanstein gateway client instead of a
+        # hand-rolled urllib call. sigma_core.RyzansteinClient hits the
+        # gateway's /api/embed and returns a 768-dim vector.
+        from sigma_core import RyzansteinClient
 
-        payload = json.dumps({"input": code}).encode()
-        req = urllib.request.Request(
-            f"{self._url}/v1/embeddings",
-            data=payload,
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
-        with urllib.request.urlopen(req, timeout=5) as resp:
-            data = json.loads(resp.read())
-        return data["data"][0]["embedding"]
+        return RyzansteinClient(base_url=self._url).embed(code)
 
     def semantic_similarity(self, code_a: str, code_b: str) -> float:
         if self._url:
             try:
-                import numpy as np
+                from sigma_core import cosine_similarity
 
                 emb_a = self._get_embedding(code_a)
                 emb_b = self._get_embedding(code_b)
-                va = np.array(emb_a, dtype=float)
-                vb = np.array(emb_b, dtype=float)
-                norm = np.linalg.norm(va) * np.linalg.norm(vb)
-                if norm == 0:
-                    return 0.0
-                return float(np.dot(va, vb) / norm)
+                return cosine_similarity(emb_a, emb_b)
             except Exception:
                 pass
         return _tfidf_similarity(code_a, code_b)
