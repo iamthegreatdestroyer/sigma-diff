@@ -284,8 +284,32 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.10.0",
-    "axios": "^1.13.2",
+    "@grpc/grpc-js": "^1.14.4",
+    "axios": "^1.18.1",
     "vscode-languageclient": "^9.0.0"
+  },
+  "overrides": {
+    "@grpc/proto-loader": {
+      "protobufjs": "7.6.5"
+    },
+    "flat-cache": {
+      "flatted": "3.4.2"
+    },
+    "eslint": {
+      "minimatch": "3.1.4"
+    },
+    "@eslint/eslintrc": {
+      "minimatch": "3.1.4"
+    },
+    "@humanwhocodes/config-array": {
+      "minimatch": "3.1.4"
+    },
+    "glob": {
+      "minimatch": "3.1.4"
+    },
+    "vscode-languageclient": {
+      "minimatch": "5.1.9"
+    },
+    "minimatch": "9.0.9"
   }
 }
