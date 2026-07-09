@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 import { ExtensionContext } from "vscode";
-import { RyzansteinClient } from "../client/RyzansteinClient";
+import { RyzansteinClient, RyzansteinAgent } from "../client/RyzansteinClient";
 import { MCPClient } from "../client/MCPClient";
-import { ChatWebviewProvider } from "../providers/ChatWebviewProvider";
 
 export class CommandHandler {
   constructor(
@@ -27,7 +26,7 @@ export class CommandHandler {
       "ryzanstein.selectAgent",
       async () => {
         const agents = await this.ryzansteinClient.listAgents();
-        const agentNames = agents.map((a) => a.name);
+        const agentNames = agents.map((a: RyzansteinAgent) => a.name);
         const selected = await vscode.window.showQuickPick(agentNames);
         if (selected) {
           vscode.workspace

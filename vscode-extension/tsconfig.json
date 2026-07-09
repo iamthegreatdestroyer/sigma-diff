@@ -4,7 +4,8 @@
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "src/webview/chatPanel.ts"
   ],
   "compilerOptions": {
     "strict": true,

@@ -1,3 +1,9 @@
+// NOTE (build fix, 2026-07-08): This file is orphaned dead code - it is not imported by
+// extension.ts or anywhere else in src/, and its dependency '../services/ryzansteinAPI'
+// never existed in this repo (no src/services/ directory at all). ChatWebviewProvider.ts
+// is the actual, wired-up chat view implementation. Excluded from tsconfig.json's
+// compile set rather than deleted, in case it was meant to replace ChatWebviewProvider
+// and simply never got finished/wired in - flag for a follow-up decision (delete vs finish).
 import * as vscode from 'vscode';
 import { RyzansteinAPI } from '../services/ryzansteinAPI';
 
