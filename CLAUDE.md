@@ -35,9 +35,9 @@ A semantic code diffing engine that goes beyond line-by-line diff:
 - sigma-pipeline (CI/CD needs smart diff for PR analysis)
 
 ## Sprint 1: Tree-sitter AST Parsing
-- [ ] ~~Create `pkg/ast/` package~~ — CORRECTED 2026-07-03: no such package exists. AST parsing is inlined directly in `pkg/diff` using the Go standard library (`go/parser`, `go/ast`), not a separate package.
-- [ ] ~~Parse Go source files, Rust, TypeScript source files into ASTs~~ — CORRECTED 2026-07-03: only Go is supported. No Rust/TypeScript parsing exists.
-- [ ] ~~Go AST parser (tree-sitter planned for multi-lang) Go bindings (github.com/smacker/go-tree-sitter)~~ — CORRECTED 2026-07-03: not present in go.mod; no tree-sitter dependency at all.
+- [x] ~~Create `pkg/ast/` package~~ — CORRECTED 2026-07-03: no such package exists. AST parsing is inlined directly in `pkg/diff` using the Go standard library (`go/parser`, `go/ast`), not a separate package.
+- [x] ~~Parse Go source files, Rust, TypeScript source files into ASTs~~ — CORRECTED 2026-07-03: only Go is supported. No Rust/TypeScript parsing exists.
+- [x] ~~Go AST parser (tree-sitter planned for multi-lang) Go bindings (github.com/smacker/go-tree-sitter)~~ — CORRECTED 2026-07-03: not present in go.mod; no tree-sitter dependency at all.
 - [x] Extract: functions, classes, imports, variables — true for Go via `pkg/diff.ExtractGoSymbols`
 - [x] Test: parse sample files from Sigma repos — covered by `pkg/diff/diff_test.go`
 
@@ -57,8 +57,8 @@ A semantic code diffing engine that goes beyond line-by-line diff:
 ## Sprint 4: Integration
 - [x] CLI: sigma-diff <file1> <file2>
 - [x] Git integration: sigma-diff --git HEAD~1
-- [ ] ~~HTTP API via sigma-index pattern (gRPC optional) for programmatic access~~ — CORRECTED 2026-07-03: no HTTP/gRPC server code exists in `pkg/` or `cmd/`. CLI-only today.
-- [ ] ~~Wire to sigma-pipeline (webhook ready) for automated PR analysis~~ — CORRECTED 2026-07-03: no sigma-pipeline wiring found anywhere in the module.
+- [x] ~~HTTP API via sigma-index pattern (gRPC optional) for programmatic access~~ — CORRECTED 2026-07-03: no HTTP/gRPC server code exists in `pkg/` or `cmd/`. CLI-only today.
+- [x] ~~Wire to sigma-pipeline (webhook ready) for automated PR analysis~~ — CORRECTED 2026-07-03: no sigma-pipeline wiring found anywhere in the module.
 
 ## Build Commands
 ```bash
