@@ -26,3 +26,5 @@ logs_scaled/
 distributed_training_results/
 model_scaling_results/
 reports/
+node_modules/
+vscode-extension/node_modules/
